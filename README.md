@@ -1,21 +1,21 @@
 🔵 Big C Projects
 
-Philosophy: Organize for modularity, scalability, and collaboration.
+**Philosophy**: *Organize for modularity, scalability, and collaboration.*
 
-Hierarchical structure: Code is grouped into modules, often with src/, include/, lib/, tests/.
+**Hierarchical structure**: Code is grouped into modules, often with `src/`, `include/`, `lib/`, `tests/`.
 
-Centralized headers: Public headers are separated (e.g., include/) from private/internal ones.
+**Centralized headers**: Public headers are separated (e.g., `include/`) from private/internal ones.
 
-Namespaces: Prefixes or directories prevent name collisions (net/socket.h vs math/vector.h).
+**Namespaces**: Prefixes or directories prevent name collisions (`net/socket.h` vs `math/vector.h`).
 
-Build system complexity: Uses CMake, Meson, or autotools to manage dependencies, portability, install rules.
+**Build system complexity**: Uses `CMake`, `Meson`, or `autotools` to manage dependencies, portability, install rules.
 
-Testing & CI: Often has a tests/ directory, integration with CI, and separate build configurations (debug/release).
+**Testing & CI**: Often has a `tests/` directory, integration with CI, and separate build configurations (debug/release).
 
-Encapsulation matters: Implementation details hidden in .c and private headers, only exposing stable APIs.
+**Encapsulation matters**: Implementation details hidden in .c and private headers, only exposing stable APIs.
 
 👉 Example layout:
-
+```
 project/
 ├── include/          # Public headers (API)
 │   └── project/
@@ -30,6 +30,7 @@ project/
 ├── docs/             # Documentation
 ├── CMakeLists.txt    # or Meson.build, configure.ac, etc.
 └── examples/         # Example programs
+```
 
 ⚖️ Philosophical Split
 
