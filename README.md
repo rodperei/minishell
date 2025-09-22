@@ -1,4 +1,4 @@
-🔵 Big C Projects
+🔵 **Big C Projects**
 
 **Philosophy**: *Organize for modularity, scalability, and collaboration.*
 
@@ -12,7 +12,7 @@
 
 **Testing & CI**: Often has a `tests/` directory, integration with CI, and separate build configurations (debug/release).
 
-**Encapsulation matters**: Implementation details hidden in .c and private headers, only exposing stable APIs.
+**Encapsulation matters**: Implementation details hidden in `.c` and private headers, only exposing stable APIs.
 
 👉 Example layout:
 ```
@@ -32,13 +32,13 @@ project/
 └── examples/         # Example programs
 ```
 
-⚖️ Philosophical Split
+⚖️ **Philosophical Split**
 
-Small project mindset: "Just get it working. Don’t over-engineer."
+**Small project mindset**: "Just get it working. Don’t over-engineer."
 
-Big project mindset: "Design for reuse, maintainability, and onboarding of new developers."
+**Big project mindset**: "Design for reuse, maintainability, and onboarding of new developers."
 
-Some developers even argue that small projects should stay flat until complexity forces restructuring, while others prefer to start modular to prevent painful refactoring later.
+Some developers even argue that small projects should **stay flat** until complexity forces restructuring, while others prefer to **start modular** to prevent painful refactoring later.
 
 
 🔵 Public vs Private Headers
@@ -48,13 +48,13 @@ In C projects the distinction between public headers and private headers is one 
 
 Here’s the breakdown:
 
-🔹 Public Headers
+🔹 **Public Headers**
 
-What they are: Header files that define the official API of your library or module.
+**What they are**: Header files that define the **official API** of your library or module.
 
-Who uses them: Intended for external code (applications or other libraries) that depend on your project.
+**Who uses them**: Intended for *external code* (applications or other libraries) that depend on your project.
 
-What they contain:
+**What they contain**:
 
 Function prototypes you want to expose
 
@@ -62,14 +62,14 @@ Type definitions (structs, enums, typedefs) that are part of the API
 
 Macros and constants relevant to users
 
-Where they live: Typically in a dedicated include/ directory, often with a namespace folder:
-
+**Where they live**: Typically in a dedicated `include/` directory, often with a namespace folder:
+```
 include/project/foo.h
 include/project/bar.h
+```
 
-
-👉 Example (public math.h):
-
+👉 Example (public `math.h`):
+```
 #ifndef PROJECT_MATH_H
 #define PROJECT_MATH_H
 
@@ -77,17 +77,17 @@ int add(int a, int b);
 int multiply(int a, int b);
 
 #endif
+```
 
+Users of your library would `#include <project/math.h>`.
 
-Users of your library would #include <project/math.h>.
+🔹 **Private Headers**
 
-🔹 Private Headers
+**What they are**: Internal header files for your project’s own implementation.
 
-What they are: Internal header files for your project’s own implementation.
+**Who uses them**: Only the project’s source files (`.c`) should include them, not external code.
 
-Who uses them: Only the project’s source files (.c) should include them, not external code.
-
-What they contain:
+**What they contain**:
 
 Internal helpers, macros, and inline functions
 
@@ -95,13 +95,13 @@ Internal struct definitions (when you don’t want to expose details publicly)
 
 Static inline functions for performance, debugging utilities, etc.
 
-Where they live: Usually in src/ or src/include/, kept separate from public headers:
-
+**Where they live**: Usually in `src/` or `src/include/`, kept separate from public headers:
+```
 src/internal_math.h
+```
 
-
-👉 Example (private internal_math.h):
-
+👉 Example (private `internal_math.h`):
+```
 #ifndef INTERNAL_MATH_H
 #define INTERNAL_MATH_H
 
@@ -111,22 +111,22 @@ static inline int square(int x) {
 }
 
 #endif
-
+```
 
 This header is only used inside the library, not by end-users.
 
-🔄 Why Separate Them?
+🔄 **Why Separate Them?**
 
-Encapsulation: Users only see what they’re supposed to use. Internal details can change without breaking external code.
+**Encapsulation**: Users only see what they’re supposed to use. Internal details can change without breaking external code.
 
-Stability: Public headers define a stable contract. Private headers can evolve more freely.
+**Stability**: Public headers define a stable contract. Private headers can evolve more freely.
 
-Portability & Maintenance: Helps keep ABI (Application Binary Interface) consistent for shared libraries.
+**Portability & Maintenance**: Helps keep ABI (Application Binary Interface) consistent for shared libraries.
 
-Clean namespace: Prevents cluttering users with unnecessary macros, structs, or helper functions.
+**Clean namespace**: Prevents cluttering users with unnecessary macros, structs, or helper functions.
 
 ✅ In short:
 
-Public headers = your project’s promises to the outside world.
+**Public headers = your project’s promises to the outside world.**
 
-Private headers = internal notes and helpers you don’t want others to rely on.
+**Private headers = internal notes and helpers you don’t want others to rely on.**
