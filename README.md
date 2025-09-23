@@ -41,7 +41,7 @@ project/
 Some developers even argue that small projects should **stay flat** until complexity forces restructuring, while others prefer to **start modular** to prevent painful refactoring later.
 
 
-🔵 Public vs Private Headers
+🔵 **Public vs Private Headers***
 
 
 In C projects the distinction between public headers and private headers is one of the main organizational principles, especially in larger codebases.
