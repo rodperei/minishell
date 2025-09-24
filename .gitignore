@@ -1,0 +1,13 @@
+
+# Archvios vsc
+.nfs*
+*/.nfs*
+.vscode
+
+# Archivos binarios e libs
+*.o
+*.out
+*.a
+*/*.o
+*/*.out
+*/*.a
