@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frnicola <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 12:43:17 by frnicola          #+#    #+#             */
 /*   Updated: 2025/09/02 12:43:27 by frnicola         ###   ########.fr       */
@@ -81,10 +81,11 @@ void	free_all(char **matriz)
 	int	aux;
 
 	aux = 0;
-	while (matriz[aux])
+	while (matriz && matriz[aux])
 	{
 		free(matriz[aux]);
 		aux++;
 	}
-	free(matriz);
+	if (matriz)
+		free(matriz);
 }

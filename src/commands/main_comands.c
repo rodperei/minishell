@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   comands.h                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,24 +10,42 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMANDS_H
-# define COMANDS_H
+// Este main es solo de teste
 
-# include "./utils/utils.h"
-# define FILE_ENV ".env"
+#include "./comands.h"
 
-// funcions
-int		ft_env();
-void	ft_exit();
-int		echo(char **args, char *text);
-int		export(char *value);
+int	main(int av, char **ac, char **env)
+{
 
-// env
-char	*ft_getenv(char *name);
-char	**ft_getallenv();
-int		load_env(char **env);
+	// TESTE ENV
+	char *PATH;
 
-// echo/echo.c
-int		error(char *str);
+	load_env(env);
+	ft_env();
+	PATH = ft_getenv("PATH");
+	ft_printf("\n\nENTORNO PATH : %s\n\n", PATH);
+	if (PATH)
+		free(PATH);
 
-#endif
+
+	// TESTE EXPORT
+	export("VARIABLE_NEW=123456789*");
+	ft_env();
+	
+
+	
+	// TESTE ECHO
+	char *echo_var[2];
+
+	echo_var[0] = "-n";
+	echo_var[1] = NULL;
+	echo(NULL, "Esto se va a imprimir PATH -> --$PATH--");
+	echo(echo_var, "Esto se va a imprimir PATH -> --$PATH-- \n");
+
+
+	// TESTE EXIT
+	ft_exit();
+	len_all(ac);
+	ft_printf("", av);
+}
+

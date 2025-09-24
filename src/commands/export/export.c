@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,54 +12,17 @@
 
 #include "../comands.h"
 
-int	error(char *str)
+int	export(char *value)
 {
-	ft_printf(str);
-	ft_printf("\n");
-	exit(127);
-}
+	char	**envs;
 
-int	is_letter(char c)
-{
-	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
-}
-
-int	print_env(char *str)
-{
-	char	var[1025];
-	int		aux;
-
-	str++;
-	aux = 0;
-	while (str && str[aux] && is_letter(str[aux]))
-	{
-		var[aux] = str[aux];
-		aux++;
-	}
-	var[aux] = '\0';
-	ft_printf("%s", getenv(var));
-	return (++aux);
-}
-
-void	print_text(char *str)
-{
-	while (str && *str)
-	{
-		if (*str == '$')
-			str += print_env(str);
-		write(1, str, 1);
-		str++;
-	}
-}
-
-int	echo(char **args, char *text)
-{
-	if (len_all(args) > 1)
-		error("unknown arguments");
-	if (len_all(args) == 1 && !equal(args[0], "-n"))
-		error("unknown arguments diff -n");
-	print_text(text);
-	if (len_all(args) == 0)
-		ft_printf("\n");
+	if (!value)
+		error("error null variable");
+	if (count_caracter(value, '=') != 1)
+		error("can only be a single '='");
+	envs = ft_getallenv();
+	envs = append_matriz(envs, value);
+	load_env(envs);
+	free_all(envs);
 	return (0);
 }

@@ -1,6 +1,11 @@
 # Vars
-NAME		= echo.out
-OBJ			= ./echo/echo.o
+NAME		= teste.out
+OBJ			= ./env/env.o \
+				./exit/exit.o \
+				./echo/echo.o \
+				./export/export.o \
+				main_comands.o
+
 INC			= -I.
 
 PRE_COMP	= cc -Wall -Wextra -Werror

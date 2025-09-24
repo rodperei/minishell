@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   comands.h                                          :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/13 14:12:55 by frnicola          #+#    #+#             */
-/*   Updated: 2025/09/13 14:12:57 by frnicola         ###   ########.fr       */
+/*   Created: 2025/09/24 15:59:16 by frnicola          #+#    #+#             */
+/*   Updated: 2025/09/24 15:59:20 by frnicola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMANDS_H
-# define COMANDS_H
+#include "../comands.h"
 
-# include "./utils/utils.h"
-# define FILE_ENV ".env"
-
-// funcions
-int		ft_env();
-void	ft_exit();
-int		echo(char **args, char *text);
-int		export(char *value);
-
-// env
-char	*ft_getenv(char *name);
-char	**ft_getallenv();
-int		load_env(char **env);
-
-// echo/echo.c
-int		error(char *str);
-
-#endif
+void	ft_exit()
+{
+	exit(0);
+}

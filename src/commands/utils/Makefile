@@ -1,6 +1,6 @@
 # Vars
 NAME = utils.a
-OBJ = ft_split.o lens.o utils_vec.o
+OBJ = ft_split.o lens.o utils_vec.o utils_matriz.o
 INC = -I.
 
 PRE_COMP = cc -Wall -Wextra -Werror

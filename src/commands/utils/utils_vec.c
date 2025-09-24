@@ -1,9 +1,9 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   utils_vec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frnicola <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 12:43:17 by frnicola          #+#    #+#             */
 /*   Updated: 2025/09/02 12:43:27 by frnicola         ###   ########.fr       */
@@ -12,7 +12,7 @@
 
 #include "./utils.h"
 
-char	*copy_simple(char *str)
+char	*copy_vec(char *str)
 {
 	int		x;
 	char	*result;
@@ -71,4 +71,20 @@ char	*append(char *vec, int size_new, char *buff)
 	if (vec_ori)
 		free(vec_ori);
 	return (new_ori);
+}
+
+int	count_caracter(char *mp, char c)
+{
+	int	ax;
+	int	result;
+
+	ax = 0;
+	result = 0;
+	while (mp && mp[ax])
+	{
+		if (mp[ax] == c)
+			result++;
+		ax++;
+	}
+	return (result);
 }

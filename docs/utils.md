@@ -119,7 +119,7 @@ Verifica se duas strings são iguais.
 
 ---
 ##  Nome da função 
-	char	*copy_simple(char *str)
+	char	*copy_vec(char *str)
 
 ##  Parâmetros  
 - `char *str`: String de entrada.  
@@ -197,3 +197,34 @@ Libera a memória de todas as strings dentro de um vetor, além do próprio veto
 2. Libera cada string com `free()`.  
 3. Libera o vetor principal.  
 - **Caso especial**: se `str` for nulo, não faz nada.  
+
+## -> Nome da função  
+	char	**read_file(int fd, char c);
+
+## -> Parâmetros  
+- `int fd`: File descriptor do arquivo a ser lido.  
+- `char c`: Caractere delimitador usado para dividir o conteúdo.  
+
+## -> Função  
+Lê o conteúdo de um arquivo a partir de um file descriptor (`fd`), armazena em uma string dinâmica e depois divide esse conteúdo em várias substrings com base no delimitador `c`.  
+
+## -> Retornos  
+- Um vetor de strings (`char**`) contendo as partes do arquivo separadas pelo delimitador.  
+- Retorna `NULL` em caso de falha na alocação de memória.  
+
+## -> Fluxo de trabalho e casos especiais  
+1. Aloca um buffer (`buf`) inicializado com zeros através de `z_maloc(SIZE_BUF)`.  
+2. Inicializa `text` chamando `append` com `NULL`.  
+3. Lê o arquivo em blocos de tamanho `SIZE_BUF` usando `read()`.  
+4. A cada leitura (`bt_read`), concatena o conteúdo no `text` com `append`.  
+5. Continua até `read()` retornar 0 (fim do arquivo).  
+6. Fecha o arquivo com `close(fd)`.  
+7. Libera o buffer temporário (`buf`).  
+8. Divide `text` em substrings usando `ft_split(text, c)`.  
+9. Libera `text` e retorna `text_split`.  
+
+### Casos especiais  
+- Se o arquivo estiver vazio, `ft_split` retornará apenas um vetor vazio (`NULL` no primeiro índice).  
+- Se houver erro de alocação em `z_maloc` ou `append`, a função pode falhar retornando `NULL`.  
+- O file descriptor (`fd`) é fechado dentro da função, o que significa que não poderá ser reutilizado fora dela.  
+
