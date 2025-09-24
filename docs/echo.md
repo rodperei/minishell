@@ -1,7 +1,7 @@
 # Documentação da Função `echo`
 
 ## -> Nome da função  
-**echo**
+	int	echo(char **args, char *text)
 
 ## -> Parâmetros  
 - `char **args`: Lista de argumentos passados ao comando `echo`.  
