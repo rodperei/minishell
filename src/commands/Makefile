@@ -8,7 +8,7 @@ OBJ			= ./env/env.o \
 
 INC			= -I.
 
-PRE_COMP	= cc -Wall -Wextra -Werror
+PRE_COMP	= cc -Wall -Wextra -Werror -g
 COMP		= cc -Wall -Wextra -Werror
 #COMP		= ar rcs 
 
