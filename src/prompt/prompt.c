@@ -43,7 +43,7 @@ static void	get_hostname(char *hostname)
 	if (read_ret == -1)
 		perror("prompt.c:47:10: in function 'get_hostname'");
 	if (read_ret < 253)
-		hostname[read_ret] = '\0';
+		hostname[read_ret - 1] = '\0';
 	if (close(fd) == -1)
 		perror("prompt.c:52:10: in function 'get_hostname'");
 }
