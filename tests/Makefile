@@ -1,18 +1,23 @@
+# ======= Config =======
+
 NAME_1 = prompt_test
 
 CFLAGS = -Wall -Wextra -Werror -g
 
 CC = cc
 
-# ======= Prompt Vars =======
-
-prompt_src = ../src/prompt/prompt.c ../src/prompt/utils/ft_string.c \
-			 prompt_test.c
+# ======= Vars =======
 
 obj_dir = build/
 
-tmp = $(notdir $(prompt_src))
-prompt_obj = $(tmp:.c=.o)
+# ======= Prompt Vars =======
+
+p_src = ../src/prompt/prompt.c \
+		../src/prompt/utils/ft_string.c \
+		prompt_test.c
+
+tmp = $(notdir $(p_src))
+p_obj = $(tmp:.c=.o)
 
 # ======= Rules =======
 
@@ -20,7 +25,7 @@ all: $(NAME_1)
 
 # ======= Prompt Rules =======
 
-$(NAME_1): $(addprefix $(obj_dir), $(prompt_obj))
+$(NAME_1): $(addprefix $(obj_dir), $(p_obj))
 	$(CC) $(CFLAGS) -o $@ $^
 
 build/%.o : ../src/prompt/%.c | $(obj_dir)
