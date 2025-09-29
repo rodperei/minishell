@@ -65,7 +65,7 @@ static char	*merge_vars(char *hostname, char *path)
 	tmp1 = ft_strjoin(tmp2, path);
 	free(tmp2);
 	free(path);
-	tmp2 = ft_strjoin(tmp1, "$");
+	tmp2 = ft_strjoin(tmp1, "$ ");
 	free(tmp1);
 	return (tmp2);
 }
