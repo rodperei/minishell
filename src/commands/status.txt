@@ -1,8 +1,9 @@
 Estoy implementando los scripts basicos de shell
 
-◦ pwd with no options (solo hace un env(PWD) y le da el pwd actual)
 ◦ cd with only a relative or absolute path (Solo mueve el PWD cortando o anhadiendo una nueva pasta)
 
+
+------ pwd with no options ----------------------------------------------- (YA ESTA)
 ------ unset with no options (elimina una variable) ---------------------- (YA ESTA)
 ------ export with no options (crea una nueva varibale) ------------------ (YA ESTA)
 ------ exit with no options ---------------------------------------------- (YA ESTA)
