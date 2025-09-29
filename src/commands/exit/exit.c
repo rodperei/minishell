@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../comands.h"
+#include "../../utils/utils.h"
+#include "../../../include/comands.h"
 
 void	ft_exit()
 {

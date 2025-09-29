@@ -23,7 +23,7 @@ int	main(int av, char **ac, char **env)
 	load_env(env);
 	ft_env();
 	PATH = ft_getenv("PATH");
-	ft_printf("\n\nENTORNO PATH : %s\n\n", PATH);
+	printf("\n\nENTORNO PATH : %s\n\n", PATH);
 	if (PATH)
 		free(PATH);
 
@@ -46,6 +46,6 @@ int	main(int av, char **ac, char **env)
 	// TESTE EXIT
 	ft_exit();
 	len_all(ac);
-	ft_printf("", av);
+	printf("", av);
 }
 

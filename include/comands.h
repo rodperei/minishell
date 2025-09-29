@@ -13,14 +13,13 @@
 #ifndef COMANDS_H
 # define COMANDS_H
 
-# include "./utils/utils.h"
-# define FILE_ENV ".env"
+# define FILE_ENV "../../.env"
 
 // funcions
 int		ft_env();
 void	ft_exit();
 int		echo(char **args, char *text);
-int		export(char *value);
+int		ft_export(char *value);
 
 // env
 char	*ft_getenv(char *name);

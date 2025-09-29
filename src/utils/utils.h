@@ -20,7 +20,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include "./printf/ft_printf.h"
 
 # define SIZE_BUF 300
 

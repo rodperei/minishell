@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../comands.h"
+#include "../../utils/utils.h"
+#include "../../../include/comands.h"
 
-int	export(char *value)
+int	ft_export(char *value)
 {
 	char	**envs;
 

@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../comands.h"
+#include "../../utils/utils.h"
+#include "../../../include/comands.h"
 
 int	error(char *str)
 {
-	ft_printf(str);
-	ft_printf("\n");
+	printf("%s\n", str);
 	exit(127);
 }
 
@@ -37,7 +37,7 @@ int	print_env(char *str)
 		aux++;
 	}
 	var[aux] = '\0';
-	ft_printf("%s", getenv(var));
+	printf("%s", getenv(var));
 	return (++aux);
 }
 
@@ -60,6 +60,6 @@ int	echo(char **args, char *text)
 		error("unknown arguments diff -n");
 	print_text(text);
 	if (len_all(args) == 0)
-		ft_printf("\n");
+		printf("\n");
 	return (0);
 }

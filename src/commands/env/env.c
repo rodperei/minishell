@@ -10,7 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../comands.h"
+#include "../../utils/utils.h"
+#include "../../../include/comands.h"
 
 int	load_env(char **env)
 {
@@ -52,7 +53,7 @@ int	ft_env()
 	aux = 0;
 	while (vars && vars[aux])
 	{
-		ft_printf("%s\n", vars[aux]);
+		printf("%s\n", vars[aux]);
 		aux++;
 	}
 	free_all(vars);
