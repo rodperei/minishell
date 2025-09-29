@@ -13,13 +13,15 @@
 #include "../../utils/utils.h"
 #include "../../../include/comands.h"
 
-int	ft_unset(char *value)
+int	ft_unset(char *name)
 {
 	char	**envs;
+	char	*value;
 	int		aux;
 
-	if (!value)
+	if (!name)
 		error("error null variable");
+	value = ft_strjoin(name, "=");
 	envs = ft_getallenv();
 	aux = 0;
 	while (envs && envs[aux])
@@ -32,5 +34,6 @@ int	ft_unset(char *value)
 		envs = delete_vec_matriz(envs, aux);
 	load_env(envs);
 	free_all(envs);
+	free(value);
 	return (0);
 }

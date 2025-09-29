@@ -1,7 +1,7 @@
 Estoy implementando los scripts basicos de shell
 
 ◦ cd with only a relative or absolute path (Solo mueve el PWD cortando o anhadiendo una nueva pasta)
-
+cd solo funciona para subir pasta
 
 ------ pwd with no options ----------------------------------------------- (YA ESTA)
 ------ unset with no options (elimina una variable) ---------------------- (YA ESTA)

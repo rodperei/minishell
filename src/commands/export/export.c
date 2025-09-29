@@ -22,7 +22,6 @@ int	ft_export(char *name, char *value)
 		error("error null variable");
 	result = ft_strjoin(name, "=");
 	result = append(result, len(value), value);
-	ft_unset(name); // No se porque lo tengo que hacer doble
 	ft_unset(name);
 	envs = ft_getallenv();
 	envs = append_matriz(envs, result);
