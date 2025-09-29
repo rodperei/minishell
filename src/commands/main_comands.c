@@ -67,8 +67,8 @@ int	main(int av, char **ac, char **env)
 
 	echo_var[0] = "-n";
 	echo_var[1] = NULL;
-	echo(NULL, "Esto se va a imprimir PATH -> --$PATH--");
-	echo(echo_var, "Esto se va a imprimir PATH -> --$PATH-- \n");
+	ft_echo(NULL, "Esto se va a imprimir PATH -> --$PATH--");
+	ft_echo(echo_var, "Esto se va a imprimir PATH -> --$PATH-- \n");
 
 
 	// TESTE EXIT

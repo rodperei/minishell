@@ -52,7 +52,7 @@ void	print_text(char *str)
 	}
 }
 
-int	echo(char **args, char *text)
+int	ft_echo(char **args, char *text)
 {
 	if (len_all(args) > 1)
 		error("unknown arguments");

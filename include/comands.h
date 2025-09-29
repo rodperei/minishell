@@ -18,10 +18,10 @@
 // funcions
 void	ft_exit();
 int		ft_env();
-int		echo(char **args, char *text);
+int		ft_echo(char **args, char *text);
 int		ft_export(char *name, char *value);
 int		ft_unset(char *value);
-int		ft_cd(char *path);
+int		ft_cd(char *path); // ainda tem problemas
 char	*ft_pwd(void);
 
 // env
