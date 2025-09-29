@@ -11,13 +11,30 @@
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <stdlib.h>
 #include "../include/prompt.h"
 
 int	main(void)
 {
-	char	*str = create_prompt();
+	char	*prompt;
+	char	*str;
 
-	printf("%s\n", str);
-	free(str);
+	while (1)
+	{
+		prompt = create_prompt();
+		str = readline(prompt);
+		if (!str)
+		{
+			printf("EOF reached\n");
+			free(prompt);
+			rl_clear_history();
+			break ;
+		}
+		printf("readline input: %s\n", str);
+		add_history(str);
+		free(prompt);
+		free(str);
+	}
 }

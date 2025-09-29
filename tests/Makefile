@@ -4,6 +4,8 @@ NAME_1 = prompt_test
 
 CFLAGS = -Wall -Wextra -Werror -g
 
+LDLIBS = -lreadline
+
 CC = cc
 
 # ======= Vars =======
@@ -26,7 +28,7 @@ all: $(NAME_1)
 # ======= Prompt Rules =======
 
 $(NAME_1): $(addprefix $(obj_dir), $(p_obj))
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 build/%.o : ../src/prompt/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) -c $< -o $@
