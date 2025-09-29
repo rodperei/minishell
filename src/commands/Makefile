@@ -13,7 +13,7 @@ COMP		= cc -Wall -Wextra -Werror
 #COMP		= ar rcs 
 
 # Dependencia
-UTILS_PATH	= ./utils/
+UTILS_PATH	= ../utils/
 UTILS		= $(UTILS_PATH)utils.a
 
 # Make reglas

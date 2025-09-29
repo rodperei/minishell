@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 // Este main es solo de teste
-
-#include "./comands.h"
+#include "../utils/utils.h"
+#include "../../include/comands.h"
 
 int	main(int av, char **ac, char **env)
 {
@@ -29,7 +29,7 @@ int	main(int av, char **ac, char **env)
 
 
 	// TESTE EXPORT
-	export("VARIABLE_NEW=123456789*");
+	ft_export("VARIABLE_NEW=123456789*");
 	ft_env();
 	
 
@@ -46,6 +46,6 @@ int	main(int av, char **ac, char **env)
 	// TESTE EXIT
 	ft_exit();
 	len_all(ac);
-	printf("", av);
+	printf("%d", av);
 }
 
