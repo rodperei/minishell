@@ -15,14 +15,16 @@
 char	**z_maloc_matriz(int size)
 {
 	char	**vec;
+	int		aux;
 
 	vec = malloc(sizeof(char*) * (size + 1));
-	while (size)
+	aux = 0;
+	while (aux != size)
 	{
-		vec[size] = z_maloc(1);
-		size--;
+		vec[aux] = NULL;
+		aux++;
 	}
-	vec[0] = NULL;
+	vec[aux] = NULL;
 	return (vec);
 }
 

@@ -16,16 +16,16 @@
 
 int	main(int av, char **ac, char **env)
 {
+	load_env(env);
 
 	// TESTE ENV
-	char *PATH;
+	/*char *PATH;
 
-	load_env(env);
 	ft_env();
 	PATH = ft_getenv("PATH");
 	printf("\n\nENTORNO PATH : %s\n\n", PATH);
 	if (PATH)
-		free(PATH);
+		free(PATH);*/
 
 
 	// TESTE EXPORT
@@ -33,7 +33,6 @@ int	main(int av, char **ac, char **env)
 	ft_env();
 	
 
-	
 	// TESTE ECHO
 	char *echo_var[2];
 
