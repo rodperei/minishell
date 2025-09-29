@@ -9,8 +9,6 @@ OBJ			= ./env/env.o \
 INC			= -I.
 
 PRE_COMP	= cc -Wall -Wextra -Werror -g
-COMP		= cc -Wall -Wextra -Werror
-#COMP		= ar rcs 
 
 # Dependencia
 UTILS_PATH	= ../utils/
@@ -20,12 +18,14 @@ UTILS		= $(UTILS_PATH)utils.a
 MAKE = make --no-print-directory
 
 # Reglas
+all: $(NAME)
+
 %.o: %.c
 	@$(PRE_COMP) $(INC) -c $< -o $@
 
 $(NAME): $(OBJ)
 	@$(MAKE) -C $(UTILS_PATH)
-	@$(COMP) $(INC) $(OBJ) $(UTILS) -o $(NAME)
+	@cc $(INC) $(OBJ) $(UTILS) -o $(NAME)
 	@chmod +x $(NAME)
 	@echo "($(NAME))--> Executable $(NAME) created."
 
@@ -39,6 +39,5 @@ fclean: clean
 	@rm -rf $(NAME)
 	@echo "($(NAME))--> Object Executable remove."
 
-all: $(NAME)
 re: fclean all
 .PHONY: all clean fclean re
