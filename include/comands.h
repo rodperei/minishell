@@ -19,8 +19,9 @@
 void	ft_exit();
 int		ft_env();
 int		echo(char **args, char *text);
-int		ft_export(char *value);
+int		ft_export(char *name, char *value);
 int		ft_unset(char *value);
+int		ft_cd(char *path);
 char	*ft_pwd(void);
 
 // env

@@ -31,7 +31,7 @@ int	main(int av, char **ac, char **env)
 
 	// TESTE EXPORT
 	printf("\n\nTESTE EXPORT\n\n");
-	ft_export("VARIABLE_NEW=123456789*");
+	ft_export("VARIABLE_NEW", "123456789*");
 	ft_env();
 	
 
@@ -46,6 +46,20 @@ int	main(int av, char **ac, char **env)
 	printf("pwd: %s\n", pwd);
 	if (pwd)
 		free(pwd);
+
+
+	// TESTE CD
+	printf("\n\nTESTE CD\n\n");
+	pwd = ft_getenv("PWD");
+	printf("1 --> pwd: %s\n", pwd);
+	if (pwd)
+		free(pwd);
+	ft_cd("..");
+	pwd = ft_getenv("PWD");
+	printf("2 --> pwd: %s\n", pwd);
+	if (pwd)
+		free(pwd);
+	
 	
 	// TESTE ECHO
 	printf("\n\nTESTE ECHO\n\n");

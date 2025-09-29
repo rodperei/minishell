@@ -6,6 +6,7 @@ OBJ			= ./env/env.o \
 				./export/export.o \
 				./unset/unset.o \
 				./pwd/pwd.o \
+				./cd/cd.o \
 				main_comands.o
 
 INC			= -I.

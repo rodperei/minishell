@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,21 +13,34 @@
 #include "../../utils/utils.h"
 #include "../../../include/comands.h"
 
-int	ft_export(char *name, char *value)
+void	up(char *pwd)
 {
-	char	**envs;
-	char	*result;
+	int		aux;
+	int		last;
 
-	if (!value || !name)
-		error("error null variable");
-	result = ft_strjoin(name, "=");
-	result = append(result, len(value), value);
-	ft_unset(name); // No se porque lo tengo que hacer doble
-	ft_unset(name);
-	envs = ft_getallenv();
-	envs = append_matriz(envs, result);
-	load_env(envs);
-	free_all(envs);
-	free(result);
-	return (0);
+	aux = 0;
+	last = 0;
+	while (pwd && pwd[aux])
+	{
+		if (pwd[aux] == '/')
+			last = aux;
+		aux++;
+	}
+	pwd[last + 1] = '\0';
+}
+
+int	ft_cd(char *path)
+{
+	char	*pwd;
+
+	pwd = ft_getenv("PWD");
+	if (!pwd)
+		error("Error: not exist PWD en env");
+	if (!path)
+		error("Error: *path is NULL");
+	if (equal(path, ".."))
+		up(pwd);
+	ft_export("PWD", pwd);
+	free(pwd);
+	return (1);
 }
