@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   comands.h                                          :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/13 14:12:55 by frnicola          #+#    #+#             */
-/*   Updated: 2025/09/13 14:12:57 by frnicola         ###   ########.fr       */
+/*   Created: 2025/09/24 15:59:16 by frnicola          #+#    #+#             */
+/*   Updated: 2025/09/24 15:59:20 by frnicola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMANDS_H
-# define COMANDS_H
+#include "../../utils/utils.h"
+#include "../../../include/comands.h"
 
-# define FILE_ENV "../../.env"
-
-// funcions
-void	ft_exit();
-int		ft_env();
-int		echo(char **args, char *text);
-int		ft_export(char *value);
-int		ft_unset(char *value);
-char	*ft_pwd(void);
-
-// env
-char	*ft_getenv(char *name);
-char	**ft_getallenv();
-int		load_env(char **env);
-
-// echo/echo.c
-int		error(char *str);
-
-#endif
+char	*ft_pwd(void)
+{
+	return (ft_getenv("PWD"));
+}

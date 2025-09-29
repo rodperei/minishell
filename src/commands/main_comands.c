@@ -40,6 +40,12 @@ int	main(int av, char **ac, char **env)
 	ft_unset("VARIABLE_NEW");
 	ft_env();
 
+	// TESTE PWD
+	printf("\n\nTESTE PWD\n\n");
+	char *pwd = ft_pwd();
+	printf("pwd: %s\n", pwd);
+	if (pwd)
+		free(pwd);
 	
 	// TESTE ECHO
 	printf("\n\nTESTE ECHO\n\n");
