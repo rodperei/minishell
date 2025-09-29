@@ -88,3 +88,21 @@ int	count_caracter(char *mp, char c)
 	}
 	return (result);
 }
+
+int	include(char *str_long, char *str_small)
+{
+	int	aux;
+	int	aux1;
+
+	aux = 0;
+	while (str_long && str_long[aux])
+	{
+		aux1 = 0;
+		while (str_small[aux1] && str_long[aux + aux1] == str_small[aux1])
+			aux1++;
+		if (aux1 == len(str_small))
+			return (1);
+		aux++;
+	}
+	return (0);
+}

@@ -16,10 +16,11 @@
 # define FILE_ENV "../../.env"
 
 // funcions
-int		ft_env();
 void	ft_exit();
+int		ft_env();
 int		echo(char **args, char *text);
 int		ft_export(char *value);
+int		ft_unset(char *value);
 
 // env
 char	*ft_getenv(char *name);

@@ -48,6 +48,32 @@ char	**append_matriz(char **matriz, char *new_line)
 	return (result);
 }
 
+char	**delete_vec_matriz(char **matriz, int index_delete)
+{
+	int		aux;
+	int		aux1;
+	char	**result;
+
+	if (!matriz)
+		matriz = z_maloc_matriz(1);
+	result = z_maloc_matriz(len_all(matriz));
+	aux1 = 0;
+	aux = 0;
+	while (matriz && matriz[aux1])
+	{
+		if (index_delete == aux1)
+			aux1++;
+		if (!matriz[aux1])
+			break ;
+		result[aux] = copy_vec(matriz[aux1]);
+		aux++;
+		aux1++;
+	}
+	result[aux] = NULL;
+	free_all(matriz);
+	return (result);
+}
+
 char	**read_file(int fd, char c)
 {
 	char	*text;

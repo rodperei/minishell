@@ -34,12 +34,14 @@ char	*copy_vec(char *str);
 char	*z_maloc(int size);
 char	*append(char *vec, int size_new, char *buff);
 int		count_caracter(char *mp, char c);
+int		include(char *str_long, char *str_small);
 
 // utils_matriz.c
 char	**z_maloc_matriz(int size);
 char	**append_matriz(char **matrz, char *new_line);
 int		count_caracter_matriz(char **mp, char c);
 char	**read_file(int fd, char c);
+char	**delete_vec_matriz(char **matriz, int index_delete);
 
 // ft_split.c
 void	free_all(char **map);

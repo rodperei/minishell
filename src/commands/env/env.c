@@ -32,7 +32,7 @@ int	load_env(char **env)
 	return (1);
 }
 
-char	**ft_getallenv()
+char	**ft_getallenv(void)
 {
 	int		fd;
 	char	**vars;
@@ -44,7 +44,7 @@ char	**ft_getallenv()
 	return (vars);
 }
 
-int	ft_env()
+int	ft_env(void)
 {
 	char	**vars;
 	int		aux;

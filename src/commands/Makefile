@@ -4,6 +4,7 @@ OBJ			= ./env/env.o \
 				./exit/exit.o \
 				./echo/echo.o \
 				./export/export.o \
+				./unset/unset.o \
 				main_comands.o
 
 INC			= -I.

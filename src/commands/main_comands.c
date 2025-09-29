@@ -19,21 +19,30 @@ int	main(int av, char **ac, char **env)
 	load_env(env);
 
 	// TESTE ENV
-	/*char *PATH;
+	printf("\n\nTESTE ENV\n\n");
+	char *PATH;
 
 	ft_env();
 	PATH = ft_getenv("PATH");
 	printf("\n\nENTORNO PATH : %s\n\n", PATH);
 	if (PATH)
-		free(PATH);*/
+		free(PATH);
 
 
 	// TESTE EXPORT
+	printf("\n\nTESTE EXPORT\n\n");
 	ft_export("VARIABLE_NEW=123456789*");
 	ft_env();
 	
 
+	// TESTE UNSET
+	printf("\n\nTESTE UNSET\n\n");
+	ft_unset("VARIABLE_NEW");
+	ft_env();
+
+	
 	// TESTE ECHO
+	printf("\n\nTESTE ECHO\n\n");
 	char *echo_var[2];
 
 	echo_var[0] = "-n";

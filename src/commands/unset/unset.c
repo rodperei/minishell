@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,24 @@
 #include "../../utils/utils.h"
 #include "../../../include/comands.h"
 
-void	ft_exit(void)
+int	ft_unset(char *value)
 {
-	exit(0);
+	char	**envs;
+	int		aux;
+
+	if (!value)
+		error("error null variable");
+	envs = ft_getallenv();
+	aux = 0;
+	while (envs && envs[aux])
+	{
+		if (include(envs[aux], value))
+			break ;
+		aux++;
+	}
+	if (include(envs[aux], value))
+		envs = delete_vec_matriz(envs, aux);
+	load_env(envs);
+	free_all(envs);
+	return (0);
 }
