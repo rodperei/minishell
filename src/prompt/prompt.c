@@ -14,14 +14,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "./utils/prompt_utils.h"
+#include "../../include/comands.h"
+#include "../utils/utils.h"
 
 static char	*wrap_path(char *path)
 {
 	char	*home;
 	char	*wrapped_path;
 
-	home = getenv("HOME");
+	home = ft_getenv("HOME");
 	if (!home || ft_strncmp(path, home, ft_strlen(home)))
 		return (path);
 	wrapped_path = ft_strjoin("~", &path[ft_strlen(home)]);
@@ -54,7 +55,7 @@ static char	*merge_vars(char *hostname, char *path)
 	char	*tmp1;
 	char	*tmp2;
 
-	user = getenv("USER");
+	user = ft_getenv("USER");
 	if (!user)
 		user = "";
 	tmp2 = ft_strjoin(user, "@");
