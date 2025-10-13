@@ -15,7 +15,12 @@ obj_dir = build/
 # ======= Prompt Vars =======
 
 p_src = ../src/prompt/prompt.c \
-		../src/prompt/utils/ft_string.c \
+		../src/utils/ft_string.c \
+		../src/utils/lens.c \
+		../src/utils/ft_split.c \
+		../src/utils/utils_matriz.c \
+		../src/utils/utils_vec.c \
+		../src/commands/env/env.c \
 		prompt_test.c
 
 tmp = $(notdir $(p_src))
@@ -33,10 +38,13 @@ $(NAME_1): $(addprefix $(obj_dir), $(p_obj))
 build/%.o : ../src/prompt/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) -c $< -o $@
 
+build/%.o : ../src/commands/env/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 build/%.o : %.c | $(obj_dir)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-build/%.o : ../src/prompt/utils/%.c | $(obj_dir)
+build/%.o : ../src/utils/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # ==============================
