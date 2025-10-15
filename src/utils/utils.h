@@ -49,10 +49,15 @@ char	**ft_split(char *str, char C);
 int		cont_letter(char *str, char C);
 int		cont_words(char *str, char C);
 
-// ft_string.c
+// ft_strings_1.c
 size_t	ft_strlcat(char *dst, const char *src, size_t dsize);
 size_t	ft_strlen(const char *s);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_strjoin(const char *s1, const char *s2);
+
+// ft_strings_2.c
+char	*ft_strtrim(const char *s1, const char *set);
+char	*ft_strchr(const char *s, int c);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dsize);
 
 #endif
