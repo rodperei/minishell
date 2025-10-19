@@ -15,7 +15,7 @@ obj_dir = build/
 # ======= Prompt Vars =======
 
 p_src = ../src/prompt/prompt.c \
-		../src/utils/ft_string.c \
+		../src/utils/ft_strings_1.c \
 		../src/utils/lens.c \
 		../src/utils/ft_split.c \
 		../src/utils/utils_matriz.c \
