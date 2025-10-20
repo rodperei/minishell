@@ -45,7 +45,7 @@ size_t	ft_strlen(const char *s)
 	unsigned int	i;
 
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 		i++;
 	return (i);
 }
@@ -74,11 +74,14 @@ char	*ft_strjoin(const char *s1, const char *s2)
 	p = malloc((c + 1) * sizeof(char));
 	if (!p)
 		return (NULL);
-	i = -1;
+	i = 0;
 	j = -1;
-	while (s1[++i])
+	while (s1 && s1[i])
+	{
 		p[i] = s1[i];
-	while (s2[++j])
+		i++;
+	}
+	while (s2 && s2[++j])
 		p[i++] = s2[j];
 	p[i] = '\0';
 	return (p);
