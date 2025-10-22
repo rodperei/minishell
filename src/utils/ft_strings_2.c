@@ -81,12 +81,3 @@ char	*ft_strtrim(const char *s1, const char *set)
 	ft_strlcpy(p, s1, i);
 	return (p);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	char	*p;
-
-	p = ft_strtrim("lorem \n ipsum \t dolor \n sit \t amet", " ");
-	printf("%s\n", p);
-}*/

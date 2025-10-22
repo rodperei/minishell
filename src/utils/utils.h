@@ -60,4 +60,7 @@ char	*ft_strtrim(const char *s1, const char *set);
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dsize);
 
+// ft_strings_3.c
+char	*ft_strdup(const char *s);
+
 #endif
