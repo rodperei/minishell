@@ -16,16 +16,17 @@
 
 #define SQUOTE 1
 #define DQUOTE 2
+#define META 4
 
-void	compute_quotes_mask(char *input, char *flg)
+void	compute_quotes_mask(char input, char *flg)
 {
-	if (!(*flg & SQUOTE) && !(*flg & DQUOTE) && *input == '"')
+	if (!(*flg & SQUOTE) && !(*flg & DQUOTE) && input == '"')
 		*flg |= DQUOTE;
-	else if (!(*flg & DQUOTE) && !(*flg & SQUOTE) && *input == '\'')
+	else if (!(*flg & DQUOTE) && !(*flg & SQUOTE) && input == '\'')
 		*flg |= SQUOTE;
-	else if ((*flg & SQUOTE) && *input == '\'')
+	else if ((*flg & SQUOTE) && input == '\'')
 		*flg &= ~SQUOTE;
-	else if ((*flg & DQUOTE) && *input == '"')
+	else if ((*flg & DQUOTE) && input == '"')
 		*flg &= ~DQUOTE;
 }
 
@@ -36,7 +37,7 @@ char	parse_quotes(char *input)
 	flg = 0;
 	while (input && *input)
 	{
-		compute_quotes_mask(input, &flg);
+		compute_quotes_mask(*input, &flg);
 		input++;
 	}
 	return (flg);
@@ -87,7 +88,7 @@ char *merge_wspaces(char *input)
 	{
 		while (++i < 99 && *input)
 		{
-			compute_quotes_mask(input, &flg);
+			compute_quotes_mask(*input, &flg);
 			if (!flg && ft_strchr(" \n\t", *input))
 				shrink_wspace(&input, buff, &i);
 			else
@@ -116,80 +117,115 @@ char	*clear_input(char *input)
 	return (input);
 }
 
-char	is_meta(char c)
+void	is_meta(char c, char *flg)
 {
 	if(ft_strchr(" \t\n|<>", c))
-		return (1);
-	return (0);
+		*flg |= META;
+	else
+		*flg &= ~META;
 }
 
-void	read_token(char **input, char **end, char *flg)
+void	read_token(char **end, char *flg)
 {
 	char	state;
 
+	*flg = 0;
+	is_meta(**end, flg);
 	state = *flg;
-	while (state == *flg && **input)
+	while (state == (*flg & META) && **end)
 	{
+		compute_quotes_mask(**end, flg);
+		if ((*flg & ~META) == 0)
+			is_meta(**end, flg);
 		(*end)++;
-		(*input)++;
-		*flg = is_meta(**input);
 	}
 }
 
-char	*save_word(char *bgn, char *end)
+char	*save_word(char **bgn, char *end)
 {
 	char	*token;
 	size_t	size;
 	size_t	i;
 
 	size = 0;
-	while (&bgn[size] != end)
-		size++;
+	while (bgn[size] != end)
+		if (*bgn[size] != '"' && *bgn[size] != '\'')
+			size++;
 	token = malloc((size + 1) * sizeof(char));
 	if (!token)
 		return (NULL);
 	i = -1;
 	while (++i < size)
-		token[i] = bgn[i];
+	{
+		if (**bgn != '"' && **bgn != '\'')
+			token[i] = **bgn;
+		*bgn++;
+	}
 	token[i] = '\0';
 	return (token);
 }
 
-char	*save_operator(char *bgn, char *end)
+void	parse_redirect(char **bgn, char *operator, char *i, char c)
 {
-	char	*token;
-	size_t	size;
-
-	size = 0;
-	while (&bgn[size] != end)
-		size++;
-
+	operator[(*i)++] = c;
+	if (**bgn == c)
+	{
+		(*bgn)++;
+		operator[(*i)++] = c;
+	}
 }
 
-char	**tokenize(char *input)
+char	*save_operator(char **bgn, char *end)
+{
+	char	*token;
+	char	operator[3];
+	char	i;
+
+	i = 0;
+	while(*bgn != end)
+	{
+		if (*(*bgn)++ == '|')
+		{
+			operator[i++] = '|';
+			break ;
+		}
+		if (*(*bgn)++ == '<')
+		{
+			parse_redirect(bgn, operator, &i, '<');
+			break ;
+		}
+		if (*(*bgn)++ == '>')
+		{
+			parse_redirect(bgn, operator, &i, '>');
+			break ;
+		}
+	}
+	operator[i] = '\0';
+	return (ft)
+}
+
+char	**tokenize(char *end)
 {
 	char	**tokens;
 	char	*bgn;
-	char	*end;
 	char	flg;
 
-	if (parse_quotes(input))
+	if (parse_quotes(end))
 	{
 		printf("Input error: unclosed quotes\n");
 		return NULL;
 	}
-	input = clear_input(input);
-	flg = is_meta(*input);
-	bgn = input;
-	end = input;
-	while (input && *input)
+	end = clear_input(end);
+	bgn = end;
+	while (end && *end)
 	{
-		read_token(&input, &end, &flg);
-		if (!is_meta(*bgn))
-			*tokens = save_word(bgn, end);
+		read_token(&end, &flg);
+		is_meta(*bgn, &flg);
+		if (flg < 0)
+			*tokens = save_word(&bgn, end);
 		else
-			*tokens = save_operator(bgn, end);
-		bgn = end;
+			while (bgn != end)
+				*tokens = save_operator(&bgn, end);
 		tokens++;
 	}
 	return (tokens);
