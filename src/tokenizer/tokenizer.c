@@ -12,7 +12,7 @@
 
 #include <stddef.h>
 #include <stdlib.h>
-#include "../utils/utils.h"
+#include "../include/utils.h"
 
 #define SQUOTE 1
 #define DQUOTE 2

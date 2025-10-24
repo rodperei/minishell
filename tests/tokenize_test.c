@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/helper_functions.h"
-#include "../src/utils/utils.h"
+#include "../include/utils.h"
 #include <stdio.h>
 
 int	main(void)

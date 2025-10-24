@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/comands.h"
-#include "../include/prompt.h"
+#include "../include/helper_functions.h"
 #include "../include/utils.h"
 
 int	main(int av, char **ac, char **env)
@@ -30,7 +30,6 @@ int	main(int av, char **ac, char **env)
 		if (!str || equal(str, "exit"))
 			break ;
 		printf("readline input: %s\n", str);
-		
 		add_history(str);
 		free(prompt);
 		free(str);
