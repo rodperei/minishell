@@ -11,14 +11,16 @@
 /* ************************************************************************** */
 
 // Este main es solo de teste
-#include "../../include/utils.h"
-#include "../../include/comands.h"
+#include "../include/comands.h"
+#include "../include/helper_functions.h"
+#include "../include/utils.h"
 
 int	main(int av, char **ac, char **env)
 {
 	load_env(env);
+	char *pwd;
 
-	// TESTE ENV
+	/*// TESTE ENV
 	printf("\n\nTESTE ENV\n\n");
 	char *PATH;
 
@@ -42,10 +44,10 @@ int	main(int av, char **ac, char **env)
 
 	// TESTE PWD
 	printf("\n\nTESTE PWD\n\n");
-	char *pwd = ft_pwd();
+	pwd = ft_pwd();
 	printf("pwd: %s\n", pwd);
 	if (pwd)
-		free(pwd);
+		free(pwd);*/
 
 
 	// TESTE CD
@@ -54,12 +56,19 @@ int	main(int av, char **ac, char **env)
 	printf("1 --> pwd: %s\n", pwd);
 	if (pwd)
 		free(pwd);
+	
 	ft_cd("..");
 	pwd = ft_getenv("PWD");
 	printf("2 --> pwd: %s\n", pwd);
 	if (pwd)
 		free(pwd);
 	
+	ft_cd("..");
+	pwd = ft_getenv("PWD");
+	printf("3 --> pwd: %s\n", pwd);
+	if (pwd)
+		free(pwd);
+	/*
 	
 	// TESTE ECHO
 	printf("\n\nTESTE ECHO\n\n");
@@ -70,7 +79,7 @@ int	main(int av, char **ac, char **env)
 	ft_echo(NULL, "Esto se va a imprimir PATH -> --$PATH--");
 	ft_echo(echo_var, "Esto se va a imprimir PATH -> --$PATH-- \n");
 
-
+	*/
 	// TESTE EXIT
 	ft_exit();
 	len_all(ac);
