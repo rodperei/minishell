@@ -18,6 +18,7 @@
 # define YELLOW	"\033[33m"
 # define BLUE	"\033[34m"
 # define RESET	"\033[0m"
+# define BOLD	"\033[1m"
 
 char	*create_prompt(void);
 char	**tokenize(char *end);
