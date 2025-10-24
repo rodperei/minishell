@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,10 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../utils/utils.h"
-#include "../../../include/comands.h"
+#include "../../include/utils.h"
+#include "../../include/comands.h"
 
-void	ft_exit(void)
+int	ft_export(char *name, char *value)
 {
-	exit(0);
+	char	**envs;
+	char	*result;
+
+	if (!value || !name)
+		error("error null variable");
+	result = ft_strjoin(name, "=");
+	result = append(result, len(value), value);
+	ft_unset(name);
+	envs = ft_getallenv();
+	envs = append_matriz(envs, result);
+	load_env(envs);
+	free_all(envs);
+	free(result);
+	return (0);
 }

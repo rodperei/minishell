@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 // Este main es solo de teste
-#include "../utils/utils.h"
+#include "../../include/utils.h"
 #include "../../include/comands.h"
 
 int	main(int av, char **ac, char **env)

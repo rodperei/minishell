@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../utils/utils.h"
+#include "../../../include/utils.h"
 #include "../../../include/comands.h"
 
 void	up(char *pwd)

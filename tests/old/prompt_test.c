@@ -1,49 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strings_3.c                                     :+:      :+:    :+:   */
+/*   prompt_test.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodperei <rodperei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/22 17:31:36 by rodperei          #+#    #+#             */
-/*   Updated: 2025/10/22 17:35:19 by rodperei         ###   ########.fr       */
+/*   Created: 2025/09/26 19:16:00 by rodperei          #+#    #+#             */
+/*   Updated: 2025/09/26 19:20:49 by rodperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 #include <stdlib.h>
+#include "../../include/helper_functions.h"
 
-char	*ft_strdup(const char *s)
+int	main(void)
 {
-	int		i;
-	char	*p;
+	char	*prompt;
+	char	*str;
 
-	i = 0;
-	while (s[i])
-		i++;
-	i++;
-	p = malloc(i * sizeof(char));
-	if (!p)
-		return (NULL);
-	i = 0;
-	while (s[i])
+	while (1)
 	{
-		p[i] = s[i];
-		i++;
+		prompt = create_prompt();
+		str = readline(prompt);
+		if (!str)
+		{
+			printf("EOF reached\n");
+			free(prompt);
+			rl_clear_history();
+			break ;
+		}
+		printf("readline input: %s\n", str);
+		add_history(str);
+		free(prompt);
+		free(str);
 	}
-	p[i] = '\0';
-	return (p);
-}
-
-char	*ft_replace(char *str, char init, char end)
-{
-	int	i;
-
-	i = 0;
-	while (str && str[i])
-	{
-		if (str[i] == init)
-			str[i] = end;
-		i++;
-	}
-	return (str);
 }

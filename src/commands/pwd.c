@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export.c                                           :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,23 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../utils/utils.h"
-#include "../../../include/comands.h"
+#include "../../include/utils.h"
+#include "../../include/comands.h"
 
-int	ft_export(char *name, char *value)
+char	*ft_pwd(void)
 {
-	char	**envs;
-	char	*result;
+	return (ft_getenv("PWD"));
+}
 
-	if (!value || !name)
-		error("error null variable");
-	result = ft_strjoin(name, "=");
-	result = append(result, len(value), value);
-	ft_unset(name);
-	envs = ft_getallenv();
-	envs = append_matriz(envs, result);
-	load_env(envs);
-	free_all(envs);
-	free(result);
-	return (0);
+char	*ft_getcwd(void)
+{
+	return (ft_getenv("PWD"));
 }

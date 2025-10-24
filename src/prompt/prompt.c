@@ -10,12 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
+#include "../../include/prompt.h"
 #include "../../include/comands.h"
-#include "../utils/utils.h"
+#include "../../include/utils.h"
 
 static char	*wrap_path(char *path)
 {
@@ -29,6 +26,8 @@ static char	*wrap_path(char *path)
 	if (!wrapped_path)
 		return (path);
 	free(path);
+	if (home)
+		free(home);
 	return (wrapped_path);
 }
 
@@ -43,6 +42,7 @@ static void	get_hostname(char *hostname)
 	read_ret = read(fd, hostname, 253);
 	if (read_ret == -1)
 		perror("prompt.c:47:10: in function 'get_hostname'");
+	ft_replace(hostname, '.', '\0');
 	if (read_ret < 253)
 		hostname[read_ret - 1] = '\0';
 	if (close(fd) == -1)
@@ -68,7 +68,21 @@ static char	*merge_vars(char *hostname, char *path)
 	free(path);
 	tmp2 = ft_strjoin(tmp1, "$ ");
 	free(tmp1);
+	if (user)
+		free(user);
 	return (tmp2);
+}
+
+char	*add_colors(char *pront)
+{
+	char	*tem;
+	char	*tem1;
+
+	tem1 = ft_strjoin(GREEN, pront);
+	free(pront);
+	tem = ft_strjoin(BOLD, tem1);
+	free(tem1);
+	return ft_strjoin(tem, RESET);
 }
 
 char	*create_prompt(void)
@@ -78,7 +92,7 @@ char	*create_prompt(void)
 	char	*path;
 	int		i;
 
-	path = getcwd(NULL, 0);
+	path = ft_getcwd();
 	if (!path)
 	{
 		perror("prompt.c:63:10: in function 'create_prompt'");
@@ -90,5 +104,6 @@ char	*create_prompt(void)
 		hostname[i] = '\0';
 	get_hostname(hostname);
 	prompt = merge_vars(hostname, path);
+	prompt = add_colors(prompt);
 	return (prompt);
 }

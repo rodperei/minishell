@@ -17,7 +17,7 @@ char	**z_maloc_matriz(int size)
 	char	**vec;
 	int		aux;
 
-	vec = malloc(sizeof(char*) * (size + 1));
+	vec = malloc(sizeof(char *) * (size + 1));
 	aux = 0;
 	while (aux != size)
 	{

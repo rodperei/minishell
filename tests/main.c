@@ -1,40 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt_test.c                                      :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodperei <rodperei@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/26 19:16:00 by rodperei          #+#    #+#             */
-/*   Updated: 2025/09/26 19:20:49 by rodperei         ###   ########.fr       */
+/*   Created: 2025/09/24 15:59:16 by frnicola          #+#    #+#             */
+/*   Updated: 2025/09/24 15:59:20 by frnicola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <stdlib.h>
+#include "../include/comands.h"
 #include "../include/prompt.h"
+#include "../include/utils.h"
 
-int	main(void)
+int	main(int av, char **ac, char **env)
 {
 	char	*prompt;
 	char	*str;
+
+	load_env(env);
+	printf("%d", av);
+	printf("%s\n\n", ac[0]);
 
 	while (1)
 	{
 		prompt = create_prompt();
 		str = readline(prompt);
-		if (!str)
-		{
-			printf("EOF reached\n");
-			free(prompt);
-			rl_clear_history();
+		if (!str || equal(str, "exit"))
 			break ;
-		}
 		printf("readline input: %s\n", str);
+		
 		add_history(str);
 		free(prompt);
 		free(str);
 	}
+
+	printf("EOF reached\n");
+	rl_clear_history();
+	if (str)
+		free(str);
+	if (prompt)
+		free(prompt);
 }

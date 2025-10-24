@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,10 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../utils/utils.h"
-#include "../../../include/comands.h"
+#include "../../include/utils.h"
+#include "../../include/comands.h"
 
-char	*ft_pwd(void)
+void	ft_exit(void)
 {
-	return (ft_getenv("PWD"));
+	exit(0);
 }

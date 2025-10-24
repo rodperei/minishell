@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../utils/utils.h"
-#include "../../../include/comands.h"
+#include "../../include/utils.h"
+#include "../../include/comands.h"
 
 int	load_env(char **env)
 {

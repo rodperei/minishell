@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,30 +10,56 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../utils/utils.h"
-#include "../../../include/comands.h"
+#include "../../include/utils.h"
+#include "../../include/comands.h"
 
-int	ft_unset(char *name)
+int	error(char *str)
 {
-	char	**envs;
-	char	*value;
+	printf("%s\n", str);
+	exit(127);
+}
+
+int	is_letter(char c)
+{
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+}
+
+int	print_env(char *str)
+{
+	char	var[1025];
 	int		aux;
 
-	if (!name)
-		error("error null variable");
-	value = ft_strjoin(name, "=");
-	envs = ft_getallenv();
+	str++;
 	aux = 0;
-	while (envs && envs[aux])
+	while (str && str[aux] && is_letter(str[aux]))
 	{
-		if (include(envs[aux], value))
-			break ;
+		var[aux] = str[aux];
 		aux++;
 	}
-	if (include(envs[aux], value))
-		envs = delete_vec_matriz(envs, aux);
-	load_env(envs);
-	free_all(envs);
-	free(value);
+	var[aux] = '\0';
+	printf("%s", getenv(var));
+	return (++aux);
+}
+
+void	print_text(char *str)
+{
+	while (str && *str)
+	{
+		if (*str == '$')
+			str += print_env(str);
+		write(1, str, 1);
+		str++;
+	}
+}
+
+int	ft_echo(char **args, char *text)
+{
+	if (len_all(args) > 1)
+		error("unknown arguments");
+	if (len_all(args) == 1 && !equal(args[0], "-n"))
+		error("unknown arguments diff -n");
+	print_text(text);
+	if (len_all(args) == 0)
+		printf("\n");
 	return (0);
 }
