@@ -64,4 +64,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dsize);
 char	*ft_strdup(const char *s);
 char	*ft_replace(char *str, char init, char end);
 
+// error.c
+void	error_handle(int err);
+
 #endif
