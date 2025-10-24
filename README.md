@@ -130,3 +130,57 @@ This header is only used inside the library, not by end-users.
 **Public headers = your project’s promises to the outside world.**
 
 **Private headers = internal notes and helpers you don’t want others to rely on.**
+
+---
+
+### 1. Commit Message Structure
+
+Each commit message should follow this pattern:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+---
+
+### 2. **Types**
+
+The `<type>` indicates the purpose of the commit. Common ones include:
+
+* **feat**: A new feature
+* **fix**: A bug fix
+* **docs**: Documentation only changes
+* **style**: Code style changes (formatting, missing semi-colons, etc.) with no logic changes
+* **refactor**: Code change that neither fixes a bug nor adds a feature
+* **perf**: Performance improvements
+* **test**: Adding or modifying tests
+* **build**: Changes that affect the build system or external dependencies
+* **ci**: CI/CD configuration or scripts
+* **chore**: Miscellaneous changes (maintenance, tooling, etc.)
+* **revert**: Reverts a previous commit
+
+---
+
+### 3. **Scope (optional)**
+
+A **scope** describes the section of the codebase the change affects (in parentheses, right after the type).
+
+Examples:
+
+* `feat(auth): add JWT authentication`
+* `fix(api): correct user pagination`
+
+---
+
+
+✅ **In short**:
+
+* Stick to `<type>(scope): description`.
+* Keep it concise, imperative, and consistent.
+* Use body for details and footer for breaking changes/issues.
+
+---
