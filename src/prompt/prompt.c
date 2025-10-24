@@ -82,7 +82,7 @@ char	*add_colors(char *pront)
 	free(pront);
 	tem = ft_strjoin(BOLD, tem1);
 	free(tem1);
-	return ft_strjoin(tem, RESET);
+	return (append(tem, ft_strlen(tem) + ft_strlen(RESET), RESET));
 }
 
 char	*create_prompt(void)
