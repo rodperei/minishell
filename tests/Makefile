@@ -2,6 +2,8 @@
 
 NAME_1 = prompt_test
 
+NAME_2 = token_test
+
 CFLAGS = -Wall -Wextra -Werror -g
 
 LDLIBS = -lreadline
@@ -26,9 +28,24 @@ p_src = ../src/prompt/prompt.c \
 tmp = $(notdir $(p_src))
 p_obj = $(tmp:.c=.o)
 
+# ======= Tokenizer Vars =======
+
+t_src = ../src/tokenizer/tokenizer.c \
+		../src/utils/ft_split.c \
+		../src/utils/ft_strings_2.c \
+		../src/utils/ft_strings_1.c \
+		../src/utils/ft_strings_3.c \
+		tokenize_test.c
+
+tmp = $(notdir $(t_src))
+t_obj = $(tmp:.c=.o)
+
 # ======= Rules =======
 
-all: $(NAME_1)
+all: $(NAME_1) $(NAME_2)
+
+build/%.o : ../src/utils/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # ======= Prompt Rules =======
 
@@ -44,7 +61,12 @@ build/%.o : ../src/commands/env/%.c | $(obj_dir)
 build/%.o : %.c | $(obj_dir)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-build/%.o : ../src/utils/%.c | $(obj_dir)
+# ======= Tokenizer Rules =======
+
+$(NAME_2): $(addprefix $(obj_dir), $(t_obj))
+	$(CC) $(CFLAGS) -o $@ $^
+
+build/%.o : ../src/tokenizer/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # ==============================
@@ -56,7 +78,7 @@ clean:
 	rm -rf $(obj_dir)
 
 fclean: clean
-	rm -f $(NAME_1)
+	rm -f $(NAME_1) $(NAME_2)
 
 re: fclean all
 

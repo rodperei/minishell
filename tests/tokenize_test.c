@@ -1,18 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.h                                           :+:      :+:    :+:   */
+/*   tokenize_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rodperei <rodperei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/26 18:41:07 by rodperei          #+#    #+#             */
-/*   Updated: 2025/09/26 18:44:01 by rodperei         ###   ########.fr       */
+/*   Created: 2025/10/22 17:47:09 by rodperei          #+#    #+#             */
+/*   Updated: 2025/10/22 17:48:52 by rodperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROMPT_H
-# define PROMPT_H
+#include "../include/helper_functions.h"
+#include "../src/utils/utils.h"
+#include <stdio.h>
 
-char	*create_prompt(void);
+int	main(void)
+{
+	char	*str = "\n\n\tTest the \nTokens\n\n\tof    the token\nizer<<<<<>|||\n\n\n";
+	char	**tokens;
+	int		i = 0;
 
-#endif
+	tokens = tokenize(str);
+	printf("str: |%s|\n\n", str);
+	while (tokens[i])
+		printf("token %d: %s\n", i, tokens[i]);
+	free_all(tokens);
+}
