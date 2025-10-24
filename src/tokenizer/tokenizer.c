@@ -159,13 +159,13 @@ char	*save_word(char **bgn, char *end)
 	{
 		if (**bgn != '"' && **bgn != '\'')
 			token[i] = **bgn;
-		*bgn++;
+		(*bgn)++;
 	}
 	token[i] = '\0';
 	return (token);
 }
 
-void	parse_redirect(char **bgn, char *operator, char *i, char c)
+void	parse_redirect(char **bgn, char *operator, int *i, char c)
 {
 	operator[(*i)++] = c;
 	if (**bgn == c)
@@ -177,9 +177,8 @@ void	parse_redirect(char **bgn, char *operator, char *i, char c)
 
 char	*save_operator(char **bgn, char *end)
 {
-	char	*token;
 	char	operator[3];
-	char	i;
+	int		i;
 
 	i = 0;
 	while(*bgn != end)
@@ -201,7 +200,31 @@ char	*save_operator(char **bgn, char *end)
 		}
 	}
 	operator[i] = '\0';
-	return (ft)
+	return (ft_strdup(operator));
+}
+
+char	**resize_tokens(char **list, char *new_token)
+{
+	size_t	size;
+	size_t	i;
+	char	**tmp;
+
+	size = 0;
+	while (list && *list)
+		size++;
+	tmp = malloc((size + 2) * sizeof(char *));
+	if (!tmp)
+	{
+		free_all(list);
+		return (NULL);
+	}
+	i = -1;
+	while (++i < size)
+		tmp[i] = list[i];
+	free(list);
+	tmp[i++] = new_token;
+	tmp[i] = 0;
+	return (tmp);
 }
 
 char	**tokenize(char *end)
@@ -217,16 +240,16 @@ char	**tokenize(char *end)
 	}
 	end = clear_input(end);
 	bgn = end;
+	tokens = 0;
 	while (end && *end)
 	{
 		read_token(&end, &flg);
 		is_meta(*bgn, &flg);
 		if (flg < 0)
-			*tokens = save_word(&bgn, end);
+			tokens =resize_tokens(tokens, save_word(&bgn, end));
 		else
 			while (bgn != end)
-				*tokens = save_operator(&bgn, end);
-		tokens++;
+				tokens = resize_tokens(tokens, save_operator(&bgn, end));
 	}
 	return (tokens);
 }
