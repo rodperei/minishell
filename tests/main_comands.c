@@ -57,13 +57,19 @@ int	main(int av, char **ac, char **env)
 	if (pwd)
 		free(pwd);
 	
-	ft_cd("..");
+	ft_cd("../");
 	pwd = ft_getenv("PWD");
 	printf("2 --> pwd: %s\n", pwd);
 	if (pwd)
 		free(pwd);
 	
-	ft_cd("..");
+	ft_cd("../../");
+	pwd = ft_getenv("PWD");
+	printf("3 --> pwd: %s\n", pwd);
+	if (pwd)
+		free(pwd);
+
+	ft_cd("../../sgoinfre/minishell");
 	pwd = ft_getenv("PWD");
 	printf("3 --> pwd: %s\n", pwd);
 	if (pwd)

@@ -61,5 +61,5 @@ int	equaln(char *str, char *str1, int size)
 			return (0);
 		aux++;
 	}
-	return (str[aux] == str1[aux]);
+	return (1);
 }

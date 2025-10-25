@@ -32,7 +32,7 @@ src = ../src/commands/cd/cd.c \
 		../src/utils/utils_matriz.c \
 		../src/utils/utils_vec.c \
 		\
-		main.c 
+		main_comands.c 
 
 #../src/tokenizer/tokenizer.c 
 

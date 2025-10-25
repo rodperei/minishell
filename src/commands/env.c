@@ -75,9 +75,9 @@ char	*ft_getenv(char *name)
 		aux = 0;
 		while (vars[index][aux] != '=')
 			aux++;
-		if (equaln(vars[index], name, --aux))
+		if (equaln(vars[index], name, aux))
 		{
-			result = copy_vec(vars[index] + aux + 2);
+			result = copy_vec(vars[index] + aux + 1);
 			break ;
 		}
 		index++;
