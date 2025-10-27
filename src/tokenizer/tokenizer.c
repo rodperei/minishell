@@ -13,22 +13,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "../../include/utils.h"
-
-#define SQUOTE 1
-#define DQUOTE 2
-#define META 4
-
-void	compute_quotes_mask(char input, char *flg)
-{
-	if (!(*flg & SQUOTE) && !(*flg & DQUOTE) && input == '"')
-		*flg |= DQUOTE;
-	else if (!(*flg & DQUOTE) && !(*flg & SQUOTE) && input == '\'')
-		*flg |= SQUOTE;
-	else if ((*flg & SQUOTE) && input == '\'')
-		*flg &= ~SQUOTE;
-	else if ((*flg & DQUOTE) && input == '"')
-		*flg &= ~DQUOTE;
-}
+#include "tokenizer.h"
 
 char	parse_quotes(char *input)
 {
@@ -43,136 +28,44 @@ char	parse_quotes(char *input)
 	return (flg);
 }
 
-void	shrink_wspace(char **input, char *buff, int *i)
-{
-	if (**input == '\n' && *i < 99)
-	{
-		buff[(*i++)] = *(*input)++;
-		while (ft_strchr(" \t\n", **input))
-			(*input)++;
-	}
-	else if (*i < 99)
-	{
-		buff[(*i++)] = ' ';
-		(*input)++;
-		while(ft_strchr(" \t", **input))
-			(*input)++;
-	}
-}
-
-char	*flush_buff(char *buff, char *dst)
-{
-	char *tmp;
-
-	tmp = ft_strjoin(dst, buff);
-	if (!tmp)
-		return (NULL);
-	if (dst)
-		free(dst);
-	while (*buff)
-		*buff++ = '\0';
-	return (tmp);
-}
-
-char *merge_wspaces(char *input)
-{
-	char	flg;
-	char	buff[100];
-	char	*clean_input;
-	int		i;
-
-	i = -1;
-	flg = 0;
-	clean_input = 0;
-	while (input && *input)
-	{
-		while (++i < 99 && *input)
-		{
-			compute_quotes_mask(*input, &flg);
-			if (!flg && ft_strchr(" \n\t", *input))
-				shrink_wspace(&input, buff, &i);
-			else
-				buff[i] = *input++;
-		}
-		buff[i] = '\0';
-		clean_input = flush_buff(buff, clean_input);
-		if (!clean_input)
-			return (NULL);
-	}
-	return (clean_input);
-}
-
-char	*clear_input(char *input)
-{
-	char	*tmp;
-
-	if (input)
-		return (NULL);
-	tmp = input;
-	input = ft_strtrim(tmp, " \n\t");
-	free(tmp);
-	tmp = input;
-	input = merge_wspaces(tmp);
-	free(tmp);
-	return (input);
-}
-
-void	is_meta(char c, char *flg)
-{
-	if(ft_strchr(" \t\n|<>", c))
-		*flg |= META;
-	else
-		*flg &= ~META;
-}
-
-void	read_token(char **end, char *flg)
-{
-	char	state;
-
-	*flg = 0;
-	is_meta(**end, flg);
-	state = *flg;
-	while (state == (*flg & META) && **end)
-	{
-		compute_quotes_mask(**end, flg);
-		if ((*flg & ~META) == 0)
-			is_meta(**end, flg);
-		(*end)++;
-	}
-}
-
 char	*save_word(char **bgn, char *end)
 {
 	char	*token;
-	size_t	size;
 	size_t	i;
+	char	*tmp;
 
-	size = 0;
-	while (bgn[size] != end)
-		if (*bgn[size] != '"' && *bgn[size] != '\'')
-			size++;
-	token = malloc((size + 1) * sizeof(char));
+	tmp = *bgn;
+	i = 0;
+	while (tmp != end)
+	{
+		if (!ft_strchr(" \t\n|<>\"'", *tmp))
+			i++;
+		tmp++;
+	}
+	token = malloc((i + 1) * sizeof(char));
 	if (!token)
 		return (NULL);
-	i = -1;
-	while (++i < size)
+	i = 0;
+	while (*bgn != end)
 	{
-		if (**bgn != '"' && **bgn != '\'')
-			token[i] = **bgn;
+		if (!ft_strchr(" \t\n|<>\"'", **bgn))
+			token[i++] = **bgn;
 		(*bgn)++;
 	}
 	token[i] = '\0';
 	return (token);
 }
 
-void	parse_redirect(char **bgn, char *operator, int *i, char c)
+void	compute_operators(char **bgn, char *oprt, int *i)
 {
-	operator[(*i)++] = c;
-	if (**bgn == c)
-	{
-		(*bgn)++;
-		operator[(*i)++] = c;
-	}
+	if (**bgn == '|')
+		oprt[(*i)++] = '|';
+	else if (**bgn == '\n')
+		oprt[(*i)++] = '\n';
+	else if (**bgn == '<')
+		parse_redirect(bgn, oprt, i, '<');
+	else if (**bgn == '>')
+		parse_redirect(bgn, oprt, i, '>');
 }
 
 char	*save_operator(char **bgn, char *end)
@@ -181,50 +74,21 @@ char	*save_operator(char **bgn, char *end)
 	int		i;
 
 	i = 0;
-	while(*bgn != end)
+	while (*bgn != end)
 	{
-		if (*(*bgn)++ == '|')
+		if (ft_strchr("|<>\n", **bgn))
 		{
-			operator[i++] = '|';
-			break ;
+			compute_operators(bgn, operator, &i);
+			(*bgn)++;
+			break;
 		}
-		if (*(*bgn)++ == '<')
-		{
-			parse_redirect(bgn, operator, &i, '<');
-			break ;
-		}
-		if (*(*bgn)++ == '>')
-		{
-			parse_redirect(bgn, operator, &i, '>');
-			break ;
-		}
+		(*bgn)++;
 	}
 	operator[i] = '\0';
-	return (ft_strdup(operator));
-}
-
-char	**resize_tokens(char **list, char *new_token)
-{
-	size_t	size;
-	size_t	i;
-	char	**tmp;
-
-	size = 0;
-	while (list && *list)
-		size++;
-	tmp = malloc((size + 2) * sizeof(char *));
-	if (!tmp)
-	{
-		free_all(list);
+	if (i == 0)
 		return (NULL);
-	}
-	i = -1;
-	while (++i < size)
-		tmp[i] = list[i];
-	free(list);
-	tmp[i++] = new_token;
-	tmp[i] = 0;
-	return (tmp);
+	else
+		return (ft_strdup(operator));
 }
 
 char	**tokenize(char *end)
@@ -236,7 +100,7 @@ char	**tokenize(char *end)
 	if (parse_quotes(end))
 	{
 		printf("Input error: unclosed quotes\n");
-		return NULL;
+		return (NULL);
 	}
 	end = clear_input(end);
 	bgn = end;
@@ -245,8 +109,8 @@ char	**tokenize(char *end)
 	{
 		read_token(&end, &flg);
 		is_meta(*bgn, &flg);
-		if (flg < 0)
-			tokens =resize_tokens(tokens, save_word(&bgn, end));
+		if ((flg & META) == 0)
+			tokens = resize_tokens(tokens, save_word(&bgn, end));
 		else
 			while (bgn != end)
 				tokens = resize_tokens(tokens, save_operator(&bgn, end));
