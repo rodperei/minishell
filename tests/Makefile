@@ -32,14 +32,14 @@ src = ../src/commands/cd/cd.c \
 		../src/utils/utils_matriz.c \
 		../src/utils/utils_vec.c \
 		\
-		main_comands.c 
-
-#../src/tokenizer/tokenizer.c 
-
-		
+		../src/tokenizer/process_input.c \
+		../src/tokenizer/token_utils.c \
+		../src/tokenizer/tokenizer.c \
+		\
+		./tokenize_test.c
 
 tmp = $(notdir $(src))
-p_obj = $(tmp:.c=.o)
+obj = $(tmp:.c=.o)
 
 # ======= Rules =======
 
@@ -47,7 +47,7 @@ all: $(NAME_1)
 
 # ======= Prompt Rules =======
 
-$(NAME_1): $(addprefix $(obj_dir), $(p_obj))
+$(NAME_1): $(addprefix $(obj_dir), $(obj))
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 build/%.o : ../src/commands/cd/%.c | $(obj_dir)
@@ -62,8 +62,8 @@ build/%.o : ../src/prompt/%.c | $(obj_dir)
 build/%.o : ../src/utils/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
-#build/%.o : ../src/tokenizer/%.c | $(obj_dir)
-#	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+build/%.o : ../src/tokenizer/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 build/%.o : %.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@

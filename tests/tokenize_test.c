@@ -16,10 +16,13 @@
 
 int	main(void)
 {
-	char	*str = "\n\n\tTest the \nTokens\n\n\tof    the token\nizer<<<<<>|||\n\n\n";
+	char	*str;
 	char	**tokens;
-	int		i = 0;
+	int		i;
 
+	i = 0;
+	str = "\n\n\tTest the \nTokens\n\n\tof    the token\nizer<<<<<>|||\n\n\n";
+	str = ft_strdup(str);
 	tokens = tokenize(str);
 	printf("str: |%s|\n\n", str);
 	while (tokens[i])
