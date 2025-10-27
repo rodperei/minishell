@@ -65,6 +65,6 @@ char	*ft_strdup(const char *s);
 char	*ft_replace(char *str, char init, char end);
 
 // error.c
-void	error_handle(int err);
+void	error_handle(int err, char *str);
 
 #endif

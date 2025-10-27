@@ -14,10 +14,12 @@
 #include <stdlib.h>
 #include <string.h>
 
-void	error_handle(int err)
+void	error_handle(int err, char	*str)
 {
 	if (err != 0)
 		printf("%s\n", strerror(err));
+	else if (str)
+		printf("%s\n", str);
 	else
 		perror(0);
 	exit(EXIT_FAILURE);
