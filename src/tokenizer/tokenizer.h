@@ -27,4 +27,9 @@ char	**resize_tokens(char **list, char *new_token);
 
 char	*clear_input(char *input);
 
+//	save_utils.c
+
+char	*save_word(char **bgn, char *end);
+char	*save_operator(char **bgn, char *end);
+
 #endif // !TOKEN_UTILS_H

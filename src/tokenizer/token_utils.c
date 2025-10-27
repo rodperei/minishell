@@ -39,10 +39,10 @@ void	is_meta(char c, char *flg)
 void	parse_redirect(char **bgn, char *oprt, int *i, char c)
 {
 	oprt[(*i)++] = c;
-	if (**bgn == c)
+	if (*(*bgn + 1) == c)
 	{
-		(*bgn)++;
 		oprt[(*i)++] = c;
+		(*bgn)++;
 	}
 }
 
@@ -59,7 +59,8 @@ void	read_token(char **end, char *flg)
 		is_meta(**end, flg);
 		(*end)++;
 	}
-	(*end)--;
+	if (**end)
+		(*end)--;
 }
 
 char	**resize_tokens(char **list, char *new_token)

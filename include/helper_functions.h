@@ -21,6 +21,6 @@
 # define BOLD	"\033[1m"
 
 char	*create_prompt(void);
-char	**tokenize(char *end);
+char	**tokenize(char *input);
 
 #endif

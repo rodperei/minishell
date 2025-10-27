@@ -24,6 +24,7 @@ src = ../src/commands/cd/cd.c \
 		\
 		../src/prompt/prompt.c \
 		\
+		../src/utils/error.c \
 		../src/utils/ft_split.c \
 		../src/utils/ft_strings_1.c \
 		../src/utils/ft_strings_2.c \
@@ -33,6 +34,7 @@ src = ../src/commands/cd/cd.c \
 		../src/utils/utils_vec.c \
 		\
 		../src/tokenizer/process_input.c \
+		../src/tokenizer/save_utils.c \
 		../src/tokenizer/token_utils.c \
 		../src/tokenizer/tokenizer.c \
 		\
