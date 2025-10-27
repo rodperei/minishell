@@ -20,12 +20,12 @@ int	main(void)
 	char	**tokens;
 	int		i;
 
-	i = 0;
 	str = "\n\n\tTest the \nTokens\n\n\tof    the token\nizer<<<<<>|||\n\n\n";
 	str = ft_strdup(str);
-	tokens = tokenize(str);
 	printf("str: |%s|\n\n", str);
-	while (tokens[i])
+	tokens = tokenize(str);
+	i = -1;
+	while (tokens[++i])
 		printf("token %d: %s\n", i, tokens[i]);
 	free_all(tokens);
 }
