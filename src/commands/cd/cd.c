@@ -37,6 +37,14 @@ void	result_path(char **pwd, char *path)
 	char	*tmp;
 	int		aux;
 
+	if (path[0] == '/')
+	{
+		free(*pwd);
+		*pwd = ft_strdup(path);
+		if ((*pwd)[ft_strlen(*pwd) - 1] == '/' && ft_strlen(*pwd) > 1)
+			(*pwd)[ft_strlen(*pwd) - 1] = '\0';
+		return ;
+	}
 	matriz = ft_split(path, '/');
 	aux = -1;
 	while (len_all(matriz) != ++aux)
