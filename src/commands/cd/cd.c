@@ -31,9 +31,10 @@ void	up(char *pwd)
 		pwd[last + 1] = '\0';
 }
 
-void	result_path(char *pwd, char *path)
+void	result_path(char **pwd, char *path)
 {
 	char	**matriz;
+	char	*tmp;
 	int		aux;
 
 	matriz = ft_split(path, '/');
@@ -43,14 +44,17 @@ void	result_path(char *pwd, char *path)
 		if (equal(matriz[aux], ".") || !ft_strlen(matriz[aux]))
 			continue ;
 		else if (equal(matriz[aux], ".."))
-			up(pwd);
+			up(*pwd);
 		else
 		{
-			printf("%s \n", pwd);
+			tmp = ft_strjoin(*pwd, "/");
+			free(*pwd);
+			*pwd = ft_strjoin(tmp, matriz[aux]);
+			free(tmp);
 		}
 	}
-	if (pwd[ft_strlen(pwd) - 1] == '/' && ft_strlen(pwd) > 1)
-		pwd[ft_strlen(pwd) - 1] = '\0';
+	if ((*pwd)[ft_strlen(*pwd) - 1] == '/' && ft_strlen(*pwd) > 1)
+		(*pwd)[ft_strlen(*pwd) - 1] = '\0';
 	free_all(matriz);
 }
 
@@ -64,7 +68,7 @@ int	ft_cd(char *path)
 		error("Error: not exist PWD en env");
 	if (!path)
 		error("Error: *path is NULL");
-	result_path(pwd, path);
+	result_path(&pwd, path);
 	dir = opendir(pwd);
 	if (!dir)
 		error("Error: not exist PATH");
