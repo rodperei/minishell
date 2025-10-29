@@ -29,7 +29,7 @@ char	*clear_input(char *input);
 
 //	save_utils.c
 
-char	*save_word(char **bgn, char *end);
-char	*save_operator(char **bgn, char *end);
+char	*save_word(char **bgn, char *end, char **tokens);
+int		save_operator(char **bgn, char *end, char *oprt);
 
 #endif // !TOKEN_UTILS_H

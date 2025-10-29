@@ -36,16 +36,6 @@ void	is_meta(char c, char *flg)
 		*flg &= ~META;
 }
 
-void	parse_redirect(char **bgn, char *oprt, int *i, char c)
-{
-	oprt[(*i)++] = c;
-	if (*(*bgn + 1) == c)
-	{
-		oprt[(*i)++] = c;
-		(*bgn)++;
-	}
-}
-
 void	read_token(char **end, char *flg)
 {
 	char	state;
@@ -70,7 +60,7 @@ char	**resize_tokens(char **list, char *new_token)
 	char	**tmp;
 
 	if (!new_token)
-		return (list);
+		return (NULL);
 	size = 0;
 	while (list && list[size])
 		size++;
@@ -78,6 +68,7 @@ char	**resize_tokens(char **list, char *new_token)
 	if (!tmp)
 	{
 		free_all(list);
+		free(new_token);
 		return (NULL);
 	}
 	i = -1;

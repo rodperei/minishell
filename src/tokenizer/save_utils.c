@@ -14,13 +14,10 @@
 #include "../../include/utils.h"
 #include "./tokenizer.h"
 
-char	*save_word(char **bgn, char *end)
+int	count_word_size(char *tmp, char *end)
 {
-	char	*token;
 	size_t	i;
-	char	*tmp;
 
-	tmp = *bgn;
 	i = 0;
 	while (tmp != end)
 	{
@@ -28,9 +25,21 @@ char	*save_word(char **bgn, char *end)
 			i++;
 		tmp++;
 	}
+	return (i);
+}
+
+char	*save_word(char **bgn, char *end, char **tokens)
+{
+	char	*token;
+	size_t	i;
+
+	i = count_word_size(*bgn, end);
 	token = malloc((i + 1) * sizeof(char));
 	if (!token)
+	{
+		free_all(tokens);
 		return (NULL);
+	}
 	i = 0;
 	while (*bgn != end)
 	{
@@ -40,6 +49,16 @@ char	*save_word(char **bgn, char *end)
 	}
 	token[i] = '\0';
 	return (token);
+}
+
+void	parse_redirect(char **bgn, char *oprt, int *i, char c)
+{
+	oprt[(*i)++] = c;
+	if (*(*bgn + 1) == c)
+	{
+		oprt[(*i)++] = c;
+		(*bgn)++;
+	}
 }
 
 void	compute_operators(char **bgn, char *oprt, int *i)
@@ -55,9 +74,8 @@ void	compute_operators(char **bgn, char *oprt, int *i)
 	(*bgn)++;
 }
 
-char	*save_operator(char **bgn, char *end)
+int	save_operator(char **bgn, char *end, char *oprt)
 {
-	char	operator[3];
 	int		i;
 
 	i = 0;
@@ -65,14 +83,11 @@ char	*save_operator(char **bgn, char *end)
 	{
 		if (ft_strchr("|<>\n", **bgn))
 		{
-			compute_operators(bgn, operator, &i);
-			break;
+			compute_operators(bgn, oprt, &i);
+			break ;
 		}
 		(*bgn)++;
 	}
-	operator[i] = '\0';
-	if (i == 0)
-		return (NULL);
-	else
-		return (ft_strdup(operator));
+	oprt[i] = '\0';
+	return (i);
 }

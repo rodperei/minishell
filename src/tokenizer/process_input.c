@@ -12,31 +12,35 @@
 
 #include "tokenizer.h"
 #include "../../include/utils.h"
+#include <stddef.h>
 
-void	shrink_wspace(char **input, char *buff, int *i)
+void	shrink_wspace(char *input, char *buff, int *i, size_t *j)
 {
-	if (**input == '\n' && *i < 99)
+	if (*input == '\n' && *i < 99)
 	{
-		buff[(*i++)] = *(*input)++;
-		while (ft_strchr(" \t\n", **input))
-			(*input)++;
+		buff[(*i++)] = input[(*j)++];
+		while (ft_strchr(" \t\n", input[*j]))
+			(*j)++;
 	}
 	else if (*i < 99)
 	{
 		buff[(*i++)] = ' ';
-		(*input)++;
-		while (ft_strchr(" \t", **input))
-			(*input)++;
+		(*j)++;
+		while (ft_strchr(" \t", *input))
+			(*j)++;
 	}
 }
 
-char	*flush_buff(char *buff, char *dst)
+char	*flush_buff(char *buff, char *dst, char *input)
 {
 	char	*tmp;
 
 	tmp = ft_strjoin(dst, buff);
 	if (!tmp)
-		return (NULL);
+	{
+		free(input);
+		error_handle(0, 0);
+	}
 	if (dst)
 		free(dst);
 	while (*buff)
@@ -50,24 +54,24 @@ char	*merge_wspaces(char *input)
 	char	buff[100];
 	char	*clean_input;
 	int		i;
+	size_t	j;
 
 	i = -1;
+	j = 0;
 	flg = 0;
 	clean_input = 0;
-	while (input && *input)
+	while (input && input[j])
 	{
-		while (++i < 99 && *input)
+		while (++i < 99 && input[j])
 		{
-			compute_quotes_mask(*input, &flg);
-			if (!flg && ft_strchr(" \n\t", *input))
-				shrink_wspace(&input, buff, &i);
+			compute_quotes_mask(input[j], &flg);
+			if (!flg && ft_strchr(" \n\t", input[j]))
+				shrink_wspace(input, buff, &i, &j);
 			else
-				buff[i] = *input++;
+				buff[i] = input[j++];
 		}
 		buff[i] = '\0';
-		clean_input = flush_buff(buff, clean_input);
-		if (!clean_input)
-			return (NULL);
+		clean_input = flush_buff(buff, clean_input, input);
 	}
 	return (clean_input);
 }
@@ -76,10 +80,13 @@ char	*clear_input(char *input)
 {
 	char	*tmp;
 
-	if (!input)
-		return (NULL);
 	tmp = input;
 	input = ft_strtrim(tmp, " \n\t");
+	if (!input)
+	{
+		free(tmp);
+		error_handle(0, 0);
+	}
 	free(tmp);
 	tmp = input;
 	input = merge_wspaces(tmp);

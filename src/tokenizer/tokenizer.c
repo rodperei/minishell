@@ -10,31 +10,51 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <asm-generic/errno-base.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include "../../include/utils.h"
 #include "tokenizer.h"
 
-char	parse_quotes(char *input)
+void	parse_quotes(char *input)
 {
 	char	flg;
 
+	if (!input)
+		error_handle(EIO, 0);
 	flg = 0;
 	while (input && *input)
 	{
 		compute_quotes_mask(*input, &flg);
 		input++;
 	}
-	return (flg);
+	if (flg)
+	{
+		free(input);
+		error_handle(EIO, 0);
+	}
 }
 
 char	**compute_saves(char **tokens, char flg, char **bgn, char *end)
 {
+	char	oprt[3];
+	char	*tmp;
+
 	if ((flg & META) == 0)
-		tokens = resize_tokens(tokens, save_word(bgn, end));
+		tokens = resize_tokens(tokens, save_word(bgn, end, tokens));
 	else
+	{
 		while (*bgn != end)
-			tokens = resize_tokens(tokens, save_operator(bgn, end));
+		{
+			if (save_operator(bgn, end, oprt))
+			{
+				tmp = ft_strdup(oprt);
+				if (!tmp)
+					free_all(tokens);
+				tokens = resize_tokens(tokens, tmp);
+			}
+		}
+	}
 	return (tokens);
 }
 
@@ -45,11 +65,7 @@ char	**tokenize(char *end)
 	char	*tmp;
 	char	flg;
 
-	if (parse_quotes(end))
-	{
-		free(end);
-		error_handle(0, "Input error: unclosed quotes\n");
-	}
+	parse_quotes(end);
 	end = clear_input(end);
 	tmp = end;
 	bgn = end;
@@ -59,6 +75,11 @@ char	**tokenize(char *end)
 		read_token(&end, &flg);
 		is_meta(*bgn, &flg);
 		tokens = compute_saves(tokens, flg, &bgn, end);
+		if (!tokens)
+		{
+			free(tmp);
+			error_handle(0, 0);
+		}
 	}
 	free(tmp);
 	return (tokens);
