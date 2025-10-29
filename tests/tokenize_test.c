@@ -28,4 +28,5 @@ int	main(void)
 	while (tokens[++i])
 		printf("token %d: %s\n", i, tokens[i]);
 	free_all(tokens);
+	free(str);
 }
