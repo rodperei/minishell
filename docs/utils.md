@@ -228,3 +228,16 @@ Lê o conteúdo de um arquivo a partir de um file descriptor (`fd`), armazena em
 - Se houver erro de alocação em `z_maloc` ou `append`, a função pode falhar retornando `NULL`.  
 - O file descriptor (`fd`) é fechado dentro da função, o que significa que não poderá ser reutilizado fora dela.  
 
+---
+
+##  Nome da função  
+	void	error_handle(int err, char	*str)
+##  Parâmetros  
+- `int err`: Código de erro a imprimir por **perror()**.
+- `char *str`: String personalizada a imprimir.
+##  Função  
+Imprime erro através de `perror`, `strerror` ou `printf`, e sai de execução através de `exit`.
+##  Fluxo de trabalho e casos especiais  
+1. Se **err** é diferente de zero, imprime erro através de `strerror`;
+2. Se **err** é zero, e **str** é diferente de zero, imprime erro através de `printf`;
+3. Senão, imprime erro através de `perror`.
