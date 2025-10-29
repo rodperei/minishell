@@ -35,7 +35,6 @@ void	result_path(char *pwd, char *path)
 {
 	char	**matriz;
 	int		aux;
-	char	*tem;
 
 	matriz = ft_split(path, '/');
 	aux = -1;
@@ -47,15 +46,7 @@ void	result_path(char *pwd, char *path)
 			up(pwd);
 		else
 		{
-			if (pwd[ft_strlen(pwd) - 1] != '/')
-			{
-				tem = ft_strjoin(pwd, "/");
-				free(pwd);
-				pwd = tem;
-			}
-			tem = ft_strjoin(pwd, matriz[aux]);
-			free(pwd);
-			pwd = tem;
+			printf("%s \n", pwd);
 		}
 	}
 	if (pwd[ft_strlen(pwd) - 1] == '/' && ft_strlen(pwd) > 1)
@@ -74,7 +65,6 @@ int	ft_cd(char *path)
 	if (!path)
 		error("Error: *path is NULL");
 	result_path(pwd, path);
-	printf("%s \n", pwd);
 	dir = opendir(pwd);
 	if (!dir)
 		error("Error: not exist PATH");

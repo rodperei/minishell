@@ -38,7 +38,7 @@ src = ../src/commands/cd/cd.c \
 		../src/tokenizer/token_utils.c \
 		../src/tokenizer/tokenizer.c \
 		\
-		./tokenize_test.c
+		./main_comands.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)

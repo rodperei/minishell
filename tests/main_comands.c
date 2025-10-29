@@ -19,6 +19,7 @@ int	main(int av, char **ac, char **env)
 {
 	load_env(env);
 	char *pwd;
+	char *test;
 
 	/*// TESTE ENV
 	printf("\n\nTESTE ENV\n\n");
@@ -57,23 +58,57 @@ int	main(int av, char **ac, char **env)
 	if (pwd)
 		free(pwd);
 	
-	ft_cd("../");
+	
+	// up
+	test = "..";
+	ft_cd(test);
 	pwd = ft_getenv("PWD");
-	printf("2 --> pwd: %s\n", pwd);
-	if (pwd)
+	printf("TEST: %s --> pwd: %s\n", test, pwd);
+	if (pwd) 
 		free(pwd);
 	
-	ft_cd("../../");
+	test = "../..";
+	ft_cd(test);
 	pwd = ft_getenv("PWD");
-	printf("3 --> pwd: %s\n", pwd);
-	if (pwd)
+	printf("TEST: %s --> pwd: %s\n", test, pwd);
+	if (pwd) 
 		free(pwd);
 
-	ft_cd("../../sgoinfre/minishell");
+
+	
+	// in (RELATIVE)
+	test = "./sgoinfre";
+	ft_cd(test);
 	pwd = ft_getenv("PWD");
-	printf("3 --> pwd: %s\n", pwd);
-	if (pwd)
+	printf("TEST: %s --> pwd: %s\n", test, pwd);
+	if (pwd) 
 		free(pwd);
+
+	test = "./minishell/tests";
+	ft_cd(test);
+	pwd = ft_getenv("PWD");
+	printf("TEST: %s --> pwd: %s\n", test, pwd);
+	if (pwd) 
+		free(pwd);
+
+
+	// in (ABUSOLUTO)
+	test = "/home/";
+	ft_cd(test);
+	pwd = ft_getenv("PWD");
+	printf("TEST: %s --> pwd: %s\n", test, pwd);
+	if (pwd) 
+		free(pwd);
+
+	test = "/home/frnicola/sgoinfre/minishell";
+	ft_cd(test);
+	pwd = ft_getenv("PWD");
+	printf("TEST: %s --> pwd: %s\n", test, pwd);
+	if (pwd) 
+		free(pwd);
+
+
+
 	/*
 	
 	// TESTE ECHO
