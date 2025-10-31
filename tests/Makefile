@@ -14,7 +14,7 @@ INC			= -I ../include/.
 
 obj_dir = build/
 
-src = ../src/commands/cd/cd.c \
+src = ../src/commands/cd.c \
 		../src/commands/echo.c \
 		../src/commands/env.c \
 		../src/commands/exit.c \
@@ -38,7 +38,7 @@ src = ../src/commands/cd/cd.c \
 		../src/tokenizer/token_utils.c \
 		../src/tokenizer/tokenizer.c \
 		\
-		./tokenize_test.c
+		./main_comands.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)

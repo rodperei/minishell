@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../../include/utils.h"
-#include "../../../include/comands.h"
+#include "../../include/utils.h"
+#include "../../include/comands.h"
 #include <dirent.h>
 
 void	up(char *pwd)
@@ -31,6 +31,19 @@ void	up(char *pwd)
 		pwd[last + 1] = '\0';
 }
 
+void	strip_end(char **str)
+{
+	if ((*str)[ft_strlen(*str) - 1] == '/' && ft_strlen(*str) > 1)
+		(*str)[ft_strlen(*str) - 1] = '\0';
+}
+
+void	rute_abs(char **pwd, char *path)
+{
+	free(*pwd);
+	*pwd = ft_strdup(path);
+	strip_end(pwd);
+}
+
 void	result_path(char **pwd, char *path)
 {
 	char	**matriz;
@@ -38,13 +51,7 @@ void	result_path(char **pwd, char *path)
 	int		aux;
 
 	if (path[0] == '/')
-	{
-		free(*pwd);
-		*pwd = ft_strdup(path);
-		if ((*pwd)[ft_strlen(*pwd) - 1] == '/' && ft_strlen(*pwd) > 1)
-			(*pwd)[ft_strlen(*pwd) - 1] = '\0';
-		return ;
-	}
+		return (rute_abs(pwd, path));
 	matriz = ft_split(path, '/');
 	aux = -1;
 	while (len_all(matriz) != ++aux)
@@ -61,8 +68,7 @@ void	result_path(char **pwd, char *path)
 			free(tmp);
 		}
 	}
-	if ((*pwd)[ft_strlen(*pwd) - 1] == '/' && ft_strlen(*pwd) > 1)
-		(*pwd)[ft_strlen(*pwd) - 1] = '\0';
+	strip_end(pwd);
 	free_all(matriz);
 }
 

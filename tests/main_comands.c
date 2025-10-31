@@ -15,115 +15,68 @@
 #include "../include/helper_functions.h"
 #include "../include/utils.h"
 
-int	main(int av, char **ac, char **env)
+void	testeenvexportunset(void)
 {
-	load_env(env);
-	char *pwd;
-	char *test;
+	char	*path;
 
-	/*// TESTE ENV
 	printf("\n\nTESTE ENV\n\n");
-	char *PATH;
-
 	ft_env();
-	PATH = ft_getenv("PATH");
-	printf("\n\nENTORNO PATH : %s\n\n", PATH);
-	if (PATH)
-		free(PATH);
-
-
-	// TESTE EXPORT
+	path = ft_getenv("PATH");
+	printf("\n\nENTORNO PATH : %s\n\n", path);
+	if (path)
+		free(path);
 	printf("\n\nTESTE EXPORT\n\n");
 	ft_export("VARIABLE_NEW", "123456789*");
 	ft_env();
-	
-
-	// TESTE UNSET
 	printf("\n\nTESTE UNSET\n\n");
 	ft_unset("VARIABLE_NEW");
 	ft_env();
+}
 
-	// TESTE PWD
-	printf("\n\nTESTE PWD\n\n");
-	pwd = ft_pwd();
-	printf("pwd: %s\n", pwd);
-	if (pwd)
-		free(pwd);*/
+void	testecd(void)
+{
+	char	*pwd;
 
-
-	// TESTE CD
 	printf("\n\nTESTE CD\n\n");
 	pwd = ft_getenv("PWD");
 	printf("1 --> pwd: %s\n", pwd);
 	if (pwd)
 		free(pwd);
-	
-	
-	// up
-	test = "..";
-	ft_cd(test);
+	ft_cd("../..");
 	pwd = ft_getenv("PWD");
-	printf("TEST: %s --> pwd: %s\n", test, pwd);
-	if (pwd) 
+	printf("TEST: %s --> pwd: %s\n", "../..", pwd);
+	if (pwd)
 		free(pwd);
-	
-	test = "../..";
-	ft_cd(test);
+	ft_cd("./minishell/tests");
 	pwd = ft_getenv("PWD");
-	printf("TEST: %s --> pwd: %s\n", test, pwd);
-	if (pwd) 
+	printf("TEST: %s --> pwd: %s\n", "./minishell/tests", pwd);
+	if (pwd)
 		free(pwd);
-
-
-	
-	// in (RELATIVE)
-	test = "./sgoinfre";
-	ft_cd(test);
+	ft_cd("/home/frnicola/sgoinfre/minishell");
 	pwd = ft_getenv("PWD");
-	printf("TEST: %s --> pwd: %s\n", test, pwd);
-	if (pwd) 
+	printf("TEST: %s --> pwd: %s\n", "/home/frnicola/sgoinfre/minishell", pwd);
+	if (pwd)
 		free(pwd);
+}
 
-	test = "./minishell/tests";
-	ft_cd(test);
-	pwd = ft_getenv("PWD");
-	printf("TEST: %s --> pwd: %s\n", test, pwd);
-	if (pwd) 
-		free(pwd);
+void	testeecho(void)
+{
+	char	*echo_var[2];
 
-
-	// in (ABUSOLUTO)
-	test = "/home/";
-	ft_cd(test);
-	pwd = ft_getenv("PWD");
-	printf("TEST: %s --> pwd: %s\n", test, pwd);
-	if (pwd) 
-		free(pwd);
-
-	test = "/home/frnicola/sgoinfre/minishell";
-	ft_cd(test);
-	pwd = ft_getenv("PWD");
-	printf("TEST: %s --> pwd: %s\n", test, pwd);
-	if (pwd) 
-		free(pwd);
-
-
-
-	/*
-	
-	// TESTE ECHO
 	printf("\n\nTESTE ECHO\n\n");
-	char *echo_var[2];
-
 	echo_var[0] = "-n";
 	echo_var[1] = NULL;
 	ft_echo(NULL, "Esto se va a imprimir PATH -> --$PATH--");
 	ft_echo(echo_var, "Esto se va a imprimir PATH -> --$PATH-- \n");
+}
 
-	*/
-	// TESTE EXIT
+int	main(int av, char **ac, char **env)
+{
+	load_env(env);
+	testeenvexportunset();
+	testecd();
+	testeecho();
 	ft_exit();
 	len_all(ac);
 	printf("%d", av);
 }
-
