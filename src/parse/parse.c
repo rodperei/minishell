@@ -20,7 +20,6 @@ char	**parse(char **tokens)
 
 	aux = -1;
 	parse = NULL;
-	printf("-->> %s", tokens[0]);
 	if (!tokens)
 		return (parse);
 	while (tokens && len_all(tokens) != ++aux)
