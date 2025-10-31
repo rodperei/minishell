@@ -14,6 +14,7 @@
 #include "../include/helper_functions.h"
 #include "../include/parse.h"
 #include "../include/utils.h"
+#include "../include/redirections.h"
 
 void	free_vars(char **v1, char **v2, char ***m1, char ***m2)
 {
@@ -45,10 +46,12 @@ int	main(int av, char **ac, char **env)
 	char	*str;
 	char	**tokens;
 	char	**parses;
+	char	**pre_exec;
 
 	load_env(env);
 	printf("%d %s\n\n", av, ac[0]);
 	parses = NULL;
+	pre_exec = NULL;
 	while (1)
 	{
 		prompt = create_prompt();
@@ -59,6 +62,8 @@ int	main(int av, char **ac, char **env)
 		tokens = tokenize(str);
 		if (tokens)
 			parses = parse(tokens);
+		if (parses)
+			pre_exec = redirection(&parses);
 		free_vars(&prompt, NULL, &tokens, &parses);
 	}
 	rl_clear_history();

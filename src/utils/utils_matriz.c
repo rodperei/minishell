@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./utils.h"
+#include "../../include/utils.h"
 
 char	**z_maloc_matriz(int size)
 {

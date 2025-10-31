@@ -68,4 +68,7 @@ char	*ft_replace(char *str, char init, char end);
 // error.c
 void	error_handle(int err, char *str);
 
+// ft_path
+char	*ft_resuelve_path(char *path);
+
 #endif

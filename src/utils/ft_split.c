@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./utils.h"
+#include "../../include/utils.h"
 
 int	cont_words(char *str, char C)
 {

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_path.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,55 +11,27 @@
 /* ************************************************************************** */
 
 #include "../../include/utils.h"
+#include "../../include/comands.h"
 
-int	len(char *str)
+char	*ft_resuelve_path(char *path)
 {
-	int	aux;
+	char	*tem;
+	char	*path_complete;
 
-	aux = 0;
-	while (str && str[aux])
-		aux++;
-	return (aux);
-}
-
-int	len_all(char **str)
-{
-	int	aux;
-
-	aux = 0;
-	while (str && str[aux] && str[aux][0])
-		aux++;
-	return (aux);
-}
-
-int	equal(char *str, char *str1)
-{
-	int	aux;
-
-	if (!str || !str1)
-		return (str == str1);
-	aux = 0;
-	while (str[aux] && str1[aux])
+	if (!path)
+		return (path);
+	if (path[0] == '/')
+		return (ft_strdup(path));
+	tem = path;
+	path_complete = ft_getenv("PWD");
+	if (!path_complete)
+		error_handle(0, "Error no exist PWD");
+	else if (ft_strlen(path) > 2 && path[0] == '.' && path[1] == '/')
 	{
-		if (str[aux] != str1[aux])
-			return (0);
-		aux++;
+		path += 2;
+		tem = ft_strdup(path);
 	}
-	return (str[aux] == str1[aux]);
-}
-
-int	equaln(char *str, char *str1, int size)
-{
-	int	aux;
-
-	if (!str || !str1)
-		return (str == str1);
-	aux = 0;
-	while (str[aux] && str1[aux] && aux < size)
-	{
-		if (str[aux] != str1[aux])
-			return (0);
-		aux++;
-	}
-	return (1);
+	path_complete = append(path_complete, 1, "/");
+	path_complete = append(path_complete, ft_strlen(tem), tem);
+	return (path_complete);
 }

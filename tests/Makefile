@@ -32,6 +32,7 @@ src = ../src/commands/cd.c \
 		../src/utils/lens.c \
 		../src/utils/utils_matriz.c \
 		../src/utils/utils_vec.c \
+		../src/utils/ft_path.c \
 		\
 		../src/tokenizer/process_input.c \
 		../src/tokenizer/save_utils.c \
@@ -39,6 +40,8 @@ src = ../src/commands/cd.c \
 		../src/tokenizer/tokenizer.c \
 		\
 		../src/parse/parse.c \
+		\
+		../src/redirections/redirections.c \
 		\
 		./main.c
 
@@ -67,6 +70,9 @@ build/%.o : ../src/tokenizer/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 build/%.o : ../src/parse/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+build/%.o : ../src/redirections/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 build/%.o : %.c | $(obj_dir)

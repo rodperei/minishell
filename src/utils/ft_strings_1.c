@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "./utils.h"
+#include "../../include/utils.h"
 
 static unsigned int	count_size(unsigned int i, unsigned int j, const char *src)
 {
