@@ -84,7 +84,7 @@ int	main(int av, char **ac, char **env)
 			break ;
 		add_history(str);
 		status = excecute_console(str);
-		printf("\n[main] filio termino em: %d\n", status);
+		printf("\n[main] filho termino em: %d\n", status);
 		free_vars(&prompt, NULL, NULL, NULL);
 	}
 	rl_clear_history();
