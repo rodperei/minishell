@@ -15,6 +15,7 @@
 #include "../include/parse.h"
 #include "../include/utils.h"
 #include "../include/redirections.h"
+#include "../include/execute_comands.h"
 
 void	free_vars(char **v1, char **v2, char ***m1, char ***m2)
 {
@@ -46,7 +47,6 @@ int	excecute_console(char *str)
 	int		status;
 	char	**tokens;
 	char	**parses;
-	char	**pre_exec;
 
 	parses = NULL;
 	tokens = NULL;
@@ -57,13 +57,17 @@ int	excecute_console(char *str)
 		tokens = tokenize(str);
 		if (tokens)
 			parses = parse(tokens);
+
+		// Aqui vai expansão
+		
 		if (parses)
-			pre_exec = redirection(&parses);
+			redirection(&parses);
+		if (parses)
+			excecute_parse(parses);
 		free_vars(NULL, NULL, &tokens, &parses);
-		rl_clear_history();
 		exit(0);
 	}
-	else 
+	else
 		waitpid(pid, &status, 0);
 	return (status);
 }

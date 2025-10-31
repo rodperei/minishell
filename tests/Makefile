@@ -43,6 +43,8 @@ src = ../src/commands/cd.c \
 		\
 		../src/redirections/redirections.c \
 		\
+		../src/execute/execute.c \
+		\
 		./main.c
 
 tmp = $(notdir $(src))
@@ -73,6 +75,9 @@ build/%.o : ../src/parse/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 build/%.o : ../src/redirections/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+build/%.o : ../src/execute/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 build/%.o : %.c | $(obj_dir)

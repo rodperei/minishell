@@ -62,7 +62,7 @@ void	case_read_term(char ***parse, int aux)
 	}
 }
 
-char	**redirection(char ***parse)
+void	redirection(char ***parse)
 {
 	int			aux;
 
@@ -73,5 +73,4 @@ char	**redirection(char ***parse)
 		case_read_term(parse, aux);
 	}
 	print_matriz_vec((*parse), "redirection");
-	return ((*parse));
 }
