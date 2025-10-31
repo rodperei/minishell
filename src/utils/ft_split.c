@@ -90,3 +90,14 @@ void	free_all(char **matriz)
 		free(matriz);
 	matriz = NULL;
 }
+
+void	print_matriz_vec(char **matriz, char *vec)
+{
+	int	aux;
+
+	if (vec)
+		printf("\n%s\n", vec);
+	aux = -1;
+	while (matriz && matriz[(++aux)])
+		printf("[mat:%d] -> %s\n", aux, matriz[aux]);
+}

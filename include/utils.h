@@ -48,6 +48,7 @@ void	free_all(char **map);
 char	**ft_split(char *str, char C);
 int		cont_letter(char *str, char C);
 int		cont_words(char *str, char C);
+void	print_matriz_vec(char **matriz, char *vec);
 
 // ft_strings_1.c
 size_t	ft_strlcat(char *dst, const char *src, size_t dsize);
