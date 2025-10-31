@@ -40,18 +40,42 @@ void	free_vars(char **v1, char **v2, char ***m1, char ***m2)
 	}
 }
 
-int	main(int av, char **ac, char **env)
+int	excecute_console(char *str)
 {
-	char	*prompt;
-	char	*str;
+	int		pid;
+	int		status;
 	char	**tokens;
 	char	**parses;
 	char	**pre_exec;
 
+	parses = NULL;
+	tokens = NULL;
+	pid = 0;
+	pid = fork();
+	if (pid == 0)
+	{
+		tokens = tokenize(str);
+		if (tokens)
+			parses = parse(tokens);
+		if (parses)
+			pre_exec = redirection(&parses);
+		free_vars(NULL, NULL, &tokens, &parses);
+		rl_clear_history();
+		exit(0);
+	}
+	else 
+		waitpid(pid, &status, 0);
+	return (status);
+}
+
+int	main(int av, char **ac, char **env)
+{
+	char	*prompt;
+	char	*str;
+	int		status;
+
 	load_env(env);
 	printf("%d %s\n\n", av, ac[0]);
-	parses = NULL;
-	pre_exec = NULL;
 	while (1)
 	{
 		prompt = create_prompt();
@@ -59,12 +83,9 @@ int	main(int av, char **ac, char **env)
 		if (!str || equal(str, "exit"))
 			break ;
 		add_history(str);
-		tokens = tokenize(str);
-		if (tokens)
-			parses = parse(tokens);
-		if (parses)
-			pre_exec = redirection(&parses);
-		free_vars(&prompt, NULL, &tokens, &parses);
+		status = excecute_console(str);
+		printf("\n[main] filio termino em: %d\n", status);
+		free_vars(&prompt, NULL, NULL, NULL);
 	}
 	rl_clear_history();
 	free_vars(&prompt, &str, NULL, NULL);
