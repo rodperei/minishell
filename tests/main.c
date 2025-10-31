@@ -12,33 +12,55 @@
 
 #include "../include/comands.h"
 #include "../include/helper_functions.h"
+#include "../include/parse.h"
 #include "../include/utils.h"
+
+void	free_vars(char **v1, char **v2, char ***m1, char ***m2)
+{
+	if (v1 && (*v1))
+	{
+		free((*v1));
+		(*v1) = NULL;
+	}
+	if (v2 && (*v2))
+	{
+		free((*v2));
+		(*v2) = NULL;
+	}
+	if (m1 && (*m1))
+	{
+		free_all((*m1));
+		(*m1) = NULL;
+	}
+	if (m2 && (*m2))
+	{
+		free_all((*m2));
+		(*m2) = NULL;
+	}
+}
 
 int	main(int av, char **ac, char **env)
 {
 	char	*prompt;
 	char	*str;
+	char	**tokens;
+	char	**parses;
 
 	load_env(env);
-	printf("%d", av);
-	printf("%s\n\n", ac[0]);
-
+	printf("%d %s\n\n", av, ac[0]);
+	parses = NULL;
 	while (1)
 	{
 		prompt = create_prompt();
 		str = readline(prompt);
 		if (!str || equal(str, "exit"))
 			break ;
-		printf("readline input: %s\n", str);
 		add_history(str);
-		free(prompt);
-		free(str);
+		tokens = tokenize(str);
+		if (tokens)
+			parses = parse(tokens);
+		free_vars(&prompt, NULL, &tokens, &parses);
 	}
-
-	printf("EOF reached\n");
 	rl_clear_history();
-	if (str)
-		free(str);
-	if (prompt)
-		free(prompt);
+	free_vars(&prompt, &str, NULL, NULL);
 }

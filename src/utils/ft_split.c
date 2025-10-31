@@ -88,4 +88,5 @@ void	free_all(char **matriz)
 	}
 	if (matriz)
 		free(matriz);
+	matriz = NULL;
 }

@@ -34,7 +34,7 @@ char	**append_matriz(char **matriz, char *new_line)
 	char	**result;
 
 	if (!matriz)
-		matriz = z_maloc_matriz(1);
+		matriz = z_maloc_matriz(0);
 	result = z_maloc_matriz(len_all(matriz) + 1);
 	aux = 0;
 	while (matriz && matriz[aux])
@@ -44,7 +44,8 @@ char	**append_matriz(char **matriz, char *new_line)
 	}
 	result[aux] = copy_vec(new_line);
 	result[aux + 1] = NULL;
-	free_all(matriz);
+	if (matriz)
+		free_all(matriz);
 	return (result);
 }
 

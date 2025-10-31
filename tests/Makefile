@@ -38,7 +38,9 @@ src = ../src/commands/cd.c \
 		../src/tokenizer/token_utils.c \
 		../src/tokenizer/tokenizer.c \
 		\
-		./main_comands.c
+		../src/parse/parse.c \
+		\
+		./main.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)
@@ -52,9 +54,6 @@ all: $(NAME_1)
 $(NAME_1): $(addprefix $(obj_dir), $(obj))
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
-build/%.o : ../src/commands/cd/%.c | $(obj_dir)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
 build/%.o : ../src/commands/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
@@ -65,6 +64,9 @@ build/%.o : ../src/utils/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 build/%.o : ../src/tokenizer/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+build/%.o : ../src/parse/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 build/%.o : %.c | $(obj_dir)
