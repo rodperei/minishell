@@ -41,6 +41,7 @@ void	shear_error(char **tokens, int aux)
 	errors[4] = "|";
 	errors[5] = NULL;
 	max = len_all(tokens);
+	(void)max;
 	err = 0;
 	while (errors[err] && tokens[aux])
 	{

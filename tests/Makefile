@@ -45,7 +45,7 @@ src = ../src/commands/cd.c \
 		\
 		../src/execute/execute.c \
 		\
-		./main.c
+		./tokenize_test.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)

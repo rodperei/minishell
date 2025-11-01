@@ -20,7 +20,7 @@ int	main(void)
 	char	**tokens;
 	int		i;
 
-	str = "\n\n\tTest the \nTokens\n\n\tof    the token\nizer<<<<<>|||\n\n\n";
+	str = "|     |        |        |     \"|     |\"    '|    |'";
 	str = ft_strdup(str);
 	printf("str: |%s|\n\n", str);
 	tokens = tokenize(str);
@@ -28,5 +28,4 @@ int	main(void)
 	while (tokens[++i])
 		printf("token %d: %s\n", i, tokens[i]);
 	free_all(tokens);
-	free(str);
 }
