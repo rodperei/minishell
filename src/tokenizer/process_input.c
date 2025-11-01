@@ -26,7 +26,7 @@ void	shrink_wspace(char *input, char *buff, int *i, size_t *j)
 	{
 		buff[(*i++)] = ' ';
 		(*j)++;
-		while (ft_strchr(" \t", *input))
+		while (ft_strchr(" \t", input[*j]))
 			(*j)++;
 	}
 }
@@ -56,12 +56,12 @@ char	*merge_wspaces(char *input)
 	int		i;
 	size_t	j;
 
-	i = -1;
 	j = 0;
 	flg = 0;
 	clean_input = 0;
 	while (input && input[j])
 	{
+		i = -1;
 		while (++i < 99 && input[j])
 		{
 			compute_quotes_mask(input[j], &flg);
