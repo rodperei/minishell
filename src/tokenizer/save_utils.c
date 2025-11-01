@@ -17,11 +17,13 @@
 int	count_word_size(char *tmp, char *end)
 {
 	size_t	i;
+	char	flg;
 
 	i = 0;
 	while (tmp != end)
 	{
-		if (!ft_strchr(" \t\n|<>\"'", *tmp))
+		compute_quotes_mask(*tmp, &flg);
+		if ((flg & 3) != 0 || !ft_strchr(" \t\n|<>", *tmp))
 			i++;
 		tmp++;
 	}
@@ -32,6 +34,7 @@ char	*save_word(char **bgn, char *end, char **tokens)
 {
 	char	*token;
 	size_t	i;
+	char	flg;
 
 	i = count_word_size(*bgn, end);
 	token = malloc((i + 1) * sizeof(char));
@@ -43,7 +46,8 @@ char	*save_word(char **bgn, char *end, char **tokens)
 	i = 0;
 	while (*bgn != end)
 	{
-		if (!ft_strchr(" \t\n|<>\"'", **bgn))
+		compute_quotes_mask(**bgn, &flg);
+		if ((flg & 3) != 0 || !ft_strchr(" \t\n|<>", **bgn))
 			token[i++] = **bgn;
 		(*bgn)++;
 	}

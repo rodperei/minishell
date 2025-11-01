@@ -50,7 +50,10 @@ void	read_token(char **end, char *flg)
 		(*end)++;
 	}
 	if (**end)
+	{
 		(*end)--;
+		compute_quotes_mask(**end, flg);
+	}
 }
 
 char	**resize_tokens(char **list, char *new_token)
