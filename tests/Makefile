@@ -45,7 +45,9 @@ src = ../src/commands/cd.c \
 		\
 		../src/execute/execute.c \
 		\
-		./tokenize_test.c
+		../src/expansions/expansions.c \
+		\
+		./expansions_test.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)
@@ -80,6 +82,9 @@ build/%.o : ../src/redirections/%.c | $(obj_dir)
 build/%.o : ../src/execute/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
+build/%.o : ../src/expansions/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
 build/%.o : %.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
@@ -93,7 +98,7 @@ clean:
 	rm -rf $(obj_dir)
 
 fclean: clean
-	rm -f $(NAME_1)
+	rm -f $(NAME_1) .env
 
 re: fclean all
 
