@@ -16,6 +16,8 @@
 //	token_utils.c
 
 # define META 4
+#define SQUOTE 1
+#define DQUOTE 2
 
 void	compute_quotes_mask(char input, char *flg);
 void	is_meta(char c, char *flg);

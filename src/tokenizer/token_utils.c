@@ -13,9 +13,6 @@
 #include "../../include/utils.h"
 #include "tokenizer.h"
 
-#define SQUOTE 1
-#define DQUOTE 2
-
 void	compute_quotes_mask(char input, char *flg)
 {
 	if (!(*flg & SQUOTE) && !(*flg & DQUOTE) && input == '"')

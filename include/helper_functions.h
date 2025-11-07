@@ -6,7 +6,7 @@
 /*   By: rodperei <rodperei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:00:10 by rodperei          #+#    #+#             */
-/*   Updated: 2025/10/23 20:04:51 by rodperei         ###   ########.fr       */
+/*   Updated: 2025/11/07 18:26:07 by rodperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@
 
 char	*create_prompt(void);
 char	**tokenize(char *input);
+char	**expand(char **input);
 
 #endif
