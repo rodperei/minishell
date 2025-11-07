@@ -55,7 +55,7 @@ int	equaln(char *str, char *str1, int size)
 	if (!str || !str1)
 		return (str == str1);
 	aux = 0;
-	while (str[aux] && str1[aux] && aux < size)
+	while ((str[aux] || str1[aux]) && aux < size)
 	{
 		if (str[aux] != str1[aux])
 			return (0);
