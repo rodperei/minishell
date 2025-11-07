@@ -20,6 +20,8 @@ char	*copy_vec(char *str)
 
 	x = len(str);
 	result = malloc((x + 1) * sizeof(char));
+	if (!result)
+		return (NULL);
 	aux = 0;
 	while (aux != x)
 	{
