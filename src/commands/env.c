@@ -60,10 +60,23 @@ int	ft_env(void)
 	return (1);
 }
 
+int	determine_size(char *var, char *name, int size1)
+{
+	int	size2;
+
+	size2 = ft_strlen(name);
+	while (var[size1] != '=')
+		size1++;
+	if (size1 > size2)
+		return (size1);
+	return (size2);
+}
+
 char	*ft_getenv(char *name)
 {
 	char	**vars;
 	char	*result;
+	int		size;
 	int		aux;
 	int		index;
 
@@ -75,7 +88,8 @@ char	*ft_getenv(char *name)
 		aux = 0;
 		while (vars[index][aux] != '=')
 			aux++;
-		if (equaln(vars[index], name, aux))
+		size = determine_size(vars[index], name, aux);
+		if (equaln(vars[index], name, size))
 		{
 			result = copy_vec(vars[index] + aux + 1);
 			break ;
