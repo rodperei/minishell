@@ -15,17 +15,13 @@
 #include "../include/helper_functions.h"
 #include <stdio.h>
 
-int	main(int argc, char **argv, char **env)
+void	initialize_env(int argc, char **argv, char **env)
 {
 	int		i;
 	int		j;
 	char	key[50];
 	char	value[10000];
-	char	**tokens;
-	char	*tmp;
 
-	if (argc < 2)
-		error_handle(0, "Too few arguments");
 	load_env(env);
 	i = 1;
 	while (++i < argc)
@@ -33,7 +29,7 @@ int	main(int argc, char **argv, char **env)
 		j = 0;
 		while (*argv[i] && *argv[i] != '=')
 			key[j++] = *(argv[i])++;
-		key[j] =  '\0';
+		key[j] = '\0';
 		(argv[i])++;
 		j = 0;
 		while (*argv[i])
@@ -41,6 +37,17 @@ int	main(int argc, char **argv, char **env)
 		value[j] = '\0';
 		ft_export(key, value);
 	}
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	int		i;
+	char	**tokens;
+	char	*tmp;
+
+	if (argc < 2)
+		error_handle(0, "Too few arguments");
+	initialize_env(argc, argv, env);
 	tmp = ft_strdup(argv[1]);
 	tokens = tokenize(tmp);
 	tokens = expand(tokens);
