@@ -14,7 +14,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <stdlib.h>
-#include "../../include/helper_functions.h"
+#include "../include/shell_functions.h"
 
 int	main(void)
 {

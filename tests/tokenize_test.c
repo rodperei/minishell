@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/helper_functions.h"
+#include "../include/shell_functions.h"
 #include "../include/utils.h"
 #include <stdio.h>
 
@@ -20,7 +20,7 @@ int	main(void)
 	char	**tokens;
 	int		i;
 
-	str = "|     |        |   \"\"  ''   |     \"|     |\"    '|    |'";
+	str = "|     |||||||        |   \"\"  ''   |     \"|     |\"    '|    |'";
 	str = ft_strdup(str);
 	printf("str: |%s|\n\n", str);
 	tokens = tokenize(str);

@@ -25,7 +25,7 @@ void	parse_quotes(char *input)
 	flg = 0;
 	while (input && *input)
 	{
-		compute_quotes_mask(*input, &flg);
+		compute_flg_mask(*input, &flg);
 		input++;
 	}
 	if (flg)

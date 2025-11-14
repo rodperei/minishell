@@ -13,7 +13,7 @@
 #include "../../include/utils.h"
 #include "tokenizer.h"
 
-void	compute_quotes_mask(char input, char *flg)
+void	compute_flg_mask(char input, char *flg)
 {
 	if (!(*flg & SQUOTE) && !(*flg & DQUOTE) && input == '"')
 		*flg |= DQUOTE;
@@ -42,14 +42,14 @@ void	read_token(char **end, char *flg)
 	state = *flg;
 	while (state == (*flg & META) && **end)
 	{
-		compute_quotes_mask(**end, flg);
+		compute_flg_mask(**end, flg);
 		is_meta(**end, flg);
 		(*end)++;
 	}
 	if (**end)
 	{
 		(*end)--;
-		compute_quotes_mask(**end, flg);
+		compute_flg_mask(**end, flg);
 	}
 }
 

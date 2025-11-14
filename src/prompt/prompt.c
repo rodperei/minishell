@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/helper_functions.h"
+#include "../../include/shell_functions.h"
 #include "../../include/comands.h"
 #include "../../include/utils.h"
 

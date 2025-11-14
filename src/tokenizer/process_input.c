@@ -64,7 +64,7 @@ char	*merge_wspaces(char *input)
 		i = -1;
 		while (++i < 99 && input[j])
 		{
-			compute_quotes_mask(input[j], &flg);
+			compute_flg_mask(input[j], &flg);
 			if (!flg && ft_strchr(" \n\t", input[j]))
 				shrink_wspace(input, buff, &i, &j);
 			else
