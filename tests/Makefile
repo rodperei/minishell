@@ -46,6 +46,7 @@ src = ../src/commands/cd.c \
 		../src/execute/execute.c \
 		\
 		../src/expansions/expansions.c \
+		../src/expansions/expansion_utils.c \
 		\
 		./expansions_test.c
 
@@ -61,28 +62,7 @@ all: $(NAME_1)
 $(NAME_1): $(addprefix $(obj_dir), $(obj))
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
-build/%.o : ../src/commands/%.c | $(obj_dir)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-build/%.o : ../src/prompt/%.c | $(obj_dir)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-build/%.o : ../src/utils/%.c | $(obj_dir)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-build/%.o : ../src/tokenizer/%.c | $(obj_dir)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-build/%.o : ../src/parse/%.c | $(obj_dir)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-build/%.o : ../src/redirections/%.c | $(obj_dir)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-build/%.o : ../src/execute/%.c | $(obj_dir)
-	$(CC) $(CFLAGS) $(INC) -c $< -o $@
-
-build/%.o : ../src/expansions/%.c | $(obj_dir)
+build/%.o : ../src/*/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 build/%.o : %.c | $(obj_dir)
