@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../tokenizer/tokenizer.h"
 #include "../../include/utils.h"
 #include "./expansions.h"
 
@@ -42,32 +41,40 @@ void	compute_error(char **tokens)
 	error_handle(0, 0);
 }
 
-char	*remove_quotes(char	*token)
+char	**remove_quotes(char **tokens)
 {
 	char	*tmp;
+	size_t	i;
 
-	if (*token == '\'' || *token == '"')
+	i = -1;
+	while (tokens[++i])
 	{
-		tmp = ft_strtrim(token, "'\"");
-		if (!tmp)
-			return (NULL);
-		free(token);
-		return (tmp);
+		if (*tokens[i] == '\'' || *tokens[i] == '"')
+		{
+			tmp = ft_strtrim(tokens[i], "'\"");
+			if (!tmp)
+				compute_error(tokens);
+			free(tokens[i]);
+			tokens[i] = tmp;
+		}
 	}
-	return (token);
+	return (tokens);
 }
 
 char	**expand(char **input)
 {
 	size_t	i;
 	char	*tmp;
-	char	flg;
 
 	i = -1;
 	while (input[++i])
 	{
-		compute_quotes_mask(*input[i], &flg);
-		while (ft_strchr(input[i], '$') && !(flg & SQUOTE))
+		if (!ft_strncmp(input[i], "<<", ft_strlen(input[i])))
+		{
+			i++;
+			continue ;
+		}
+		while (*input[i] != '\'' && ft_strchr(input[i], '$'))
 		{
 			tmp = expand_var(input[i]);
 			if (!tmp)
@@ -75,13 +82,5 @@ char	**expand(char **input)
 			input[i] = tmp;
 		}
 	}
-	i = -1;
-	while (input[++i])
-	{
-		tmp = remove_quotes(input[i]);
-		if (!tmp)
-			compute_error(input);
-		input[i] = tmp;
-	}
-	return (input);
+	return (remove_quotes(input));
 }

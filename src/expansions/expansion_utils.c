@@ -37,14 +37,14 @@ char	*fetch_var_name(char *token, size_t *i)
 	char	*chr;
 
 	expanded_token = 0;
-	chr = ft_strchr(" \t\n", token[*i]);
+	chr = ft_strchr(" \t\n\'\"$", token[*i]);
 	while (token[*i] && !chr)
 	{
 		j = 0;
 		while (j < BUFFER_SIZE - 1 && token[*i] && !chr)
 		{
 			buff[j++] = token[(*i)++];
-			chr = ft_strchr(" \t\n", token[*i]);
+			chr = ft_strchr(" \t\n\'\"$", token[*i]);
 		}
 		buff[j] = '\0';
 		expanded_token = flush_name(expanded_token, buff);
@@ -60,7 +60,7 @@ char	*save_prefix(char *token, size_t *i)
 	size_t	j;
 	char	*result;
 
-	result = 0;
+	result = ft_strdup("");
 	while (token[*i] && token[*i] != '$')
 	{
 		j = 0;
