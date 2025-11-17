@@ -88,5 +88,5 @@ void	redirection(char ***parse)
 		case_redirection(parse, aux);
 		case_read_term(parse, aux);
 	}
-	print_matriz_vec((*parse), "redirection");
+	print_matriz_vec((*parse), "REDIRRECION");
 }

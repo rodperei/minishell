@@ -66,14 +66,14 @@ char	**parse(char **tokens)
 	parse = NULL;
 	if (!tokens)
 		return (parse);
-	print_matriz_vec(tokens, "tokens");
+	print_matriz_vec(tokens, "TOKENS");
 	while (tokens && len_all(tokens) != ++aux)
 	{
 		shear_error(tokens, aux);
 		case_split(&parse, tokens, aux);
 		parse = append_matriz(parse, tokens[aux]);
 	}
-	parse = append_matriz(parse, "\n");
-	print_matriz_vec(parse, "parse");
+	parse = append_matriz(parse, "^");
+	print_matriz_vec(parse, "PARCE");
 	return (parse);
 }
