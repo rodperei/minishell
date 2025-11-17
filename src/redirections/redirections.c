@@ -36,6 +36,22 @@ void	case_redirection(char ***parse, int aux)
 	free(path);
 }
 
+char	*create_file_tem(int num, char *buf)
+{
+	char	*name;
+	int		fd;
+
+	fd = 0;
+	name = ft_strdup("tem0");
+	name[4] = (char)(33 + num);
+	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (!fd)
+		error_handle(0, "Error in redireccion >> not permison fd");
+	write(fd, buf, ft_strlen(buf));
+	close(fd);
+	return (name);
+}
+
 void	case_read_term(char ***parse, int aux)
 {
 	char	*buf;
@@ -58,7 +74,7 @@ void	case_read_term(char ***parse, int aux)
 	if (buf)
 	{
 		free((*parse)[aux + 1]);
-		(*parse)[aux + 1] = buf;
+		(*parse)[aux + 1] = create_file_tem(aux, buf);
 	}
 }
 

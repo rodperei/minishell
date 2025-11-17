@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../include/comands.h"
-#include "../include/helper_functions.h"
+#include "../include/shell_functions.h"
 #include "../include/parse.h"
 #include "../include/utils.h"
 #include "../include/redirections.h"
@@ -57,13 +57,12 @@ int	excecute_console(char *str)
 		tokens = tokenize(str);
 		if (tokens)
 			parses = parse(tokens);
-
-		// Aqui vai expansão
-		
 		if (parses)
+		{
+			parses = expand(parses);
 			redirection(&parses);
-		if (parses)
 			excecute_parse(parses);
+		}
 		free_vars(NULL, NULL, &tokens, &parses);
 		exit(0);
 	}

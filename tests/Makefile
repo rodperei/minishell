@@ -48,7 +48,7 @@ src = ../src/commands/cd.c \
 		../src/expansions/expansions.c \
 		../src/expansions/expansion_utils.c \
 		\
-		./expansions_test.c
+		./main.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)
