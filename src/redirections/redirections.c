@@ -14,7 +14,6 @@
 #include <readline/history.h>
 #include "../../include/utils.h"
 #include "../../include/redirections.h"
-#include "../../include/comands.h"
 
 void	case_redirection(char ***parse, int aux)
 {
