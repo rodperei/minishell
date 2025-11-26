@@ -15,7 +15,7 @@
 #include "../../include/comands.h"
 #include "../../include/execute_comands.h"
 
-int	excecute_comand(char *path, char **args, int in, int out)
+int	excecute_comand(char **tokens, int in, int out)
 {
 	int		pid;
 	int		status;
@@ -33,11 +33,14 @@ int	excecute_comand(char *path, char **args, int in, int out)
 			dup2(out, STDOUT_FILENO);
 		if (out)
 			close(out);
-		error = execve(path, args, ft_getallenv());
-		exit(error);
+		execute_simple_command(tokens)
 	}
 	else
+	{
 		waitpid(pid, &status, 0);
+		ft_export("?", ft_itoa(status));
+		ft_export_tokens(tokens)
+	}
 	return (status);
 }
 

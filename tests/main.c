@@ -67,7 +67,10 @@ int	excecute_console(char *str)
 		exit(0);
 	}
 	else
+	{
 		waitpid(pid, &status, 0);
+		ft_export("?", ft_itoa(status));
+	}
 	return (status);
 }
 
