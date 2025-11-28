@@ -26,11 +26,11 @@ int	ft_unset(char *name)
 	aux = 0;
 	while (envs && envs[aux])
 	{
-		if (equaln(envs[aux], value, ft_strlen(envs[aux])))
+		if (equaln(envs[aux], value, ft_strlen(value)))
 			break ;
 		aux++;
 	}
-	if (equaln(envs[aux], value, ft_strlen(envs[aux])))
+	if (equaln(envs[aux], value, ft_strlen(value)))
 		envs = delete_vec_matriz(envs, aux);
 	load_env(envs);
 	free_all(envs);
