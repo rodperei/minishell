@@ -10,10 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/utils.h"
-#include "../../include/parse.h"
-#include "../../include/comands.h"
-#include "../../include/execute_comands.h"
+#include "../../../include/utils.h"
+#include "../../../include/parse.h"
+#include "../../../include/comands.h"
+#include "../../../include/limits.h"
+#include "../../../include/execute_comands.h"
 
 int	excecute_comand(char **tokens, int in, int out)
 {
@@ -54,6 +55,7 @@ int	excecute_comand(char **tokens, int in, int out)
 int	excecute_parse(char **parse)
 {
 	int	aux;
+	int	pipefd[PIPE_MAX][2];
 
 	aux = -1;
 	fd1 = 0;
