@@ -43,6 +43,9 @@ int		count_caracter_matriz(char **mp, char c);
 char	**read_file(int fd, char c);
 char	**delete_vec_matriz(char **matriz, int index_delete);
 
+// ft_itoa.c
+char	*ft_itoa(int n);
+
 // ft_memmove.c
 void	*ft_memmove(void *dest, const void *src, size_t n);
 
