@@ -15,7 +15,12 @@
 
 # include <stddef.h>
 
+// expansion_utils.c
 char	*save_prefix(char *token, size_t *i);
 char	*swap_expansion(char *prefix, char *token, size_t *i);
+
+// hdoc_utils.c
+void	save_buffer(char *buff, int	*j);
+char	*read_input(char *delimiter);
 
 #endif

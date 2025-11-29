@@ -57,20 +57,3 @@ unsigned int	count_size(unsigned int i, unsigned int j, const char *src)
 	}
 	return (i);
 }
-
-size_t	ft_strlcat(char *dst, const char *src, size_t dsize)
-{
-	unsigned int	i;
-	unsigned int	j;
-
-	i = 0;
-	j = 0;
-	while (dst[i] && i < dsize)
-		i++;
-	if (i == dsize)
-		return (count_size(i, j, src));
-	while (src[j] && (i + 1) < dsize)
-		dst[i++] = src[j++];
-	dst[i] = '\0';
-	return (count_size(i, j, src));
-}

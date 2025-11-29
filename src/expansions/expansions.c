@@ -62,17 +62,41 @@ char	**remove_quotes(char **tokens)
 	return (tokens);
 }
 
+char	*expand_heredoc(char *delimiter, int *j)
+{
+	char	*buff;
+	char	*tmp;
+	char	name[15];
+	char	*file_no;
+	
+	tmp = ft_strtrim(delimiter, "\"'");
+	free(delimiter);
+	buff = read_input(tmp);
+	free(tmp);
+	while (ft_strchr(buff, '$'))
+		buff = expand_var(buff);
+	save_buffer(buff, j);
+	ft_memmove(name, "tmp", 4);
+	file_no = ft_itoa((*j)++);
+	ft_strlcat(name, file_no, 15);
+	free(file_no);
+	return (ft_strdup(name));
+}
+
 char	**expand(char **input)
 {
 	size_t	i;
+	int		j;
 	char	*tmp;
 
 	i = -1;
+	j = 0;
 	while (input[++i])
 	{
 		if (!ft_strncmp(input[i], "<<", ft_strlen(input[i])))
 		{
 			i++;
+			input[i] = expand_heredoc(input[i], &j);
 			continue ;
 		}
 		while (*input[i] != '\'' && ft_strchr(input[i], '$'))
