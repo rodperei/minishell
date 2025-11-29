@@ -84,7 +84,7 @@ void	redirection(char ***parse)
 	aux = -1;
 	while ((*parse)[++aux])
 	{
-		case_redirection(parse, aux);
+		//case_redirection(parse, aux);
 		case_read_term(parse, aux);
 	}
 	print_matriz_vec((*parse), "REDIRRECION");

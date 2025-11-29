@@ -75,4 +75,7 @@ void	error_handle(int err, char *str);
 // ft_path
 char	*ft_resuelve_path(char *path);
 
+// ft_iota
+char	*ft_itoa(int n);
+
 #endif

@@ -47,6 +47,7 @@ int	excecute_console(char *str)
 	int		status;
 	char	**tokens;
 	char	**parses;
+	char	*tem;
 
 	parses = NULL;
 	tokens = NULL;
@@ -55,21 +56,19 @@ int	excecute_console(char *str)
 	if (pid == 0)
 	{
 		tokens = tokenize(str);
-		if (tokens)
-			parses = parse(tokens);
-		if (parses)
-		{
-			parses = expand(parses);
-			redirection(&parses);
-			excecute_parse(parses);
-		}
+		parses = parse(tokens);
+		parses = expand(parses);
+		redirection(&parses);
+		excecute_parse(parses);
 		free_vars(NULL, NULL, &tokens, &parses);
 		exit(0);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		ft_export("?", ft_itoa(status));
+		tem = ft_itoa(status);
+		ft_export("?", tem);
+		free(tem);
 	}
 	return (status);
 }

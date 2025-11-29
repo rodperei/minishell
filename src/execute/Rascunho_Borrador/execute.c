@@ -20,11 +20,17 @@ int	excecute_comand(char **tokens, int in, int out)
 	int		pid;
 	int		status;
 	int		error;
+	char	*tem;
 
 	pid = 0;
 	pid = fork();
 	if (pid == 0)
 	{
+		if (in < 0 || out < 0)
+		{
+			perror("minishel: ");
+			exit(1);
+		}
 		if (in)
 			dup2(in, STDIN_FILENO);
 		if (in)
@@ -33,13 +39,14 @@ int	excecute_comand(char **tokens, int in, int out)
 			dup2(out, STDOUT_FILENO);
 		if (out)
 			close(out);
-		execute_simple_command(tokens)
+		execute_simple_command(tokens);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
-		ft_export("?", ft_itoa(status));
-		ft_export_tokens(tokens)
+		tem = ft_itoa(status);
+		ft_export("?", tem);
+		free(tem);
 	}
 	return (status);
 }
@@ -49,13 +56,18 @@ int	excecute_parse(char **parse)
 	int	aux;
 
 	aux = -1;
+	fd1 = 0;
+	fd2 = 1;
 	while (parse && parse[++aux])
 	{
 		if (equal("\n", parse[aux]))
 			continue ;
 			
 		printf("[execute] %s\n", parse[aux]);
-
+		//>< >>
+		fd1 = open(parse[0]);
+		fd2 = open(parse[2]);
+		excecute_comand(parse, fd1, fd2);
 		// Aqui nós executaríamos as redireções sem problema e os pipes também, 
 		// já com tudo controlado e expandido, direto para executar.
 	}
