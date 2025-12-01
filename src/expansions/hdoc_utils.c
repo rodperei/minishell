@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <readline/readline.h>
 #include <stdio.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include "../../include/utils.h"
 #include "../../include/ft_limits.h"
@@ -53,6 +54,7 @@ void	save_buffer(char *buff, int	*j)
 {
 	char	name[66];
 	char	*file_no;
+	mode_t	permitions;
 	int		fd;
 
 	if (*j > HDOC_MAX)
@@ -61,7 +63,8 @@ void	save_buffer(char *buff, int	*j)
 	file_no = ft_itoa(*j);
 	ft_strlcat(name, file_no, 66);
 	free(file_no);
-	fd = open(name, O_WRONLY | O_CREAT);
+	permitions = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
+	fd = open(name, O_WRONLY | O_CREAT, permitions);
 	write(fd, buff, ft_strlen(buff));
 	free(buff);
 	close(fd);
