@@ -13,6 +13,8 @@
 #ifndef HELPER_FUNCTIONS_H
 # define HELPER_FUNCTIONS_H
 
+# include "./ft_limits.h"
+
 # define RED	"\033[31m"
 # define GREEN	"\033[32m"
 # define YELLOW	"\033[33m"
@@ -23,5 +25,6 @@
 char	*create_prompt(void);
 char	**tokenize(char *input);
 char	**expand(char **input);
+char	**redirection(char **tokens, int fds[REDIR_MAX]);
 
 #endif

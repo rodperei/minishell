@@ -68,7 +68,7 @@ char	*expand_heredoc(char *delimiter, int *j)
 	char	*tmp;
 	char	name[15];
 	char	*file_no;
-	
+
 	tmp = ft_strtrim(delimiter, "\"'");
 	free(delimiter);
 	buff = read_input(tmp);
