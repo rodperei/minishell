@@ -38,7 +38,7 @@ int	excecute_comand(char **tokens, int in, int out)
 	}
 	else
 	{
-		waitpid(pid, &status, 0);
+		//waitpid(pid, &status, 0);
 		ft_export("?", ft_itoa(status));
 		ft_export_tokens(tokens)
 	}
