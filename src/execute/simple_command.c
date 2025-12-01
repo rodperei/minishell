@@ -12,19 +12,19 @@
 
 #include "../../include/utils.h"
 #include "../../include/comands.h"
-#include "../../include/limits.h"
+#include "../../include/ft_limits.h"
 #include <stdlib.h>
 #include <unistd.h>
 
 void	initialize_builtin_matrix(char builtins[7][7])
 {
-	ft_memmove(builtins[0], "echo", ft_strlen("echo"));
-	ft_memmove(builtins[1], "cd", ft_strlen("cd"));
-	ft_memmove(builtins[2], "pwd", ft_strlen("pwd"));
-	ft_memmove(builtins[3], "export", ft_strlen("export"));
-	ft_memmove(builtins[4], "unset", ft_strlen("unset"));
-	ft_memmove(builtins[5], "env", ft_strlen("env"));
-	ft_memmove(builtins[6], "exit", ft_strlen("exit"));
+	ft_memmove(builtins[0], "echo", ft_strlen("echo") + 1);
+	ft_memmove(builtins[1], "cd", ft_strlen("cd") + 1);
+	ft_memmove(builtins[2], "pwd", ft_strlen("pwd") + 1);
+	ft_memmove(builtins[3], "export", ft_strlen("export") + 1);
+	ft_memmove(builtins[4], "unset", ft_strlen("unset") + 1);
+	ft_memmove(builtins[5], "env", ft_strlen("env") + 1);
+	ft_memmove(builtins[6], "exit", ft_strlen("exit") + 1);
 }
 
 void	execute_builtin(char **tokens, char builtins[7][7])

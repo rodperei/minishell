@@ -85,7 +85,7 @@ char	*swap_expansion(char *prefix, char *token, size_t *i)
 	tmp = ft_getenv(result);
 	free(result);
 	if (!tmp)
-		ft_strdup("");
+		tmp = ft_strdup("");
 	result = ft_strjoin(prefix, tmp);
 	free(tmp);
 	free(prefix);

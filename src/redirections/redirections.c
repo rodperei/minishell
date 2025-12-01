@@ -3,89 +3,120 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: rodperei <rodperei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/24 15:59:16 by frnicola          #+#    #+#             */
-/*   Updated: 2025/09/24 15:59:20 by frnicola         ###   ########.fr       */
+/*   Created: 2025/11/29 17:51:29 by rodperei          #+#    #+#             */
+/*   Updated: 2025/11/29 17:56:25 by rodperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <readline/readline.h>
-#include <readline/history.h>
+#include <fcntl.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include "../../include/utils.h"
-#include "../../include/redirections.h"
+#include "../../include/ft_limits.h"
+#include "redirections.h"
 
-void	case_redirection(char ***parse, int aux)
+#define TRUNCATE 0
+#define APPEND 1
+#define BUFFER_SIZE 1000
+#define ROOT_DIR "/home/rodperei/Documentos/Common Core/Projects/minishell/"
+
+char	**redir_input(char **tokens, int *i, int *fd)
 {
-	int		fd;
-	char	*path;
+	int	ret;
 
-	fd = -2;
-	path = ft_resuelve_path((*parse)[aux + 1]);
-	if (equal((*parse)[aux], ">"))
-		fd = open(path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	else if (equal((*parse)[aux], "<"))
-		fd = open(path, O_RDONLY);
-	else if (equal((*parse)[aux], ">>"))
-		fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	if (fd < 0 && fd != -2)
-		error_handle(0, "Error in redireccion");
-	if (fd != -2)
-		close(fd);
-	free(path);
+	*fd = open(tokens[*i + 1], O_RDONLY);
+	if (*fd == -1)
+		error_handle(0, 0);
+	ret = dup2(STDIN_FILENO, *fd);
+	if (ret == -1)
+		error_handle(0, 0);
+	return (remove_redir_tokens(tokens, i));
 }
 
-char	*create_file_tem(int num, char *buf)
+char	**redir_output(char **tokens, int *i, int *fd, char mode)
 {
-	char	*name;
-	int		fd;
+	int		ret;
+	int		flags;
+	mode_t	permitions;
 
-	fd = 0;
-	name = ft_strdup("tem0");
-	name[4] = (char)(33 + num);
-	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (!fd)
-		error_handle(0, "Error in redireccion >> not permison fd");
-	write(fd, buf, ft_strlen(buf));
-	close(fd);
-	return (name);
+	if (mode == TRUNCATE)
+		flags = O_WRONLY | O_CREAT | O_TRUNC;
+	else
+		flags = O_WRONLY | O_CREAT | O_APPEND;
+	permitions = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
+	*fd = open(tokens[*i + 1], flags, permitions);
+	if (*fd == -1)
+		error_handle(0, 0);
+	ret = dup2(*fd, STDOUT_FILENO);
+	if (ret == -1)
+		error_handle(0, 0);
+	return (remove_redir_tokens(tokens, i));
 }
 
-void	case_read_term(char ***parse, int aux)
+char	*load_buffer(int fd)
+{
+	char	buf[BUFFER_SIZE];
+	char	*tmp;
+	char	*input;
+	int		ret;
+
+	input = 0;
+	ret = 1;
+	while (ret)
+	{
+		ret = read(fd, buf, BUFFER_SIZE - 1);
+		if (ret == -1)
+			error_handle(0, 0);
+		buf[ret] = '\0';
+		tmp = ft_strjoin(input, buf);
+		free(input);
+		input = tmp;
+	}
+	return (input);
+}
+
+char	**redir_heredoc(char **tokens, int *i)
 {
 	char	*buf;
-	char	*str;
+	int		fd;
+	char	name[65];
 
-	if (!equal((*parse)[aux], "<<"))
-		return ;
-	buf = NULL;
-	while (1)
-	{
-		str = readline(">");
-		if (!str || equal(str, (*parse)[aux + 1]))
-			break ;
-		str = append(str, ft_strlen("\n"), "\n");
-		buf = append(buf, ft_strlen(str), str);
-		free(str);
-	}
-	if (str)
-		free(str);
-	if (buf)
-	{
-		free((*parse)[aux + 1]);
-		(*parse)[aux + 1] = create_file_tem(aux, buf);
-	}
+	ft_memmove(name, ROOT_DIR, ft_strlen(ROOT_DIR) + 1);
+	ft_strlcat(name, tokens[*i + 1], 65);
+	fd = open(name, O_RDONLY);
+	if (fd == -1)
+		error_handle(0, 0);
+	buf = load_buffer(fd);
+	close(fd);
+	unlink(name);
+	write(STDIN_FILENO, buf, ft_strlen(buf));
+	free(buf);
+	return (remove_redir_tokens(tokens, i));
 }
 
-void	redirection(char ***parse)
+char	**redirection(char **tokens, int fds[REDIR_MAX])
 {
-	int			aux;
+	int	i;
+	int	j;
 
-	aux = -1;
-	while ((*parse)[++aux])
+	i = -1;
+	j = -1;
+	while (tokens[++i])
 	{
-		//case_redirection(parse, aux);
-		case_read_term(parse, aux);
+		if (j >= REDIR_MAX)
+			error_handle(0, "Exceeded redirections limit\n");
+		if (!ft_strncmp(tokens[i], "<", ft_strlen(tokens[i])))
+			tokens = redir_input(tokens, &i, &fds[++j]);
+		else if (!ft_strncmp(tokens[i], ">", ft_strlen(tokens[i])))
+			tokens = redir_output(tokens, &i, &fds[++j], TRUNCATE);
+		else if (!ft_strncmp(tokens[i], "<<", ft_strlen(tokens[i])))
+			tokens = redir_heredoc(tokens, &i);
+		else if (!ft_strncmp(tokens[i], "<<", ft_strlen(tokens[i])))
+			tokens = redir_output(tokens, &i, &fds[++j], APPEND);
 	}
-	print_matriz_vec((*parse), "REDIRRECION");
+	return (tokens);
 }

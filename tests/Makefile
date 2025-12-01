@@ -25,6 +25,8 @@ src = ../src/commands/cd.c \
 		../src/prompt/prompt.c \
 		\
 		../src/utils/error.c \
+		../src/utils/ft_itoa.c \
+		../src/utils/ft_memmove.c \
 		../src/utils/ft_split.c \
 		../src/utils/ft_strings_1.c \
 		../src/utils/ft_strings_2.c \
@@ -43,12 +45,11 @@ src = ../src/commands/cd.c \
 		\
 		../src/redirections/redirections.c \
 		\
-		../src/execute/execute.c \
-		\
 		../src/expansions/expansions.c \
+		../src/expansions/hdoc_utils.c \
 		../src/expansions/expansion_utils.c \
 		\
-		./main.c
+		./redir_test.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)
@@ -78,7 +79,7 @@ clean:
 	rm -rf $(obj_dir)
 
 fclean: clean
-	rm -f $(NAME_1) .env
+	rm -f $(NAME_1)
 
 re: fclean all
 
