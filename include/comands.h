@@ -39,9 +39,9 @@ int		load_env(char **env);
 int		error(char *str);
 
 // traductor.v
-int     ft_echo_tokens(char **tokens);
-int     ft_cd_tokens(char **tokens);
-int     ft_export_tokens(char **tokens);
-int     ft_unset_tokens(char **tokens);
+void    ft_echo_tokens(char **tokens);
+void    ft_cd_tokens(char **tokens);
+void    ft_export_tokens(char **tokens);
+void    ft_unset_tokens(char **tokens);
 
 #endif

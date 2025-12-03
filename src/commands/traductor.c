@@ -13,7 +13,7 @@
 #include "../../include/utils.h"
 #include "../../include/comands.h"
 
-int     ft_echo_tokens(char **tokens)
+void    ft_echo_tokens(char **tokens)
 {
     int     len;
     int     flag;
@@ -37,7 +37,7 @@ int     ft_echo_tokens(char **tokens)
     error_handle(0, 0);
 }
 
-int     ft_cd_tokens(char **tokens)
+void    ft_cd_tokens(char **tokens)
 {
     int     len;
     char    *path;
@@ -59,7 +59,7 @@ int     ft_cd_tokens(char **tokens)
     error_handle(0, 0);
 }
 
-int     ft_export_tokens(char **tokens)
+void    ft_export_tokens(char **tokens)
 {
     int     len;
     int     aux;
@@ -73,7 +73,7 @@ int     ft_export_tokens(char **tokens)
     {
         if (include(tokens[aux], "="))
         {
-            str = ft_split_custom(tokens[aux], "=");
+            str = ft_split_custom(tokens[aux], '=');
             if (len_all(str) == 2)
                 ft_export(str[0], str[1]);
             else
@@ -83,7 +83,7 @@ int     ft_export_tokens(char **tokens)
     error_handle(0, 0);
 }
 
-int     ft_unset_tokens(char **tokens)
+void    ft_unset_tokens(char **tokens)
 {
     int     len;
     int     aux;

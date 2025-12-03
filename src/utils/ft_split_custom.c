@@ -12,7 +12,7 @@
 
 #include "../../include/utils.h"
 
-int	cont_words(char *str, char C)
+int	cont_words_custom(char *str, char C)
 {
 	int	cant;
 	int	aux;
@@ -29,11 +29,11 @@ int	cont_words(char *str, char C)
 			aux++;
 	}
     if (cant > 2)
-        return (2);
+		return (2);
 	return (cant);
 }
 
-int	cont_letter(char *str, char C)
+int	cont_letter_custom(char *str, char C)
 {
 	int	cant;
 	int	aux;
@@ -56,13 +56,13 @@ char	**ft_split_custom(char *str, char C)
 	int		aux1;
 	int		letter;
 
-	cant = cont_words(str, C);
+	cant = cont_words_custom(str, C);
 	aux = 0;
 	letter = 0;
 	result = malloc((1 + cant) * sizeof(char *));
 	while (cant != aux)
 	{
-		letter = cont_letter(str, C);
+		letter = cont_letter_custom(str, C);
 		result[aux] = malloc(letter * sizeof(char) + 1);
 		aux1 = 0;
 		while (letter != aux1)
