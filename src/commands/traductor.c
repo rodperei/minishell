@@ -36,3 +36,23 @@ int     ft_echo_tokens(char **tokens)
     ft_echo(text, flag);
     error_handle(0, 0);
 }
+
+int     ft_cd_tokens(char **tokens)
+{
+    int     len;
+    char    *path;
+
+    len = len_all(tokens);
+    path = NULL;
+    if (len > 2)
+        error_handle(1, "too many arguments");
+    if (len == 1)
+    {
+        path = ft_getenv("HOME");
+        ft_cd(path);
+        free(path);
+    }
+    else
+        ft_cd(tokens[1]);
+    error_handle(0, 0);
+}
