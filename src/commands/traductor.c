@@ -45,10 +45,12 @@ int     ft_cd_tokens(char **tokens)
     len = len_all(tokens);
     path = NULL;
     if (len > 2)
-        error_handle(1, "too many arguments");
+        error_handle(1, "cd: too many arguments");
     if (len == 1)
     {
         path = ft_getenv("HOME");
+        if (!path)
+            error_handle(1, "cd: HOME not set");
         ft_cd(path);
         free(path);
     }

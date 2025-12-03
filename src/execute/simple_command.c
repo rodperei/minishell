@@ -41,7 +41,7 @@ void	execute_builtin(char **tokens, char builtins[7][7])
 		if (i == 0)
 			ft_echo_tokens(tokens);
 		else if (i == 1)
-			ft_cd(tokens);
+			ft_cd_tokens(tokens);
 		else if (i == 2)
 			ft_pwd();
 		else if (i == 3)
