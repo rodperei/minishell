@@ -82,3 +82,17 @@ int     ft_export_tokens(char **tokens)
     }
     error_handle(0, 0);
 }
+
+int     ft_unset_tokens(char **tokens)
+{
+    int     len;
+    int     aux;
+
+    aux = 0;
+    len = len_all(tokens);
+    if (len == 1)
+        error_handle(0, 0);
+    while (++aux != len)
+        ft_unset(tokens[aux]);
+    error_handle(0, 0);
+}
