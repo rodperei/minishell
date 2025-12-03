@@ -61,13 +61,9 @@ void	testecd(void)
 
 void	testeecho(void)
 {
-	char	*echo_var[2];
-
 	printf("\n\nTESTE ECHO\n\n");
-	echo_var[0] = "-n";
-	echo_var[1] = NULL;
-	ft_echo(NULL, "Esto se va a imprimir PATH -> --$PATH--");
-	ft_echo(echo_var, "Esto se va a imprimir PATH -> --$PATH-- \n");
+	ft_echo("Esto se va a imprimir PATH -> --$PATH--", 0);
+	ft_echo("Esto se va a imprimir PATH -> --$PATH-- \n", 0);
 }
 
 int	main(int av, char **ac, char **env)

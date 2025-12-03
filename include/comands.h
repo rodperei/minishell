@@ -23,7 +23,7 @@
 // funcions
 void	ft_exit(void);
 int		ft_env(void);
-int		ft_echo(char **args, char *text);
+int     ft_echo(char *text, int flag_n);
 int		ft_export(char *name, char *value);
 int		ft_unset(char *value);
 int		ft_cd(char *path); // ainda tem problemas
@@ -37,5 +37,8 @@ int		load_env(char **env);
 
 // echo/echo.c
 int		error(char *str);
+
+// traductor.v
+int     ft_echo_tokens(char **tokens);
 
 #endif

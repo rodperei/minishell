@@ -39,7 +39,7 @@ void	execute_builtin(char **tokens, char builtins[7][7])
 	if (cmp == 0)
 	{
 		if (i == 0)
-			ft_echo(tokens);
+			ft_echo_tokens(tokens);
 		else if (i == 1)
 			ft_cd(tokens);
 		else if (i == 2)

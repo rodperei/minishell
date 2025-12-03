@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   traductor.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,53 +13,26 @@
 #include "../../include/utils.h"
 #include "../../include/comands.h"
 
-int	error(char *str)
+int     ft_echo_tokens(char **tokens)
 {
-	printf("%s\n", str);
-	exit(127);
-}
+    int     len;
+    int     flag;
+    int     aux;
+    char    *text;
 
-int	print_env(char *str)
-{
-	char	var[1025];
-	int		aux;
-	char	*var_env;
-
-	str++;
-	aux = 0;
-	while (str && str[aux])
-	{
-		var[aux] = str[aux];
-		aux++;
-	}
-	var[aux] = '\0';
-	var_env = ft_getenv(var);
-	printf("%s", var_env);
-	free(var_env);
-	return (++aux);
-}
-
-void	print_text(char *str)
-{
-	while (str && *str)
-	{
-		if (*str == '$')
-			str += print_env(str);
-		if (*str <= 32 || *str >= 127)
-		{
-			write(1, "\\", 2);
-			write(1, str, 1);
-		}
-		else
-			write(1, str, 1);
-		str++;
-	}
-}
-
-int	ft_echo(char *text, int flag_n)
-{
-	print_text(text);
-	if (flag_n)
-		printf("\n");
-	return (0);
+    len = len_all(tokens);
+    text = NULL;
+    flag = 0;
+    aux = 0;
+    if (len == 1)
+    {
+        ft_echo("", 1);
+        error_handle(0, 0);
+    }
+    else if (len == 2 && equal("-n", tokens[1]))
+        flag = 0;
+    while ((++aux) != len)
+        text = append(text, ft_strlen(tokens[aux]), tokens[aux]);
+    ft_echo(text, flag);
+    error_handle(0, 0);
 }

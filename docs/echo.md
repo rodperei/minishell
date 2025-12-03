@@ -1,11 +1,11 @@
 # Documentação da Função `echo`
 
 ## -> Nome da função  
-	int	ft_echo(char **args, char *text)
+	int	ft_echo(char *text, int flag_n)
 
 ## -> Parâmetros  
-- `char **args`: Lista de argumentos passados ao comando `echo`.  
 - `char *text`: Texto a ser exibido na saída padrão.  
+- `int flag_n`: Flag para el /n.
 
 ## -> Função  
 Imita o comportamento básico do comando `echo` no shell, exibindo texto no terminal.  
