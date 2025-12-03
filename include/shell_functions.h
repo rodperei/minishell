@@ -6,7 +6,7 @@
 /*   By: rodperei <rodperei@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 20:00:10 by rodperei          #+#    #+#             */
-/*   Updated: 2025/11/12 20:28:51 by rodperei         ###   ########.fr       */
+/*   Updated: 2025/12/02 20:44:37 by rodperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,7 @@ char	*create_prompt(void);
 char	**tokenize(char *input);
 char	**expand(char **input);
 char	**redirection(char **tokens, int fds[REDIR_MAX]);
+void	execute_simple_command(char **tokens);
+void	compute_pipeline(char **tokens);
 
 #endif
