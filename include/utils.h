@@ -52,6 +52,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n);
 // ft_split.c
 void	free_all(char **map);
 char	**ft_split(char *str, char C);
+char	**ft_split_custom(char *str, char C);
 int		cont_letter(char *str, char C);
 int		cont_words(char *str, char C);
 void	print_matriz_vec(char **matriz, char *vec);

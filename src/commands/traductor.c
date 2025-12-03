@@ -58,3 +58,27 @@ int     ft_cd_tokens(char **tokens)
         ft_cd(tokens[1]);
     error_handle(0, 0);
 }
+
+int     ft_export_tokens(char **tokens)
+{
+    int     len;
+    int     aux;
+    char    **str;
+
+    aux = -1;
+    len = len_all(tokens);
+    if (len == 1)
+        error_handle(0, 0);
+    while (++aux != len)
+    {
+        if (include(tokens[aux], "="))
+        {
+            str = ft_split_custom(tokens[aux], "=");
+            if (len_all(str) == 2)
+                ft_export(str[0], str[1]);
+            else
+                ft_export(str[0], "");
+        }
+    }
+    error_handle(0, 0);
+}

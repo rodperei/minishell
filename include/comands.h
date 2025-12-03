@@ -41,5 +41,6 @@ int		error(char *str);
 // traductor.v
 int     ft_echo_tokens(char **tokens);
 int     ft_cd_tokens(char **tokens);
+int     ft_export_tokens(char **tokens);
 
 #endif
