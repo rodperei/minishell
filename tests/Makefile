@@ -44,12 +44,17 @@ src = ../src/commands/cd.c \
 		../src/parse/parse.c \
 		\
 		../src/redirections/redirections.c \
+		../src/redirections/redir_utils.c \
 		\
 		../src/expansions/expansions.c \
 		../src/expansions/hdoc_utils.c \
 		../src/expansions/expansion_utils.c \
 		\
-		./redir_test.c
+		../src/execute/simple_command.c \
+		\
+		../src/pipe/pipe.c \
+		\
+		./pipe_test.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)
