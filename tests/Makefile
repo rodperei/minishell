@@ -1,6 +1,6 @@
 # ======= Config =======
 
-NAME_1 = minishel
+NAME_1 = minishell
 
 CFLAGS = -Wall -Wextra -Werror -g
 

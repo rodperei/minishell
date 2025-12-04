@@ -10,7 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stddef.h>
 #include <stdlib.h>
+#include "../../include/utils.h"
 
 char	*ft_strdup(const char *s)
 {
@@ -56,4 +58,17 @@ unsigned int	count_size(unsigned int i, unsigned int j, const char *src)
 		j++;
 	}
 	return (i);
+}
+
+size_t	calc_longer_str(char const *s1, char const *s2)
+{
+	size_t	l1;
+	size_t	l2;
+
+	l1 = ft_strlen(s1);
+	l2 = ft_strlen(s2);
+	if (l1 > l2)
+		return (l1);
+	else
+		return (l2);
 }
