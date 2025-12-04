@@ -1,6 +1,6 @@
 # ======= Config =======
 
-NAME_1 = minishel
+NAME_1 = minishell
 
 CFLAGS = -Wall -Wextra -Werror -g
 
@@ -54,7 +54,7 @@ src = ../src/commands/cd.c \
 		\
 		../src/pipe/pipe.c \
 		\
-		./pipe_test.c
+		./redir_test.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)

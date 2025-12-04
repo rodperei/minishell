@@ -6,7 +6,7 @@
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/13 14:12:55 by frnicola          #+#    #+#             */
-/*   Updated: 2025/09/13 14:12:57 by frnicola         ###   ########.fr       */
+/*   Updated: 2025/12/03 21:15:06 by rodperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dsize);
 char	*ft_strdup(const char *s);
 char	*ft_replace(char *str, char init, char end);
 size_t	ft_strlcat(char *dst, const char *src, size_t dsize);
+size_t	calc_longer_str(char const *s1, char const *s2);
 
 // error.c
 void	error_handle(int err, char *str);
