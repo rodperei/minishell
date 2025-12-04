@@ -28,7 +28,7 @@ int	cont_words_custom(char *str, char C)
 		while (str[aux] != C && str[aux])
 			aux++;
 	}
-    if (cant > 2)
+	if (cant > 2)
 		return (2);
 	return (cant);
 }

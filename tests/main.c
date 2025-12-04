@@ -14,8 +14,9 @@
 #include "../include/shell_functions.h"
 #include "../include/parse.h"
 #include "../include/utils.h"
-#include "../include/redirections.h"
+//#include "../include/redirections.h"
 #include "../include/execute_comands.h"
+#include "../include/signal_minishel.h"
 
 void	free_vars(char **v1, char **v2, char ***m1, char ***m2)
 {
@@ -55,11 +56,12 @@ int	excecute_console(char *str)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal_father();
 		tokens = tokenize(str);
 		parses = parse(tokens);
 		parses = expand(parses);
-		redirection(&parses);
-		excecute_parse(parses);
+		//redirection(&parses);
+		//excecute_parse(parses);
 		free_vars(NULL, NULL, &tokens, &parses);
 		exit(0);
 	}
@@ -79,6 +81,7 @@ int	main(int av, char **ac, char **env)
 	char	*str;
 	int		status;
 
+	signal_main();
 	load_env(env);
 	printf("%d %s\n\n", av, ac[0]);
 	while (1)

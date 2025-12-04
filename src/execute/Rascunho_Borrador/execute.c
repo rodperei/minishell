@@ -13,8 +13,9 @@
 #include "../../../include/utils.h"
 #include "../../../include/parse.h"
 #include "../../../include/comands.h"
-#include "../../../include/limits.h"
+#include "../../../include/ft_limits.h"
 #include "../../../include/execute_comands.h"
+#include "../../include/signal_minishel.h"
 
 int	excecute_comand(char **tokens, int in, int out)
 {
@@ -27,11 +28,9 @@ int	excecute_comand(char **tokens, int in, int out)
 	pid = fork();
 	if (pid == 0)
 	{
+		signal_son();
 		if (in < 0 || out < 0)
-		{
-			perror("minishel: ");
-			exit(1);
-		}
+			error_handle(127, "minishel: ");
 		if (in)
 			dup2(in, STDIN_FILENO);
 		if (in)
@@ -44,9 +43,8 @@ int	excecute_comand(char **tokens, int in, int out)
 	}
 	else
 	{
-		//waitpid(pid, &status, 0);
+		waitpid(pid, &status, 0);
 		ft_export("?", ft_itoa(status));
-		ft_export_tokens(tokens)
 	}
 	return (status);
 }
@@ -57,20 +55,12 @@ int	excecute_parse(char **parse)
 	int	pipefd[PIPE_MAX][2];
 
 	aux = -1;
-	fd1 = 0;
-	fd2 = 1;
 	while (parse && parse[++aux])
 	{
 		if (equal("\n", parse[aux]))
 			continue ;
-			
 		printf("[execute] %s\n", parse[aux]);
-		//>< >>
-		fd1 = open(parse[0]);
-		fd2 = open(parse[2]);
-		excecute_comand(parse, fd1, fd2);
-		// Aqui nós executaríamos as redireções sem problema e os pipes também, 
-		// já com tudo controlado e expandido, direto para executar.
+		excecute_comand(parse, parse[0], parse[2]);
 	}
 	return (0);
 }

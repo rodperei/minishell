@@ -45,13 +45,15 @@ src = ../src/commands/cd.c \
 		\
 		../src/parse/parse.c \
 		\
-		../src/redirections/redirections.c \
+		../src/signal/signal.c \
 		\
 		../src/expansions/expansions.c \
 		../src/expansions/hdoc_utils.c \
 		../src/expansions/expansion_utils.c \
 		\
-		./redir_test.c
+		./main.c
+
+#		../src/redirections/redirections.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)

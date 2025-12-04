@@ -17,7 +17,7 @@
 
 void	create_pipes(char **tokens, int pipefd[PIPE_MAX][2])
 {
-	int	i;
+	int		i;
 
 	i = -1;
 	while (++i < PIPE_MAX)
@@ -28,8 +28,10 @@ void	create_pipes(char **tokens, int pipefd[PIPE_MAX][2])
 		if (i >= PIPE_MAX)
 			error_handle(0, "Exceeded maximum pipe number");
 		if (ft_strncmp(*tokens, "|", ft_strlen(*tokens)))
+		{
 			if (pipe(pipefd[i++]) == -1)
 				error_handle(0, 0);
+		}
 	}
 }
 
@@ -40,8 +42,8 @@ void	compute_pipeline(char **tokens)
 	pid_t	cpid;
 
 	create_pipes(tokens, pipefd);
-	|***CONTINUE_HERE!!!***|
-		criar lógica de child, tendo em conta as situações de execuçao no inicio meio e fim do pipeline.
+	//|***CONTINUE_HERE!!!***|
+	//	criar lógica de child, tendo em conta as situações de execuçao no inicio meio e fim do pipeline.
 	i = -1;
 	while (pipefd[++i][0] != -2)
 	{
@@ -49,9 +51,6 @@ void	compute_pipeline(char **tokens)
 		if (cpid == -1)
 			error_handle(0, 0);
 		if (cpid == 0 && i == 0)
-		{
 			close(pipefd[i][0]);
-
-		}
 	}
 }
