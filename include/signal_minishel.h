@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   comands.h                                          :+:      :+:    :+:   */
+/*   signal_minishel.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,38 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMANDS_H
-# define COMANDS_H
+#ifndef SIGNAL_MINISHEL_H
+# define SIGNAL_MINISHEL_H
 
-# define FILE_ENV ".env"
+# include <signal.h>
 
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdlib.h>
-
-// funcions
-void	ft_exit(void);
-int		ft_env(void);
-int		ft_echo(char *text, int flag_n);
-int		ft_export(char *name, char *value);
-int		ft_unset(char *value);
-int		ft_cd(char *path);
-char	*ft_pwd(void);
-char	*ft_getcwd(void);
-
-// env
-char	*ft_getenv(char *name);
-char	**ft_getallenv(void);
-int		load_env(char **env);
-
-// echo/echo.c
-int		error(char *str);
-
-// traductor.v
-void	ft_echo_tokens(char **tokens);
-void	ft_cd_tokens(char **tokens);
-void	ft_export_tokens(char **tokens);
-void	ft_unset_tokens(char **tokens);
+void	signal_main(void);
+void	signal_father(void);
+void	signal_son(void);
 
 #endif

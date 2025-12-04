@@ -19,7 +19,7 @@
 
 int	count_commands(char **tokens)
 {
-	int	i;
+	int		i;
 
 	i = 0;
 	while (*tokens)

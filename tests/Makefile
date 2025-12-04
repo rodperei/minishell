@@ -21,6 +21,7 @@ src = ../src/commands/cd.c \
 		../src/commands/export.c \
 		../src/commands/pwd.c \
 		../src/commands/unset.c \
+		../src/commands/traductor.c \
 		\
 		../src/prompt/prompt.c \
 		\
@@ -35,6 +36,7 @@ src = ../src/commands/cd.c \
 		../src/utils/utils_matriz.c \
 		../src/utils/utils_vec.c \
 		../src/utils/ft_path.c \
+		../src/utils/ft_split_custom.c \
 		\
 		../src/tokenizer/process_input.c \
 		../src/tokenizer/save_utils.c \
@@ -46,6 +48,8 @@ src = ../src/commands/cd.c \
 		../src/redirections/redirections.c \
 		../src/redirections/redir_utils.c \
 		\
+		../src/signal/signal.c \
+		\
 		../src/expansions/expansions.c \
 		../src/expansions/hdoc_utils.c \
 		../src/expansions/expansion_utils.c \
@@ -54,7 +58,7 @@ src = ../src/commands/cd.c \
 		\
 		../src/pipe/pipe.c \
 		\
-		./pipe_test.c
+		./redir_test.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)
