@@ -14,8 +14,6 @@
 #include "../include/shell_functions.h"
 #include "../include/parse.h"
 #include "../include/utils.h"
-//#include "../include/redirections.h"
-#include "../include/execute_comands.h"
 #include "../include/signal_minishel.h"
 
 void	free_vars(char **v1, char **v2, char ***m1, char ***m2)

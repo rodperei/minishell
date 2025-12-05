@@ -13,6 +13,8 @@
 #ifndef REDIRECTIONS_H
 # define REDIRECTIONS_H
 
-void	redirection(char ***parse);
+# include "../include/ft_limits.h"
+
+char	**redirection(char **tokens, int fds[REDIR_MAX]);
 
 #endif
