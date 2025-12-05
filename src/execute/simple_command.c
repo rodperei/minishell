@@ -21,45 +21,30 @@
 #define INITIALIZE 0
 #define CLOSE 1
 
-void	initialize_builtin_matrix(char builtins[7][7])
+void	execute_builtin(char **tokens)
 {
-	ft_memmove(builtins[0], "echo", ft_strlen("echo") + 1);
-	ft_memmove(builtins[1], "cd", ft_strlen("cd") + 1);
-	ft_memmove(builtins[2], "pwd", ft_strlen("pwd") + 1);
-	ft_memmove(builtins[3], "export", ft_strlen("export") + 1);
-	ft_memmove(builtins[4], "unset", ft_strlen("unset") + 1);
-	ft_memmove(builtins[5], "env", ft_strlen("env") + 1);
-	ft_memmove(builtins[6], "exit", ft_strlen("exit") + 1);
-}
-/*
-void	execute_builtin(char **tokens, char builtins[7][7])
-{
-	char	i;
-	int		cmp;
+	int	len;
 
-	i = -1;
-	cmp = 1;
-	while (++i < 7 && cmp)
-		cmp = ft_strncmp(builtins[i], *tokens, ft_strlen(*tokens));
-	if (cmp == 0)
+	len = len_all(tokens);
+	if (len)
 	{
-		if (i == 0)
+		if (!ft_strncmp("echo", *tokens, ft_strlen(*tokens)))
 			ft_echo_tokens(tokens);
-		else if (i == 1)
+		else if (!ft_strncmp("cd", *tokens, ft_strlen(*tokens)))
 			ft_cd_tokens(tokens);
-		else if (i == 2)
+		else if (!ft_strncmp("pwd", *tokens, ft_strlen(*tokens)))
 			ft_pwd();
-		else if (i == 3)
+		else if (!ft_strncmp("export", *tokens, ft_strlen(*tokens)))
 			ft_export_tokens(tokens);
-		else if (i == 4)
+		else if (!ft_strncmp("unset", *tokens, ft_strlen(*tokens)))
 			ft_unset_tokens(tokens);
-		else if (i == 5)
+		else if (!ft_strncmp("env", *tokens, ft_strlen(*tokens)))
 			ft_env();
-		else if (i == 6)
+		else if (!ft_strncmp("exit", *tokens, ft_strlen(*tokens)))
 			ft_exit();
 	}
-	exit(EXIT_SUCCESS)
-}*/
+	exit(EXIT_SUCCESS);
+}
 
 void	build_cmd_path(char *cmd, char dir[PATH_MAX], char **paths)
 {
@@ -124,7 +109,6 @@ void	execute_binary(char **tokens, int fds[REDIR_MAX])
 	int		cpid;
 	int		status;
 
-	env = ft_getallenv();
 	cpid = fork();
 	status = 0;
 	if (cpid == -1)
@@ -132,13 +116,14 @@ void	execute_binary(char **tokens, int fds[REDIR_MAX])
 	else if (cpid == 0)
 	{
 		// This sleep is only for debugging
-		//sleep(8);
-		execve(*tokens, tokens, env);
+		usleep(8);
+		env = ft_getallenv();
+		execve(*tokens, tokens, env); 
+		free_all(env);
 		exit(EXIT_SUCCESS);
 	}
 	else
 		waitpid(cpid, &status, 0);
-	free_all(env);
 	free_all(tokens);
 	compute_fds(fds, CLOSE);
 	ft_export("?", ft_itoa(status));
@@ -146,16 +131,14 @@ void	execute_binary(char **tokens, int fds[REDIR_MAX])
 
 void	execute_simple_command(char **tokens)
 {
-	char	builtins[7][7];
 	char	dir[PATH_MAX];
 	int		fds[REDIR_MAX];
 
 	compute_fds(fds, INITIALIZE);
 	redirection(tokens, fds);
-	initialize_builtin_matrix(builtins);
 	if (!ft_strchr(*tokens, '/'))
 	{
-		//execute_builtin(tokens, builtins);
+		execute_builtin(tokens);
 		check_path_var(*tokens, dir);
 		free(*tokens);
 		*tokens = ft_strdup(dir);
