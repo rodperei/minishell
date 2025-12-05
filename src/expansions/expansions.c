@@ -58,7 +58,7 @@ char	**remove_quotes(char **tokens)
 			tokens[i] = tmp;
 		}
 	}
-	print_matriz_vec(tokens, "EXPAND");
+	//print_matriz_vec(tokens, "EXPAND");
 	return (tokens);
 }
 
