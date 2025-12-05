@@ -12,8 +12,10 @@
 
 #include <readline/history.h>
 #include <readline/readline.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <unistd.h>
 #include "../include/comands.h"
 #include "../include/shell_functions.h"
 #include "../include/signal_minishel.h"
@@ -32,6 +34,8 @@ void	execute_console(char *str)
 	pid = fork();
 	if (pid == 0)
 	{
+		// Sleep para efeitos de debugging
+		//sleep(8);
 		signal_father();
 		tokens = tokenize(str);
 		tokens = parse(tokens);
@@ -40,7 +44,7 @@ void	execute_console(char *str)
 			compute_pipeline(tokens);
 		else
 			execute_simple_command(tokens);
-		free_all(tokens);
+		exit(EXIT_SUCCESS);
 	}
 	else
 		waitpid(pid, &status, 0);
@@ -67,7 +71,6 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		add_history(str);
 		execute_console(str);
-		free(str);
 	}
 	rl_clear_history();
 }
