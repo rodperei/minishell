@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../../include/utils.h"
-#include "../../include/parse.h"
 
 void	case_split(char ***parse, char **tokens, int aux)
 {

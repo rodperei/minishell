@@ -1,0 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rodperei <rodperei@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/03 17:13:34 by rodperei          #+#    #+#             */
+/*   Updated: 2025/12/03 21:36:17 by rodperei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <readline/history.h>
+#include <readline/readline.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include "../include/comands.h"
+#include "../include/shell_functions.h"
+#include "../include/signal_minishel.h"
+#include "../include/utils.h"
+
+void	execute_console(char *str)
+{
+	int		pid;
+	int		status;
+	char	*e_stat;
+	char	**tokens;
+	char	*has_pipe;
+
+	status = 0;
+	has_pipe = ft_strchr(str, '|');
+	pid = fork();
+	if (pid == 0)
+	{
+		signal_father();
+		tokens = tokenize(str);
+		tokens = parse(tokens);
+		tokens = expand(tokens);
+		if (has_pipe)
+			compute_pipeline(tokens);
+		else
+			execute_simple_command(tokens);
+		free_all(tokens);
+	}
+	else
+		waitpid(pid, &status, 0);
+	e_stat = ft_itoa(status);
+	ft_export("?", e_stat);
+	free(e_stat);
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	char	*str;
+	char	*prompt;
+
+	(void) argc;
+	(void) argv;
+	signal_main();
+	load_env(env);
+	while (1)
+	{
+		prompt = create_prompt();
+		str = readline(prompt);
+		free(prompt);
+		if (!str)
+			break ;
+		add_history(str);
+		execute_console(str);
+		free(str);
+	}
+	rl_clear_history();
+}

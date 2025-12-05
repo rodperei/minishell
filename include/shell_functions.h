@@ -28,5 +28,6 @@ char	**expand(char **input);
 char	**redirection(char **tokens, int fds[REDIR_MAX]);
 void	execute_simple_command(char **tokens);
 void	compute_pipeline(char **tokens);
+char	**parse(char **tokens);
 
 #endif

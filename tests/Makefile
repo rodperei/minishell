@@ -58,7 +58,7 @@ src = ../src/commands/cd.c \
 		\
 		../src/pipe/pipe.c \
 		\
-		./execute_test.c
+		../src/main.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)
@@ -73,6 +73,9 @@ $(NAME_1): $(addprefix $(obj_dir), $(obj))
 	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 build/%.o : ../src/*/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
+build/%.o : ../src/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 build/%.o : %.c | $(obj_dir)
