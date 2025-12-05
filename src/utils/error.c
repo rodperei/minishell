@@ -22,5 +22,5 @@ void	error_handle(int err, char	*str)
 		printf("%s\n", str);
 	else
 		perror(0);
-	exit(EXIT_FAILURE);
+	exit(err);
 }

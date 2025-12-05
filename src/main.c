@@ -21,6 +21,17 @@
 #include "../include/signal_minishel.h"
 #include "../include/utils.h"
 
+void	exchange_cd(int status)
+{
+	char	*pwd;
+
+	if (status)
+		return;
+	pwd = ft_getenv("PWD");
+	chdir(pwd);
+	free(pwd);
+}
+
 void	execute_console(char *str)
 {
 	int		pid;
@@ -48,6 +59,7 @@ void	execute_console(char *str)
 	}
 	else
 		waitpid(pid, &status, 0);
+	exchange_cd(status || has_pipe);
 	e_stat = ft_itoa(status);
 	ft_export("?", e_stat);
 	free(e_stat);

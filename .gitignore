@@ -12,4 +12,4 @@
 */*.out
 */*.a
 .env
-minishel
+minishell

@@ -79,13 +79,13 @@ int	ft_cd(char *path)
 
 	pwd = ft_getenv("PWD");
 	if (!pwd)
-		error("Error: not exist PWD en env");
+		error_handle(127, "Error: not exist PWD en env");
 	if (!path)
-		error("Error: *path is NULL");
+		error_handle(127, "Error: *path is NULL");
 	result_path(&pwd, path);
 	dir = opendir(pwd);
 	if (!dir)
-		error("Error: not exist PATH");
+		error_handle(127, "Error: not exist PATH");
 	closedir(dir);
 	ft_export("PWD", pwd);
 	free(pwd);
