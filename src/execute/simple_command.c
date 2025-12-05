@@ -43,7 +43,6 @@ void	execute_builtin(char **tokens)
 		else if (!ft_strncmp("exit", *tokens, ft_strlen(*tokens)))
 			ft_exit();
 	}
-	exit(EXIT_SUCCESS);
 }
 
 void	build_cmd_path(char *cmd, char dir[PATH_MAX], char **paths)
@@ -108,6 +107,7 @@ void	execute_binary(char **tokens, int fds[REDIR_MAX])
 	char	**env;
 	int		cpid;
 	int		status;
+	char	*e_stat;
 
 	cpid = fork();
 	status = 0;
@@ -116,17 +116,18 @@ void	execute_binary(char **tokens, int fds[REDIR_MAX])
 	else if (cpid == 0)
 	{
 		// This sleep is only for debugging
-		usleep(8);
+		//sleep(3);
 		env = ft_getallenv();
-		execve(*tokens, tokens, env); 
+		execve(*tokens, tokens, env);
 		free_all(env);
 		exit(EXIT_SUCCESS);
 	}
 	else
 		waitpid(cpid, &status, 0);
-	free_all(tokens);
 	compute_fds(fds, CLOSE);
-	ft_export("?", ft_itoa(status));
+	e_stat = ft_itoa(status);
+	ft_export("?", e_stat);
+	free(e_stat);
 }
 
 void	execute_simple_command(char **tokens)
@@ -152,4 +153,5 @@ void	execute_simple_command(char **tokens)
 		}
 	}
 	execute_binary(tokens, fds);
+	free_all(tokens);
 }

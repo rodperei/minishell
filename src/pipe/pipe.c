@@ -84,8 +84,6 @@ void	compute_pipeline(char **tokens)
 			error_handle(0, 0);
 		if (cpid == 0)
 		{
-			// Sleep command only for debugging
-			//sleep(15);
 			if (j != 0)
 				dup2(p_fd[0], STDIN_FILENO);
 			else if (j != i)
@@ -98,4 +96,5 @@ void	compute_pipeline(char **tokens)
 	}
 	close(p_fd[0]);
 	close(p_fd[1]);
+	free_all(tokens);
 }
