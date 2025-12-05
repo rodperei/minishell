@@ -81,9 +81,9 @@ char	*ft_getenv(char *name)
 	int		index;
 
 	result = NULL;
-	index = 0;
+	index = -1;
 	vars = ft_getallenv();
-	while (vars && vars[index])
+	while (vars && vars[++index])
 	{
 		aux = 0;
 		while (vars[index][aux] != '=')
@@ -94,7 +94,6 @@ char	*ft_getenv(char *name)
 			result = copy_vec(vars[index] + aux + 1);
 			break ;
 		}
-		index++;
 	}
 	free_all(vars);
 	return (result);

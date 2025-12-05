@@ -109,13 +109,13 @@ char	**redirection(char **tokens, int fds[REDIR_MAX])
 	{
 		if (j >= REDIR_MAX)
 			error_handle(0, "Exceeded redirections limit\n");
-		if (!ft_strncmp(tokens[i], "<", ft_strlen(tokens[i])))
+		if (equal(tokens[i], "<"))
 			tokens = redir_input(tokens, &i, &fds[++j]);
-		else if (!ft_strncmp(tokens[i], ">", ft_strlen(tokens[i])))
+		else if (equal(tokens[i], ">"))
 			tokens = redir_output(tokens, &i, &fds[++j], TRUNCATE);
-		else if (!ft_strncmp(tokens[i], "<<", ft_strlen(tokens[i])))
+		else if (equal(tokens[i], ">>"))
 			tokens = redir_heredoc(tokens, &i);
-		else if (!ft_strncmp(tokens[i], "<<", ft_strlen(tokens[i])))
+		else if (equal(tokens[i], "<<"))
 			tokens = redir_output(tokens, &i, &fds[++j], APPEND);
 	}
 	return (tokens);

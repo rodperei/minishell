@@ -23,16 +23,20 @@ void	ft_echo_tokens(char **tokens)
 	len = len_all(tokens);
 	text = NULL;
 	flag = 0;
-	aux = 0;
 	if (len == 1)
 	{
 		ft_echo("", 1);
 		error_handle(0, 0);
 	}
-	else if (len == 2 && equal("-n", tokens[1]))
-		flag = 0;
+	else if (len >= 2 && equal("-n", tokens[1]))
+		flag = 1;
+	aux = flag;
 	while ((++aux) != len)
+	{
 		text = append(text, ft_strlen(tokens[aux]), tokens[aux]);
+		if (aux + 1 != len)
+			text = append(text, ft_strlen(" "), " ");
+	}
 	ft_echo(text, flag);
 	error_handle(0, 0);
 }

@@ -13,10 +13,12 @@
 #include "../../include/utils.h"
 #include "../../include/comands.h"
 
-int	error(char *str)
+void	print_str(char *str)
 {
-	printf("%s\n", str);
-	exit(127);
+	if (!str)
+		return ;
+	while (str)
+		write(1, str++, 1);
 }
 
 int	print_env(char *str)
@@ -26,16 +28,16 @@ int	print_env(char *str)
 	char	*var_env;
 
 	str++;
-	aux = 0;
-	while (str && str[aux])
-	{
+	aux = -1;
+	while (str && str[++aux] && str[aux] != ' ')
 		var[aux] = str[aux];
-		aux++;
-	}
 	var[aux] = '\0';
 	var_env = ft_getenv(var);
-	printf("%s", var_env);
-	free(var_env);
+	if (var_env)
+	{
+		print_str(var_env);
+		free(var_env);
+	}
 	return (++aux);
 }
 
@@ -45,9 +47,9 @@ void	print_text(char *str)
 	{
 		if (*str == '$')
 			str += print_env(str);
-		if (*str <= 32 || *str >= 127)
+		if (*str == 92)
 		{
-			write(1, "\\", 2);
+			str++;
 			write(1, str, 1);
 		}
 		else
@@ -59,7 +61,7 @@ void	print_text(char *str)
 int	ft_echo(char *text, int flag_n)
 {
 	print_text(text);
-	if (flag_n)
+	if (!flag_n)
 		printf("\n");
 	return (0);
 }
