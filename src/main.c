@@ -21,7 +21,7 @@
 #include "../include/utils.h"
 #include "tokenizer/tokenizer.h"
 
-void	exchange_cd(int status, char **env_save)
+void	verryfi_env_cwd(int status, char **env_save)
 {
 	char	*pwd;
 	char	**env;
@@ -33,7 +33,7 @@ void	exchange_cd(int status, char **env_save)
 		free_all(env);
 	if (status)
 		return;
-	pwd = ft_getenv("PWD");
+	pwd = ft_getcwd();
 	if (!pwd)
 		return ;
 	chdir(pwd);
@@ -65,6 +65,8 @@ void	execute_console(char *str, char **env_save)
 
 	status = 0;
 	has_pipe = search_pipe(str);
+	ft_export("?", "0");
+	verryfi_env_cwd(status || has_pipe, env_save);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -76,11 +78,11 @@ void	execute_console(char *str, char **env_save)
 			compute_pipeline(tokens);
 		else
 			execute_simple_command(tokens, NOT_PIPE);
-		exit(EXIT_SUCCESS);
+		ft_exit(0);
 	}
 	else
 		waitpid(pid, &status, 0);
-	exchange_cd(status || has_pipe, env_save);
+	verryfi_env_cwd(status || has_pipe, env_save);
 	e_stat = ft_itoa(WEXITSTATUS(status));
 	ft_export("?", e_stat);
 	free(e_stat);
@@ -98,13 +100,13 @@ int	main(int argc, char **argv, char **env)
 	load_env(env);
 	while (1)
 	{
+		env_save = ft_getallenv();
 		prompt = create_prompt();
 		str = readline(prompt);
 		free(prompt);
 		if (!str)
 			break ;
 		add_history(str);
-		env_save = ft_getallenv();
 		execute_console(str, env_save);
 		free_all(env_save);
 	}

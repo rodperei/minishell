@@ -99,7 +99,7 @@ char	**expand(char **input)
 			input[i] = expand_heredoc(input[i], &j);
 			continue ;
 		}
-		while (*input[i] != '\'' && ft_strchr(input[i], '$'))
+		while (*input[i] != '\'' && ft_strchr(input[i], '$') && !equal("$", input[i]))
 		{
 			tmp = expand_var(input[i]);
 			if (!tmp)
