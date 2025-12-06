@@ -60,8 +60,6 @@ void	execute_console(char *str)
 	pid = fork();
 	if (pid == 0)
 	{
-		// Sleep para efeitos de debugging
-		//sleep(8);
 		signal_father();
 		tokens = tokenize(str);
 		tokens = parse(tokens);

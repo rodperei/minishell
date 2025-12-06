@@ -28,19 +28,19 @@ void	execute_builtin(char **tokens, int has_pipe)
 	len = len_all(tokens);
 	if (len)
 	{
-		if (!ft_strncmp("echo", *tokens, ft_strlen(*tokens)))
+		if (equal("echo", *tokens))
 			ft_echo_tokens(tokens);
-		else if (!ft_strncmp("cd", *tokens, ft_strlen(*tokens)))
+		else if (equal("cd", *tokens))
 			ft_cd_tokens(tokens, has_pipe);
-		else if (!ft_strncmp("pwd", *tokens, ft_strlen(*tokens)))
+		else if (equal("pwd", *tokens))
 			ft_pwd();
-		else if (!ft_strncmp("export", *tokens, ft_strlen(*tokens)))
+		else if (equal("export", *tokens))
 			ft_export_tokens(tokens);
-		else if (!ft_strncmp("unset", *tokens, ft_strlen(*tokens)))
+		else if (equal("unset", *tokens))
 			ft_unset_tokens(tokens);
-		else if (!ft_strncmp("env", *tokens, ft_strlen(*tokens)))
+		else if (equal("env", *tokens))
 			ft_env();
-		else if (!ft_strncmp("exit", *tokens, ft_strlen(*tokens)))
+		else if (equal("exit", *tokens))
 			ft_exit();
 	}
 }
