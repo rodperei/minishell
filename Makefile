@@ -2,7 +2,7 @@
 
 NAME_1 = minishell
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 LDLIBS = -lreadline
 

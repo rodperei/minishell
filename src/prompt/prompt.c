@@ -21,7 +21,10 @@ static char	*wrap_path(char *path)
 
 	home = ft_getenv("HOME");
 	if (!home || ft_strncmp(path, home, ft_strlen(home)))
+	{
+		free(home);
 		return (path);
+	}
 	wrapped_path = ft_strjoin("~", &path[ft_strlen(home)]);
 	if (!wrapped_path)
 		return (path);
@@ -49,7 +52,7 @@ static void	get_hostname(char *hostname)
 		perror("prompt.c:52:10: in function 'get_hostname'");
 }
 
-static char	*merge_vars(char *hostname, char *path)
+static char	*merge_vars(char *hostname, char **path)
 {
 	char	*user;
 	char	*tmp1;
@@ -63,9 +66,9 @@ static char	*merge_vars(char *hostname, char *path)
 	free(tmp2);
 	tmp2 = ft_strjoin(tmp1, ":");
 	free(tmp1);
-	tmp1 = ft_strjoin(tmp2, path);
+	tmp1 = ft_strjoin(tmp2, *path);
 	free(tmp2);
-	free(path);
+	free(*path);
 	tmp2 = ft_strjoin(tmp1, "$ ");
 	free(tmp1);
 	if (user)
@@ -100,7 +103,7 @@ char	*create_prompt(void)
 	while (++i < 254)
 		hostname[i] = '\0';
 	get_hostname(hostname);
-	prompt = merge_vars(hostname, path);
+	prompt = merge_vars(hostname, &path);
 	prompt = add_colors(prompt);
 	return (prompt);
 }

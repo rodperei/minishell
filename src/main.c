@@ -27,7 +27,7 @@ void	exchange_cd(int status, char **env_save)
 	char	**env;
 
 	env = ft_getallenv();
-	if (!env || len_all(env) < 2)
+	if ((!env || len_all(env) < 2) && env_save)
 		load_env(env_save);
 	if (env)
 		free_all(env);
