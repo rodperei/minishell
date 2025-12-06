@@ -48,10 +48,10 @@ void	shear_error(char **tokens, int aux)
 		while (equal(tokens[aux], errors[err]) && errors[++tem])
 		{
 			if (equal(tokens[aux + 1], errors[tem]))
-				error_handle(0, "syntax error near unexpected token");
+				error_handle(2, "syntax error near unexpected token");
 		}
 		if (equal(tokens[aux], errors[err]) && !tokens[aux + 1])
-			error_handle(0, "syntax error near unexpected token");
+			error_handle(2, "syntax error near unexpected token");
 		err++;
 	}
 }
@@ -65,15 +65,12 @@ char	**parse(char **tokens)
 	parse = NULL;
 	if (!tokens)
 		return (parse);
-	// print_matriz_vec(tokens, "TOKENS");
 	while (tokens && len_all(tokens) != ++aux)
 	{
 		shear_error(tokens, aux);
 		case_split(&parse, tokens, aux);
 		parse = append_matriz(parse, tokens[aux]);
 	}
-	// parse = append_matriz(parse, "^");
-	// print_matriz_vec(parse, "PARCE");
 	free_all(tokens);
 	return (parse);
 }
