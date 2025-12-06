@@ -57,7 +57,7 @@ static char	*merge_vars(char *hostname, char *path)
 
 	user = ft_getenv("USER");
 	if (!user)
-		user = "";
+		user = ft_strdup("");
 	tmp2 = ft_strjoin(user, "@");
 	tmp1 = ft_strjoin(tmp2, hostname);
 	free(tmp2);
@@ -94,10 +94,7 @@ char	*create_prompt(void)
 
 	path = ft_getcwd();
 	if (!path)
-	{
-		perror("prompt.c:63:10: in function 'create_prompt'");
-		return (NULL);
-	}
+		path = ft_strdup("~");
 	path = wrap_path(path);
 	i = -1;
 	while (++i < 254)

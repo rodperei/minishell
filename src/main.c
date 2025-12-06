@@ -21,10 +21,16 @@
 #include "../include/utils.h"
 #include "tokenizer/tokenizer.h"
 
-void	exchange_cd(int status)
+void	exchange_cd(int status, char **env_save)
 {
 	char	*pwd;
+	char	**env;
 
+	env = ft_getallenv();
+	if (!env || len_all(env) < 2)
+		load_env(env_save);
+	if (env)
+		free_all(env);
 	if (status)
 		return;
 	pwd = ft_getenv("PWD");
@@ -49,7 +55,7 @@ char	*search_pipe(char *str)
 	return (0);
 }
 
-void	execute_console(char *str)
+void	execute_console(char *str, char **env_save)
 {
 	int		pid;
 	int		status;
@@ -74,7 +80,7 @@ void	execute_console(char *str)
 	}
 	else
 		waitpid(pid, &status, 0);
-	exchange_cd(status || has_pipe);
+	exchange_cd(status || has_pipe, env_save);
 	e_stat = ft_itoa(WEXITSTATUS(status));
 	ft_export("?", e_stat);
 	free(e_stat);
@@ -84,6 +90,7 @@ int	main(int argc, char **argv, char **env)
 {
 	char	*str;
 	char	*prompt;
+	char	**env_save;
 
 	(void) argc;
 	(void) argv;
@@ -97,7 +104,9 @@ int	main(int argc, char **argv, char **env)
 		if (!str)
 			break ;
 		add_history(str);
-		execute_console(str);
+		env_save = ft_getallenv();
+		execute_console(str, env_save);
+		free_all(env_save);
 	}
 	rl_clear_history();
 	unlink(FILE_ENV);

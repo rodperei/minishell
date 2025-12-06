@@ -68,7 +68,7 @@ void	check_path_var(char *cmd, char dir[PATH_MAX])
 
 	paths = ft_getenv("PATH");
 	tmp = paths;
-	while (*paths)
+	while (paths && *paths)
 	{
 		build_cmd_path(cmd, dir, &paths);
 		if (!access(dir, F_OK))
