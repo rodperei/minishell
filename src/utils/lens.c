@@ -27,7 +27,7 @@ int	len_all(char **str)
 	int	aux;
 
 	aux = 0;
-	while (str && str[aux] && str[aux][0])
+	while (str && str[aux])
 		aux++;
 	return (aux);
 }

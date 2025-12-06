@@ -34,7 +34,7 @@ void	ft_echo_tokens(char **tokens)
 	while ((++aux) != len)
 	{
 		text = append(text, ft_strlen(tokens[aux]), tokens[aux]);
-		if (aux + 1 != len)
+		if (aux + 1 != len && ft_strlen(tokens[aux]))
 			text = append(text, ft_strlen(" "), " ");
 	}
 	ft_echo(text, flag);
