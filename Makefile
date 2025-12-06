@@ -78,6 +78,9 @@ build/%.o : src/*/%.c | $(obj_dir)
 build/%.o : src/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
+build/%.o : tests/%.c | $(obj_dir)
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
+
 build/%.o : %.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 

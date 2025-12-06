@@ -20,7 +20,7 @@ int	main(void)
 	char	**tokens;
 	int		i;
 
-	str = ">tmp.txt";
+	str = "This   is a     t";
 	str = ft_strdup(str);
 	printf("str: |%s|\n\n", str);
 	tokens = tokenize(str);

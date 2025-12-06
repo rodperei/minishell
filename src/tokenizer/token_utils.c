@@ -40,16 +40,10 @@ void	read_token(char **end, char *flg)
 	*flg = 0;
 	is_meta(**end, flg);
 	state = *flg;
-	while (state == (*flg & META) && **end)
+	while (state == (*flg & META) && *(++(*end)))
 	{
 		compute_flg_mask(**end, flg);
 		is_meta(**end, flg);
-		(*end)++;
-	}
-	if (**end)
-	{
-		(*end)--;
-		compute_flg_mask(**end, flg);
 	}
 }
 
