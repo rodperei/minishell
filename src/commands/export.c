@@ -20,9 +20,12 @@ int	ft_export(char *name, char *value)
 
 	if (!value || !name)
 		error_handle(1, "not a valid identifier");
-	result = ft_strjoin(name, "=");
-	result = append(result, len(value), value);
+	if (!include(name, "="))
+		result = ft_strjoin(name, "=");
+	else
+		result = ft_strdup(name);
 	ft_unset(name);
+	result = append(result, len(value), value);
 	envs = ft_getallenv();
 	envs = append_matriz(envs, result);
 	load_env(envs);

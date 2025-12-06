@@ -13,7 +13,15 @@
 #include "../../include/utils.h"
 #include "../../include/comands.h"
 
-void	ft_exit(void)
+void	ft_exit(int status)
 {
-	exit(0);
+	char	*last_status;
+	int		status_num;
+
+	last_status = ft_getenv("?");
+	status_num = ft_atoi(last_status);
+	free(last_status);
+	if (status == 0)
+		exit(status_num);
+	exit(status);
 }

@@ -64,6 +64,16 @@ void	ft_cd_tokens(char **tokens, int has_pipe)
 	error_handle(0, 0);
 }
 
+void	ft_pwd_tokens(void)
+{
+	char	*pwd;
+
+	pwd = ft_pwd();
+	printf("%s\n", pwd);
+	free(pwd);
+	error_handle(0,0);
+}
+
 void	ft_export_tokens(char **tokens)
 {
 	int		len;

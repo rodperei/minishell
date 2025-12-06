@@ -22,6 +22,7 @@ src = src/commands/cd.c \
 		src/commands/pwd.c \
 		src/commands/unset.c \
 		src/commands/traductor.c \
+		src/commands/traductor_1.c \
 		\
 		src/prompt/prompt.c \
 		\
@@ -37,6 +38,7 @@ src = src/commands/cd.c \
 		src/utils/utils_vec.c \
 		src/utils/ft_path.c \
 		src/utils/ft_split_custom.c \
+		src/utils/ft_atoi.c \
 		\
 		src/tokenizer/process_input.c \
 		src/tokenizer/save_utils.c \

@@ -23,9 +23,9 @@ int	cont_words_custom(char *str, char C)
 	{
 		while (str[aux] == C)
 			aux++;
-		if (str[aux] != C && str[aux])
+		if (str[aux] && str[aux] != C)
 			cant++;
-		while (str[aux] != C && str[aux])
+		while (str[aux] && str[aux] != C)
 			aux++;
 	}
 	if (cant > 2)
@@ -40,12 +40,14 @@ int	cont_letter_custom(char *str, char C)
 
 	cant = 0;
 	aux = 0;
-	while (str[aux] && (str[aux] != C || str[aux] == C))
+	while (str[aux] == C)
+		aux++;
+	while (str[aux] && str[aux] != C)
 	{
 		cant++;
 		aux++;
 	}
-	return (cant);
+	return (cant + 1);
 }
 
 char	**ft_split_custom(char *str, char C)
@@ -60,9 +62,11 @@ char	**ft_split_custom(char *str, char C)
 	aux = 0;
 	letter = 0;
 	result = malloc((1 + cant) * sizeof(char *));
+	letter = cont_letter_custom(str, C);
 	while (cant != aux)
 	{
-		letter = cont_letter_custom(str, C);
+		if (aux != 0)
+			letter = ft_strlen(str);
 		result[aux] = malloc(letter * sizeof(char) + 1);
 		aux1 = 0;
 		while (letter != aux1)

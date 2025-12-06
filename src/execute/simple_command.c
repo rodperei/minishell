@@ -33,15 +33,15 @@ void	execute_builtin(char **tokens, int has_pipe)
 		else if (equal("cd", *tokens))
 			ft_cd_tokens(tokens, has_pipe);
 		else if (equal("pwd", *tokens))
-			ft_pwd();
+			ft_pwd_tokens();
 		else if (equal("export", *tokens))
 			ft_export_tokens(tokens);
 		else if (equal("unset", *tokens))
 			ft_unset_tokens(tokens);
 		else if (equal("env", *tokens))
-			ft_env();
+			ft_env_tokens();
 		else if (equal("exit", *tokens))
-			ft_exit();
+			ft_exit_tokens(tokens, has_pipe);
 	}
 }
 

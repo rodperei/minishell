@@ -25,6 +25,7 @@ void	error_handle(int err, char	*str)
 			write(STDERR_FILENO, str_err, ft_strlen(str_err));
 		else
 			write(STDERR_FILENO, str, ft_strlen(str));
+		write(STDERR_FILENO, "\n", 1);
 	}
 	exit(err);
 }
