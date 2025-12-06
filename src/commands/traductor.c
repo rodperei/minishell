@@ -73,7 +73,7 @@ void	ft_export_tokens(char **tokens)
 	aux = -1;
 	len = len_all(tokens);
 	if (len == 1)
-		error_handle(0, 0);
+		ft_export_void();
 	while (++aux != len)
 	{
 		if (include(tokens[aux], "="))

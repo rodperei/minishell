@@ -19,7 +19,7 @@ int	ft_export(char *name, char *value)
 	char	*result;
 
 	if (!value || !name)
-		error("error null variable");
+		error_handle(1, "not a valid identifier");
 	result = ft_strjoin(name, "=");
 	result = append(result, len(value), value);
 	ft_unset(name);
@@ -29,4 +29,19 @@ int	ft_export(char *name, char *value)
 	free_all(envs);
 	free(result);
 	return (0);
+}
+
+void	ft_export_void(void)
+{
+	char	**env;
+	int		aux;
+
+	env = ft_getallenv();
+	aux = 0;
+	while (env[aux])
+	{
+		printf("declare -x %s\n", env[aux]);
+		aux++;
+	}
+	free_all(env);
 }

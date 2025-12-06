@@ -20,7 +20,7 @@ int	ft_unset(char *name)
 	int		aux;
 
 	if (!name)
-		error("error null variable");
+		error_handle(0, 0);
 	value = ft_strjoin(name, "=");
 	envs = ft_getallenv();
 	aux = 0;

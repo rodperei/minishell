@@ -25,6 +25,7 @@ void	ft_exit(void);
 int		ft_env(void);
 int		ft_echo(char *text, int flag_n);
 int		ft_export(char *name, char *value);
+void    ft_export_void(void);
 int		ft_unset(char *value);
 int		ft_cd(char *path);
 char	*ft_pwd(void);
@@ -34,9 +35,6 @@ char	*ft_getcwd(void);
 char	*ft_getenv(char *name);
 char	**ft_getallenv(void);
 int		load_env(char **env);
-
-// echo/echo.c
-int		error(char *str);
 
 // traductor.v
 void	ft_echo_tokens(char **tokens);
