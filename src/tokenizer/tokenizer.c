@@ -40,7 +40,7 @@ char	**compute_saves(char **tokens, char flg, char **bgn, char *end)
 	char	oprt[3];
 	char	*tmp;
 
-	if ((flg & META) == 0)
+	if ((flg & FT_META) == 0)
 		tokens = resize_tokens(tokens, save_word(bgn, end, tokens));
 	else
 	{

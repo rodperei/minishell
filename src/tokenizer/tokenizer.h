@@ -17,7 +17,7 @@
 
 # define SQUOTE 1
 # define DQUOTE 2
-# define META 4
+# define FT_META 4
 
 void	compute_flg_mask(char input, char *flg);
 void	is_meta(char c, char *flg);

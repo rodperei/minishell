@@ -28,9 +28,9 @@ void	compute_flg_mask(char input, char *flg)
 void	is_meta(char c, char *flg)
 {
 	if (ft_strchr(" \t\n|<>", c) && (*flg & 3) == 0)
-		*flg |= META;
+		*flg |= FT_META;
 	else
-		*flg &= ~META;
+		*flg &= ~FT_META;
 }
 
 void	read_token(char **end, char *flg)
@@ -40,7 +40,7 @@ void	read_token(char **end, char *flg)
 	*flg = 0;
 	is_meta(**end, flg);
 	state = *flg;
-	while (state == (*flg & META) && *(++(*end)))
+	while (state == (*flg & FT_META) && *(++(*end)))
 	{
 		compute_flg_mask(**end, flg);
 		is_meta(**end, flg);

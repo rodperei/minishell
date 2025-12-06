@@ -12,7 +12,6 @@
 
 #include <readline/history.h>
 #include <readline/readline.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -20,6 +19,7 @@
 #include "../include/shell_functions.h"
 #include "../include/signal_minishel.h"
 #include "../include/utils.h"
+#include "tokenizer/tokenizer.h"
 
 void	exchange_cd(int status)
 {
@@ -32,6 +32,21 @@ void	exchange_cd(int status)
 	free(pwd);
 }
 
+char	*search_pipe(char *str)
+{
+	char	flg;
+
+	flg = 0;
+	while (str && *str)
+	{
+		compute_flg_mask(*str, &flg);
+		if (!flg && ft_strchr("|", *str))
+			return (str);
+		str++;
+	}
+	return (0);
+}
+
 void	execute_console(char *str)
 {
 	int		pid;
@@ -41,7 +56,7 @@ void	execute_console(char *str)
 	char	*has_pipe;
 
 	status = 0;
-	has_pipe = ft_strchr(str, '|');
+	has_pipe = search_pipe(str);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -85,4 +100,5 @@ int	main(int argc, char **argv, char **env)
 		execute_console(str);
 	}
 	rl_clear_history();
+	unlink(FILE_ENV);
 }
