@@ -25,7 +25,7 @@ void	ft_echo_tokens(char **tokens)
 	flag = 0;
 	if (len == 1)
 	{
-		ft_echo("", 1);
+		ft_echo("\n", 1);
 		error_handle(0, 0);
 	}
 	else if (len >= 2 && equal("-n", tokens[1]))
