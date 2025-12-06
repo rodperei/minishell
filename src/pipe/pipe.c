@@ -88,7 +88,7 @@ void	compute_pipeline(char **tokens)
 				dup2(p_fd[0], STDIN_FILENO);
 			else if (j != i)
 				dup2(p_fd[1], STDOUT_FILENO);
-			execute_simple_command(choose_tokens(tokens, j));
+			execute_simple_command(choose_tokens(tokens, j), HAS_PIPE);
 			close(p_fd[0]);
 			close(p_fd[1]);
 			exit(EXIT_SUCCESS);

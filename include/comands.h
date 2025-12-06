@@ -40,7 +40,7 @@ int		error(char *str);
 
 // traductor.v
 void	ft_echo_tokens(char **tokens);
-void	ft_cd_tokens(char **tokens);
+void	ft_cd_tokens(char **tokens, int has_pipe);
 void	ft_export_tokens(char **tokens);
 void	ft_unset_tokens(char **tokens);
 

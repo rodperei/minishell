@@ -21,12 +21,14 @@
 # define BLUE	"\033[34m"
 # define RESET	"\033[0m"
 # define BOLD	"\033[1m"
+# define HAS_PIPE 1
+# define NOT_PIPE 0
 
 char	*create_prompt(void);
 char	**tokenize(char *input);
 char	**expand(char **input);
 char	**redirection(char **tokens, int fds[REDIR_MAX]);
-void	execute_simple_command(char **tokens);
+void	execute_simple_command(char **tokens, int has_pipe);
 void	compute_pipeline(char **tokens);
 char	**parse(char **tokens);
 

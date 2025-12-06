@@ -85,7 +85,7 @@ int	ft_cd(char *path)
 	result_path(&pwd, path);
 	dir = opendir(pwd);
 	if (!dir)
-		error_handle(127, "Error: not exist PATH");
+		error_handle(1, "cd: No such file or directory");
 	closedir(dir);
 	ft_export("PWD", pwd);
 	free(pwd);

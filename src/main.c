@@ -54,13 +54,13 @@ void	execute_console(char *str)
 		if (has_pipe)
 			compute_pipeline(tokens);
 		else
-			execute_simple_command(tokens);
+			execute_simple_command(tokens, NOT_PIPE);
 		exit(EXIT_SUCCESS);
 	}
 	else
 		waitpid(pid, &status, 0);
 	exchange_cd(status || has_pipe);
-	e_stat = ft_itoa(status);
+	e_stat = ft_itoa(WEXITSTATUS(status));
 	ft_export("?", e_stat);
 	free(e_stat);
 }

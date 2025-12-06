@@ -21,7 +21,7 @@
 #define INITIALIZE 0
 #define CLOSE 1
 
-void	execute_builtin(char **tokens)
+void	execute_builtin(char **tokens, int has_pipe)
 {
 	int	len;
 
@@ -31,7 +31,7 @@ void	execute_builtin(char **tokens)
 		if (!ft_strncmp("echo", *tokens, ft_strlen(*tokens)))
 			ft_echo_tokens(tokens);
 		else if (!ft_strncmp("cd", *tokens, ft_strlen(*tokens)))
-			ft_cd_tokens(tokens);
+			ft_cd_tokens(tokens, has_pipe);
 		else if (!ft_strncmp("pwd", *tokens, ft_strlen(*tokens)))
 			ft_pwd();
 		else if (!ft_strncmp("export", *tokens, ft_strlen(*tokens)))
@@ -118,9 +118,9 @@ void	execute_binary(char **tokens, int fds[REDIR_MAX])
 		// This sleep is only for debugging
 		//sleep(3);
 		env = ft_getallenv();
-		execve(*tokens, tokens, env);
+		status = execve(*tokens, tokens, env);
 		free_all(env);
-		exit(EXIT_SUCCESS);
+		exit(status);
 	}
 	else
 		waitpid(cpid, &status, 0);
@@ -130,7 +130,7 @@ void	execute_binary(char **tokens, int fds[REDIR_MAX])
 	free(e_stat);
 }
 
-void	execute_simple_command(char **tokens)
+void	execute_simple_command(char **tokens, int has_pipe)
 {
 	char	dir[PATH_MAX];
 	int		fds[REDIR_MAX];
@@ -139,7 +139,7 @@ void	execute_simple_command(char **tokens)
 	redirection(tokens, fds);
 	if (!ft_strchr(*tokens, '/'))
 	{
-		execute_builtin(tokens);
+		execute_builtin(tokens, has_pipe);
 		check_path_var(*tokens, dir);
 		free(*tokens);
 		*tokens = ft_strdup(dir);

@@ -17,8 +17,11 @@
 void	error_handle(int err, char	*str)
 {
 	if (err != 0)
-		printf("%s\n", strerror(err));
-	else if (str)
-		printf("%s\n", str);
+	{
+		if (!str)
+			printf("%s\n", strerror(err));
+		else
+			printf("%s\n", str);
+	}
 	exit(err);
 }

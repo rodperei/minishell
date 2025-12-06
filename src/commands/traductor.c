@@ -41,7 +41,7 @@ void	ft_echo_tokens(char **tokens)
 	error_handle(0, 0);
 }
 
-void	ft_cd_tokens(char **tokens)
+void	ft_cd_tokens(char **tokens, int has_pipe)
 {
 	int		len;
 	char	*path;
@@ -55,10 +55,11 @@ void	ft_cd_tokens(char **tokens)
 		path = ft_getenv("HOME");
 		if (!path)
 			error_handle(1, "cd: HOME not set");
-		ft_cd(path);
+		if (!has_pipe)
+			ft_cd(path);
 		free(path);
 	}
-	else
+	else if (!has_pipe)
 		ft_cd(tokens[1]);
 	error_handle(0, 0);
 }
