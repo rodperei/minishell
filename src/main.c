@@ -28,6 +28,8 @@ void	exchange_cd(int status)
 	if (status)
 		return;
 	pwd = ft_getenv("PWD");
+	if (!pwd)
+		return ;
 	chdir(pwd);
 	free(pwd);
 }

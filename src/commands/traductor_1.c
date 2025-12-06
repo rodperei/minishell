@@ -34,6 +34,7 @@ void    ft_exit_tokens(char **tokens, int has_pipe)
 {
     int len;
 
+    (void)has_pipe;
     len = len_all(tokens);
     if (len == 1)
         ft_exit(0);

@@ -13,7 +13,7 @@
 #ifndef COMANDS_H
 # define COMANDS_H
 
-# define FILE_ENV "/tmp/.env_minishel"
+# define FILE_ENV ".env"
 
 # include <stdio.h>
 # include <readline/readline.h>
