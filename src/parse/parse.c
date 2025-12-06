@@ -48,10 +48,10 @@ void	shear_error(char **tokens, int aux)
 		while (equal(tokens[aux], errors[err]) && errors[++tem])
 		{
 			if (equal(tokens[aux + 1], errors[tem]))
-				error_handle(2, "syntax error near unexpected token");
+				error_handle(2, "syntax error near unexpected token\n");
 		}
 		if (equal(tokens[aux], errors[err]) && !tokens[aux + 1])
-			error_handle(2, "syntax error near unexpected token");
+			error_handle(2, "syntax error near unexpected token\n");
 		err++;
 	}
 }

@@ -10,18 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+#include "../../include/utils.h"
 
 void	error_handle(int err, char	*str)
 {
+	char	*str_err;
+
+	str_err = strerror(err);
 	if (err != 0)
 	{
 		if (!str)
-			printf("%s\n", strerror(err));
+			write(STDERR_FILENO, str_err, ft_strlen(str_err));
 		else
-			printf("%s\n", str);
+			write(STDERR_FILENO, str, ft_strlen(str));
 	}
 	exit(err);
 }
