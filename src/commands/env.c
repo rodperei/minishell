@@ -47,15 +47,19 @@ char	**ft_getallenv(void)
 int	ft_env(void)
 {
 	char	**vars;
+	char	*exclude;
 	int		aux;
 
 	vars = ft_getallenv();
+	exclude = append(ft_strdup("?="), 5, ft_getenv("?"));
 	aux = 0;
 	while (vars && vars[aux])
 	{
-		printf("%s\n", vars[aux]);
+		if (!equal(exclude, vars[aux]))
+			printf("%s\n", vars[aux]);
 		aux++;
 	}
+	free(exclude);
 	free_all(vars);
 	return (1);
 }

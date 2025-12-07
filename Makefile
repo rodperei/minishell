@@ -4,7 +4,7 @@ NAME_1 = minishell
 
 # -fsanitize=address
 
-CFLAGS = -Wall -Wextra -Werror -g 
+CFLAGS = -Wall -Wextra -Werror -g
 
 LDLIBS = -lreadline
 

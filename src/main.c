@@ -71,7 +71,7 @@ void	execute_console(char *str, char **env_save)
 	if (pid == 0)
 	{
 		// This sleep is only for debugging
-		sleep(5);
+		//sleep(5);
 		signal_father();
 		tokens = tokenize(str);
 		tokens = parse(tokens);
@@ -79,7 +79,7 @@ void	execute_console(char *str, char **env_save)
 		if (has_pipe)
 			compute_pipeline(tokens);
 		else
-			execute_simple_command(tokens, NOT_PIPE, 0, 0);
+			execute_simple_command(tokens, NOT_PIPE);
 		ft_exit(0);
 	}
 	else
@@ -112,6 +112,7 @@ int	main(int argc, char **argv, char **env)
 		execute_console(str, env_save);
 		free_all(env_save);
 	}
+	free_all(env_save);
 	rl_clear_history();
 	unlink(FILE_ENV);
 }

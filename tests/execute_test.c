@@ -21,6 +21,6 @@ int	main(int argc, char **argv, char **env)
 	(void) argc;
 	load_env(env);
 	tokens = tokenize(ft_strdup(argv[1]));
-	execute_simple_command(tokens);
+	execute_simple_command(tokens, NOT_PIPE);
 	free_all(tokens);
 }

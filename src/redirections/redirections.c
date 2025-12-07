@@ -43,17 +43,16 @@ char	**redir_output(char **tokens, int *i, int *fd, char mode)
 	int		flags;
 	mode_t	permitions;
 
+	flags = O_WRONLY | O_CREAT | O_APPEND;
 	if (mode == TRUNCATE)
 		flags = O_WRONLY | O_CREAT | O_TRUNC;
-	else
-		flags = O_WRONLY | O_CREAT | O_APPEND;
 	permitions = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 	*fd = open(tokens[*i + 1], flags, permitions);
 	if (*fd == -1)
-		error_handle(0, 0);
+		error_handle(errno, 0);
 	ret = dup2(*fd, STDOUT_FILENO);
 	if (ret == -1)
-		error_handle(0, 0);
+		error_handle(errno, 0);
 	return (remove_redir_tokens(tokens, i));
 }
 

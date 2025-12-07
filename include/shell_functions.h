@@ -28,7 +28,7 @@ char	*create_prompt(void);
 char	**tokenize(char *input);
 char	**expand(char **input);
 char	**redirection(char **tokens, int fds[REDIR_MAX]);
-void	execute_simple_command(char **tokens, int has_pipe, int in, int out);
+void	execute_simple_command(char **tokens, int has_pipe);
 void	compute_pipeline(char **tokens);
 char	**parse(char **tokens);
 

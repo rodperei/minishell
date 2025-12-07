@@ -13,93 +13,133 @@
 #include "../../include/ft_limits.h"
 #include "../../include/utils.h"
 #include "../../include/shell_functions.h"
+#include "../../include/comands.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
 
-int	count_commands(char **tokens)
+int	count_pipe(char **tokens)
 {
-	int		i;
+	int	cant;
+	int	i;
 
-	i = 0;
-	while (*tokens)
-		if (!ft_strncmp(*tokens++, "|", 2))
-			i++;
-	i++;
-	if (i >= PIPE_MAX)
+	i = -1;
+	cant = -1;
+	while (tokens && tokens[++i])
+		cant += equal("|", tokens[i]);
+	cant++;
+	if (cant >= PIPE_MAX)
 		error_handle(0, "Exceeded pipe maximum limit\n");
-	return (i);
+	return (cant);
 }
 
-char	**alloc_simple_cmd(char **tokens, size_t i)
+void	init_pipe(int p_fd[PIPE_MAX][2], int cant)
 {
-	size_t	size;
-	char	**simple_cmd;
+	int	aux;
 
-	size = 0;
-	while (tokens[i] && ft_strncmp(tokens[i], "|", 2))
-	{
-		size++;
-		i++;
-	}
-	simple_cmd = malloc((size + 1) * sizeof(char *));
-	return (simple_cmd);
+	aux = -1;
+	while (++aux != cant)
+		pipe(p_fd[aux]);
 }
 
-char **choose_tokens(char **tokens, int i)
+void	close_pipe(int p_fd[PIPE_MAX][2], int cant)
 {
-	char	**simple_cmd;
-	size_t	j;
+	int	aux;
 
-	j = 0;
-	while (i - 1)
+	aux = -1;
+	while (++aux != cant)
 	{
-		if (!ft_strncmp(tokens[j], "|", 2))
-			i--;
-		j++;
+		close(p_fd[aux][0]);
+		close(p_fd[aux][1]);
 	}
-	simple_cmd = alloc_simple_cmd(tokens, j);
-	i = 0;
-	while (tokens[j] && ft_strncmp(tokens[j], "|", 2))
-		simple_cmd[i++] = ft_strdup(tokens[j++]);
-	simple_cmd[i] = 0;
-	return (simple_cmd);
+}
+
+char	**comand_index(char **tokens, int index)
+{
+	int		aux;
+	int		init;
+	int		end;
+	int		comand;
+	char	**result;
+
+	aux = -1;
+	comand = 0;
+	init = -1;
+	end = len_all(tokens);
+	while (tokens && tokens[++aux])
+	{
+		if (comand == index && init == -1)
+			init = aux;
+		if (comand > index)
+		{
+			end = aux;
+			break;
+		}
+		if (equal("|", tokens[aux]))
+			comand++;
+	}
+	result = calloc((end - init) + 1, sizeof(char *));
+	aux = -1;
+	while ((init + (++aux)) != end)
+		if (!equal(tokens[init + aux], "|"))
+			result[aux] = ft_strdup(tokens[init + aux]);
+	return (result);
+}
+
+void pipe_io(int in, int out)
+{
+    if (in)
+    {
+        dup2(in, STDIN_FILENO);
+        close(in);
+    }
+    if (out)
+    {
+        dup2(out, STDOUT_FILENO);
+        close(out);
+    }
+}
+
+void	await(int pid[PIPE_MAX], int cant_pipe)
+{
+	int	aux;
+	int	status;
+
+	aux = -1;
+	while (++aux <= cant_pipe)
+		waitpid(pid[aux], &status, 0);
+	ft_exit(aux);
 }
 
 void	compute_pipeline(char **tokens)
 {
-	int		i;
-	int		j;
-	int		p_fd[2];
-	pid_t	cpid;
+	int		cant_pipe;
+	int		p_fd[PIPE_MAX][2];
+	int		pid[PIPE_MAX];
 	char	**s_cmd;
+	int		aux;
 
-	i = count_commands(tokens);
-	if (pipe(p_fd) == -1)
-		error_handle(0, 0);
-	j = 0;
-	while (++j <= i)
+	cant_pipe = count_pipe(tokens);
+	init_pipe(p_fd, cant_pipe);
+	aux = -1;
+	while (++aux <= cant_pipe)
 	{
-		s_cmd = choose_tokens(tokens, j);
-		cpid = fork();
-		if (cpid == -1)
-			error_handle(0, 0);
-		if (cpid == 0)
+		s_cmd = comand_index(tokens, aux);
+		pid[aux] = fork();
+		if (pid[aux] == 0)
 		{
-			// This sleep is only for debugging
-			sleep(5);
-			if (j != 0)
-				execute_simple_command(s_cmd, HAS_PIPE, 0, p_fd[1]);
-			else if (j != i)
-				execute_simple_command(s_cmd, HAS_PIPE, p_fd[0], 0);
+			if (aux == 0)
+				pipe_io(0, p_fd[aux][1]);
+			else if (aux == cant_pipe)
+				pipe_io(p_fd[aux - 1][0], 0);
 			else
-				execute_simple_command(s_cmd, HAS_PIPE, p_fd[0], p_fd[1]);
-			close(p_fd[0]);
-			close(p_fd[1]);
-			exit(EXIT_SUCCESS);
+				pipe_io(p_fd[aux - 1][0], p_fd[aux][1]);
+			close_pipe(p_fd, cant_pipe);
+			execute_simple_command(s_cmd, HAS_PIPE);
 		}
+		free_all(s_cmd);
 	}
-	close(p_fd[0]);
-	close(p_fd[1]);
+	close_pipe(p_fd, cant_pipe);
 	free_all(tokens);
+	await(pid, cant_pipe);
 }

@@ -14,6 +14,8 @@
 #include "../../include/comands.h"
 #include "../../include/ft_limits.h"
 #include "../../include/shell_functions.h"
+#include "../include/shell_functions.h"
+#include "../include/signal_minishel.h"
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -21,19 +23,10 @@
 #define INITIALIZE 0
 #define CLOSE 1
 
-void	pipe_io(int in, int out)
-{
-	if (in)
-		dup2(in, STDIN_FILENO);
-	if (out)
-		dup2(out, STDOUT_FILENO);
-}
-
-void	execute_builtin(char **tokens, int has_pipe, int in, int out)
+void	execute_builtin(char **tokens, int has_pipe)
 {
 	int	len;
 
-	pipe_io(in, out);
 	len = len_all(tokens);
 	if (len)
 	{
@@ -111,36 +104,18 @@ void	compute_fds(int fds[REDIR_MAX], char mode)
 	}
 }
 
-void	execute_binary(char **tokens, int fds[REDIR_MAX], int in, int out)
+void	execute_binary(char **tokens)
 {
 	char	**env;
-	int		cpid;
 	int		status;
-	char	*e_stat;
 
-	cpid = fork();
-	status = 0;
-	if (cpid == -1)
-		error_handle(0, 0);
-	else if (cpid == 0)
-	{
-		// This sleep is only for debugging
-		sleep(5);
-		env = ft_getallenv();
-		pipe_io(in, out);
-		execve(*tokens, tokens, env);
-		free_all(env);
-		exit(status);
-	}
-	else
-		waitpid(cpid, &status, 0);
-	compute_fds(fds, CLOSE);
-	e_stat = ft_itoa(status);
-	ft_export("?", e_stat);
-	free(e_stat);
+	env = ft_getallenv();
+	status = execve(*tokens, tokens, env);
+	free_all(env);
+	error_handle(status, NULL);
 }
 
-void	execute_simple_command(char **tokens, int has_pipe, int in, int out)
+void	execute_simple_command(char **tokens, int has_pipe)
 {
 	char	dir[PATH_MAX];
 	int		fds[REDIR_MAX];
@@ -149,7 +124,7 @@ void	execute_simple_command(char **tokens, int has_pipe, int in, int out)
 	redirection(tokens, fds);
 	if (!ft_strchr(*tokens, '/'))
 	{
-		execute_builtin(tokens, has_pipe, in, out);
+		execute_builtin(tokens, has_pipe);
 		check_path_var(*tokens, dir);
 		free(*tokens);
 		*tokens = ft_strdup(dir);
@@ -162,6 +137,7 @@ void	execute_simple_command(char **tokens, int has_pipe, int in, int out)
 			exit(127);
 		}
 	}
-	execute_binary(tokens, fds, in, out);
+	execute_binary(tokens);
+	compute_fds(fds, CLOSE);
 	free_all(tokens);
 }
