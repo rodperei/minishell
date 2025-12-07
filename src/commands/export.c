@@ -22,7 +22,7 @@ int	valid_name(char *str)
 		return (0);
 	while (str[x])
 	{
-		if ((str[x] > 'a' && str[x] < 'z') || (str[x] > 'A' && str[x] < 'Z'))
+		if (1)
 			x++;
 		else
 			return (0);
