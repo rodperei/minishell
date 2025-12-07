@@ -72,6 +72,7 @@ void	compute_pipeline(char **tokens)
 	int		j;
 	int		p_fd[2];
 	pid_t	cpid;
+	char	**s_cmd;
 
 	i = count_commands(tokens);
 	if (pipe(p_fd) == -1)
@@ -79,16 +80,20 @@ void	compute_pipeline(char **tokens)
 	j = 0;
 	while (++j <= i)
 	{
+		s_cmd = choose_tokens(tokens, j);
 		cpid = fork();
 		if (cpid == -1)
 			error_handle(0, 0);
 		if (cpid == 0)
 		{
+			// This sleep is only for debugging
+			sleep(5);
 			if (j != 0)
-				dup2(p_fd[0], STDIN_FILENO);
+				execute_simple_command(s_cmd, HAS_PIPE, 0, p_fd[1]);
 			else if (j != i)
-				dup2(p_fd[1], STDOUT_FILENO);
-			execute_simple_command(choose_tokens(tokens, j), HAS_PIPE);
+				execute_simple_command(s_cmd, HAS_PIPE, p_fd[0], 0);
+			else
+				execute_simple_command(s_cmd, HAS_PIPE, p_fd[0], p_fd[1]);
 			close(p_fd[0]);
 			close(p_fd[1]);
 			exit(EXIT_SUCCESS);

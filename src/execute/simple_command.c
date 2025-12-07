@@ -21,10 +21,19 @@
 #define INITIALIZE 0
 #define CLOSE 1
 
-void	execute_builtin(char **tokens, int has_pipe)
+void	pipe_io(int in, int out)
+{
+	if (in)
+		dup2(in, STDIN_FILENO);
+	if (out)
+		dup2(out, STDOUT_FILENO);
+}
+
+void	execute_builtin(char **tokens, int has_pipe, int in, int out)
 {
 	int	len;
 
+	pipe_io(in, out);
 	len = len_all(tokens);
 	if (len)
 	{
@@ -102,7 +111,7 @@ void	compute_fds(int fds[REDIR_MAX], char mode)
 	}
 }
 
-void	execute_binary(char **tokens, int fds[REDIR_MAX])
+void	execute_binary(char **tokens, int fds[REDIR_MAX], int in, int out)
 {
 	char	**env;
 	int		cpid;
@@ -116,9 +125,10 @@ void	execute_binary(char **tokens, int fds[REDIR_MAX])
 	else if (cpid == 0)
 	{
 		// This sleep is only for debugging
-		//sleep(3);
+		sleep(5);
 		env = ft_getallenv();
-		status = execve(*tokens, tokens, env);
+		pipe_io(in, out);
+		execve(*tokens, tokens, env);
 		free_all(env);
 		exit(status);
 	}
@@ -130,7 +140,7 @@ void	execute_binary(char **tokens, int fds[REDIR_MAX])
 	free(e_stat);
 }
 
-void	execute_simple_command(char **tokens, int has_pipe)
+void	execute_simple_command(char **tokens, int has_pipe, int in, int out)
 {
 	char	dir[PATH_MAX];
 	int		fds[REDIR_MAX];
@@ -139,7 +149,7 @@ void	execute_simple_command(char **tokens, int has_pipe)
 	redirection(tokens, fds);
 	if (!ft_strchr(*tokens, '/'))
 	{
-		execute_builtin(tokens, has_pipe);
+		execute_builtin(tokens, has_pipe, in, out);
 		check_path_var(*tokens, dir);
 		free(*tokens);
 		*tokens = ft_strdup(dir);
@@ -152,6 +162,6 @@ void	execute_simple_command(char **tokens, int has_pipe)
 			exit(127);
 		}
 	}
-	execute_binary(tokens, fds);
+	execute_binary(tokens, fds, in, out);
 	free_all(tokens);
 }

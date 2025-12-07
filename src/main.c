@@ -49,7 +49,7 @@ char	*search_pipe(char *str)
 
 void	execute_console(char *str)
 {
-	int		pid;
+	pid_t	pid;
 	int		status;
 	char	*e_stat;
 	char	**tokens;
@@ -60,6 +60,8 @@ void	execute_console(char *str)
 	pid = fork();
 	if (pid == 0)
 	{
+		// This sleep is only for debugging
+		sleep(5);
 		signal_father();
 		tokens = tokenize(str);
 		tokens = parse(tokens);
@@ -67,7 +69,7 @@ void	execute_console(char *str)
 		if (has_pipe)
 			compute_pipeline(tokens);
 		else
-			execute_simple_command(tokens, NOT_PIPE);
+			execute_simple_command(tokens, NOT_PIPE, 0, 0);
 		exit(EXIT_SUCCESS);
 	}
 	else

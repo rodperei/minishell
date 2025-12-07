@@ -13,14 +13,37 @@
 #include "../include/comands.h"
 #include "../include/shell_functions.h"
 #include "../include/utils.h"
+#include <readline/readline.h>
+#include <sys/wait.h>
+#include <time.h>
+#include <unistd.h>
 
 int	main(int argc, char **argv, char **env)
 {
-	char **tokens;
+	char	**tokens;
+	char	*str;
+	int		status;
+	pid_t	cpid;
 
 	(void) argc;
+	(void) argv;
 	load_env(env);
-	tokens = tokenize(ft_strdup(argv[1]));
-	compute_pipeline(tokens);
+	while (1)
+	{
+		str = readline(">");
+		if (!str)
+			break ;
+		cpid = fork();
+		if (cpid == 0)
+		{
+			// Sleep only for debugging
+			sleep(5);
+			tokens = tokenize(str);
+			tokens = parse(tokens);
+			compute_pipeline(tokens);
+		}
+		else
+			waitpid(cpid, &status, 0);
+	}
 	free_all(tokens);
 }
