@@ -1,41 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/24 15:59:16 by frnicola          #+#    #+#             */
-/*   Updated: 2025/09/24 15:59:20 by frnicola         ###   ########.fr       */
+/*   Created: 2025/04/10 19:43:51 by frnicola          #+#    #+#             */
+/*   Updated: 2025/04/10 19:44:04 by frnicola         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/utils.h"
-#include "../../include/comands.h"
 
-void	print_str(char *str)
+static int	is_space(char x)
 {
-	if (!str)
-		return ;
-	while (str)
-		write(1, str++, 1);
+	return ((x >= 9 && x <= 13) || (x == 32));
 }
 
-void	print_text(char *str)
+static int	is_num(char x)
 {
-	while (str && *str)
+	return (x >= '0' && x <= '9');
+}
+
+int	ft_atoi(const char *string)
+{
+	int	sign;
+	int	num;
+
+	num = 0;
+	sign = 1;
+	while (is_space(*string))
+		string++;
+	if (*string == '-')
 	{
-		if (*str == 92)
-			str++;
-		write(1, str, 1);
-		str++;
+		sign = -1;
+		string++;
 	}
-}
-
-int	ft_echo(char *text, int flag_n)
-{
-	print_text(text);
-	if (!flag_n)
-		printf("\n");
-	return (0);
+	else if (*string == '+')
+		string++;
+	while (is_num(*string))
+	{
+		num = (num * 10) + (*string - '0');
+		string++;
+	}
+	return (num * sign);
 }

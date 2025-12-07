@@ -73,6 +73,7 @@ char	**tokenize(char *end)
 	while (end && *end)
 	{
 		read_token(&end, &flg);
+		compute_flg_mask(*end, &flg);
 		is_meta(*bgn, &flg);
 		tokens = compute_saves(tokens, flg, &bgn, end);
 		if (!tokens)

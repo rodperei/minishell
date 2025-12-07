@@ -13,6 +13,7 @@
 #include "tokenizer.h"
 #include "../../include/utils.h"
 #include <stddef.h>
+#include <errno.h>
 
 void	shrink_wspace(char *input, char *buff, int *i, size_t *j)
 {
@@ -85,7 +86,7 @@ char	*clear_input(char *input)
 	if (!input)
 	{
 		free(tmp);
-		error_handle(0, 0);
+		error_handle(errno, NULL);
 	}
 	free(tmp);
 	tmp = input;

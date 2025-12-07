@@ -13,7 +13,7 @@
 #ifndef COMANDS_H
 # define COMANDS_H
 
-# define FILE_ENV "/tmp/.env_minishel"
+# define FILE_ENV "/tmp/.env_minishell"
 
 # include <stdio.h>
 # include <readline/readline.h>
@@ -21,7 +21,7 @@
 # include <stdlib.h>
 
 // funcions
-void	ft_exit(void);
+void	ft_exit(int status);
 int		ft_env(void);
 int		ft_echo(char *text, int flag_n);
 int		ft_export(char *name, char *value);
@@ -41,5 +41,8 @@ void	ft_echo_tokens(char **tokens);
 void	ft_cd_tokens(char **tokens, int has_pipe);
 void	ft_export_tokens(char **tokens);
 void	ft_unset_tokens(char **tokens);
+void	ft_pwd_tokens(void);
+void    ft_env_tokens(void);
+void    ft_exit_tokens(char **tokens, int has_pipe);
 
 #endif

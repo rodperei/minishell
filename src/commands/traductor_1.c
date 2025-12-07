@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   traductor_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,30 +13,34 @@
 #include "../../include/utils.h"
 #include "../../include/comands.h"
 
-int	ft_unset(char *name)
+void    ft_env_tokens(void)
 {
-	char	**envs;
-	char	*value;
-	int		aux;
+    ft_env();
+    error_handle(0, 0);
+}
 
-	if (!name)
-		error_handle(0, 0);
-	if (!include(name, "="))
-		value = ft_strjoin(name, "=");
-	else
-		value = ft_strdup(name);
-	envs = ft_getallenv();
-	aux = 0;
-	while (envs && envs[aux])
-	{
-		if (equaln(envs[aux], value, ft_strlen(value)))
-			break ;
-		aux++;
-	}
-	if (envs && equaln(envs[aux], value, ft_strlen(value)))
-		envs = delete_vec_matriz(envs, aux);
-	load_env(envs);
-	free_all(envs);
-	free(value);
-	return (0);
+int is_only_numero(char *str)
+{
+    while (str && *str)
+    {
+        if (*str < '0' || *str > '9')
+            return (0);
+        str++;
+    }
+    return (1);
+}
+
+void    ft_exit_tokens(char **tokens, int has_pipe)
+{
+    int len;
+
+    (void)has_pipe;
+    len = len_all(tokens);
+    if (len == 1)
+        ft_exit(0);
+    if (!is_only_numero(tokens[1]))
+        error_handle(1, "exit: numeric argument required");
+    if (len > 2)
+        error_handle(1, "exit: too many arguments");
+    ft_exit(ft_atoi(tokens[1]));
 }

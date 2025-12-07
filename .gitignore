@@ -13,3 +13,4 @@
 */*.a
 .env
 minishell
+minishell_tester
