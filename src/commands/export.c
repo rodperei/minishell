@@ -13,13 +13,30 @@
 #include "../../include/utils.h"
 #include "../../include/comands.h"
 
+int	valid_name(char *str)
+{
+	int	x;
+
+	x = 0;
+	if (!str)
+		return (0);
+	while (str[x])
+	{
+		if ((str[x] > 'a' && str[x] < 'z') || (str[x] > 'A' && str[x] < 'Z'))
+			x++;
+		else
+			return (0);
+	}
+	return (1);
+}
+
 int	ft_export(char *name, char *value)
 {
 	char	**envs;
 	char	*result;
 
-	if (!value || !name)
-		error_handle(1, "not a valid identifier");
+	if (!value || !valid_name(name))
+		error_handle(1, " not a valid identifier");
 	if (!include(name, "="))
 		result = ft_strjoin(name, "=");
 	else

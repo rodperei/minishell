@@ -21,39 +21,13 @@ void	print_str(char *str)
 		write(1, str++, 1);
 }
 
-int	print_env(char *str)
-{
-	char	var[1025];
-	int		aux;
-	char	*var_env;
-
-	str++;
-	aux = -1;
-	while (str && str[++aux] && str[aux] != ' ')
-		var[aux] = str[aux];
-	var[aux] = '\0';
-	var_env = ft_getenv(var);
-	if (var_env)
-	{
-		print_str(var_env);
-		free(var_env);
-	}
-	return (++aux);
-}
-
 void	print_text(char *str)
 {
 	while (str && *str)
 	{
-		if (*str == '$')
-			str += print_env(str);
 		if (*str == 92)
-		{
 			str++;
-			write(1, str, 1);
-		}
-		else
-			write(1, str, 1);
+		write(1, str, 1);
 		str++;
 	}
 }
