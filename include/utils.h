@@ -23,6 +23,8 @@
 # include "ft_limits.h"
 
 # define SIZE_BUF 300
+# define SQUOTE 1
+# define DQUOTE 2
 
 //	lens.c
 int		len(char *str);
@@ -89,5 +91,8 @@ int		ft_atoi(const char *string);
 
 // valid_env
 void	valid_env();
+
+// token_utils.c
+void	compute_flg_mask(char input, char *flg);
 
 #endif

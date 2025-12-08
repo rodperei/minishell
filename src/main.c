@@ -19,7 +19,6 @@
 #include "../include/shell_functions.h"
 #include "../include/signal_minishel.h"
 #include "../include/utils.h"
-#include "tokenizer/tokenizer.h"
 
 void	verryfi_env_cwd(int status, char **env_save)
 {
