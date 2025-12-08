@@ -19,7 +19,6 @@
 #include "../include/shell_functions.h"
 #include "../include/signal_minishel.h"
 #include "../include/utils.h"
-#include "tokenizer/tokenizer.h"
 
 void	verryfi_env_cwd(int status, char **env_save)
 {
@@ -100,6 +99,7 @@ int	main(int argc, char **argv, char **env)
 	(void) argv;
 	signal_main();
 	load_env(env);
+	ft_export("?", "0");
 	while (1)
 	{
 		env_save = ft_getallenv();

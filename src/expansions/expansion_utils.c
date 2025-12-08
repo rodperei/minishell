@@ -45,11 +45,15 @@ char	*fetch_var_name(char *token, size_t *i)
 		{
 			buff[j++] = token[(*i)++];
 			chr = ft_strchr(" \t\n\'\"$", token[*i]);
+			if (buff[j - 1] == '?')
+				break ;
 		}
 		buff[j] = '\0';
 		expanded_token = flush_name(expanded_token, buff);
 		if (!expanded_token)
 			return (NULL);
+		if (*expanded_token == '?')
+			break ;
 	}
 	return (expanded_token);
 }
@@ -80,14 +84,17 @@ char	*swap_expansion(char *prefix, char *token, size_t *i)
 	char	*tmp;
 
 	result = fetch_var_name(token, i);
-	if (!result)
-		return (NULL);
-	tmp = ft_getenv(result);
-	free(result);
-	if (!tmp)
-		tmp = ft_strdup("");
-	result = ft_strjoin(prefix, tmp);
-	free(tmp);
+	if (result)
+	{
+		tmp = ft_getenv(result);
+		free(result);
+		if (!tmp)
+			tmp = ft_strdup("");
+		result = ft_strjoin(prefix, tmp);
+		free(tmp);
+	}
+	else
+		result = ft_strjoin(prefix, "$");
 	free(prefix);
 	return (result);
 }

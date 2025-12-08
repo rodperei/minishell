@@ -85,36 +85,3 @@ char	**tokenize(char *end)
 	free(tmp);
 	return (tokens);
 }
-
-/*
-#include <stdio.h>
-int main(void)
-{
-	parse_quotes test
-	char *str[9];
-	str[0] = "\"\"";
-	str[1] = "\'\'";
-	str[2] = "\"\'\"";
-	str[3] = "\'\"\'";
-	str[4] = "No string test";
-	str[5] = "\'\'\'";
-	str[6] = "\"\"\"";
-	str[7] = "";
-	str[8] = 0;
-	int	i = -1;
-
-	while (++i < 9)
-	{
-		printf("Test %d: %d\n", i, parse_quotes(str[i]));
-	}
-	clear_input test
-	char	*str = "  \t\t\nThis    \t is a string\n\t \n\ntest\t\t\n\n\n";
-	char	*mem;
-
-	mem = ft_strjoin(0, str);
-	printf("|%s|\n", mem);
-	mem = clear_input(mem);
-	printf("|%s|\n", mem);
-	free(mem);
-	clear_input(0);
-}*/

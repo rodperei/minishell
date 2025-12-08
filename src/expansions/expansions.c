@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../include/utils.h"
+#include <stddef.h>
 #include "./expansions.h"
 
 char	*expand_var(char *token)
@@ -41,24 +42,66 @@ void	compute_error(char **tokens)
 	error_handle(0, 0);
 }
 
+char	check_snip(char c, char *flg)
+{
+	char	state;
+
+	state = *flg;
+	compute_flg_mask(c, flg);
+	if ((state & 3) != (*flg & 3))
+		return (1);
+	return (0);
+}
+
+char	*snip_quote(char *token, char c)
+{
+	size_t	size;
+	size_t	i;
+	size_t	j;
+	char	*new_token;
+
+	size = 0;
+	i = -1;
+	while (token[++i])
+		size++;
+	i = 0;
+	while (token[i] && token[i] != c)
+		i++;
+	token[i] = '\0';
+	new_token = malloc(size * sizeof(char));
+	i = -1;
+	j = 0;
+	while (j < size - 1)
+		if (token[++i])
+			new_token[j++] = token[i];
+	new_token[j] = '\0';
+	free(token);
+	return (new_token);
+}
+
 char	**remove_quotes(char **tokens)
 {
-	char	*tmp;
 	size_t	i;
+	size_t	j;
+	char	flg;
+	char	snip;
 
 	i = -1;
 	while (tokens[++i])
 	{
-		if (*tokens[i] == '\'' || *tokens[i] == '"')
+		flg = 0;
+		j = 0;
+		while (tokens[i][j])
 		{
-			tmp = ft_strtrim(tokens[i], "'\"");
-			if (!tmp)
-				compute_error(tokens);
-			free(tokens[i]);
-			tokens[i] = tmp;
+			snip = check_snip(tokens[i][j], &flg);
+			if (snip && tokens[i][j] == '\'')
+				tokens[i] = snip_quote(tokens[i], '\'');
+			else if (snip)
+				tokens[i] = snip_quote(tokens[i], '"');
+			if (tokens[i][j] && !snip)
+				j++;
 		}
 	}
-	//print_matriz_vec(tokens, "EXPAND");
 	return (tokens);
 }
 
@@ -86,6 +129,7 @@ char	*expand_heredoc(char *delimiter, int *j)
 char	**expand(char **input)
 {
 	size_t	i;
+	size_t	k;
 	int		j;
 	char	*tmp;
 
@@ -99,12 +143,16 @@ char	**expand(char **input)
 			input[i] = expand_heredoc(input[i], &j);
 			continue ;
 		}
-		while (*input[i] != '\'' && ft_strchr(input[i], '$') && !equal("$", input[i]))
+		k = -1;
+		while (input[i][++k])
 		{
-			tmp = expand_var(input[i]);
-			if (!tmp)
-				compute_error(input);
-			input[i] = tmp;
+			if (*input[i] != '\'' && input[i][k] == '$')
+			{
+				tmp = expand_var(input[i]);
+				if (!tmp)
+					compute_error(input);
+				input[i] = tmp;
+			}
 		}
 	}
 	return (remove_quotes(input));
