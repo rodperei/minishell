@@ -12,6 +12,7 @@
 
 #include "../../include/utils.h"
 #include "../../include/comands.h"
+#include <stdlib.h>
 
 void	ft_echo_tokens(char **tokens)
 {
@@ -38,7 +39,7 @@ void	ft_echo_tokens(char **tokens)
 			text = append(text, ft_strlen(" "), " ");
 	}
 	ft_echo(text, flag);
-	error_handle(0, 0);
+	exit(EXIT_SUCCESS);
 }
 
 void	ft_cd_tokens(char **tokens, int has_pipe)
@@ -61,7 +62,7 @@ void	ft_cd_tokens(char **tokens, int has_pipe)
 	}
 	else if (!has_pipe)
 		ft_cd(tokens[1]);
-	error_handle(0, 0);
+	exit(EXIT_SUCCESS);
 }
 
 void	ft_pwd_tokens(void)
@@ -71,7 +72,7 @@ void	ft_pwd_tokens(void)
 	pwd = ft_pwd();
 	printf("%s\n", pwd);
 	free(pwd);
-	error_handle(0, 0);
+	exit(EXIT_SUCCESS);
 }
 
 void	ft_export_tokens(char **tokens)
@@ -94,7 +95,7 @@ void	ft_export_tokens(char **tokens)
 		else
 			ft_export(str[0], "");
 	}
-	error_handle(0, 0);
+	exit(EXIT_SUCCESS);
 }
 
 void	ft_unset_tokens(char **tokens)
@@ -105,11 +106,11 @@ void	ft_unset_tokens(char **tokens)
 	aux = 0;
 	len = len_all(tokens);
 	if (len == 1)
-		error_handle(0, 0);
+		exit(EXIT_SUCCESS);
 	while (++aux != len)
 	{
 		if (!include(tokens[aux], "?"))
 			ft_unset(tokens[aux]);
 	}
-	error_handle(0, 0);
+	exit(EXIT_SUCCESS);
 }
