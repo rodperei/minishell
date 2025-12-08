@@ -13,6 +13,7 @@
 #include <fcntl.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <string.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include "../../include/utils.h"
@@ -22,24 +23,21 @@
 #define TRUNCATE 0
 #define APPEND 1
 #define BUFFER_SIZE 1000
-#define ROOT_DIR "/home/rodperei/Documentos/Common Core/Projects/minishell/"
 
 char	**redir_input(char **tokens, int *i, int *fd)
 {
-	int	ret;
-
 	*fd = open(tokens[*i + 1], O_RDONLY);
 	if (*fd == -1)
-		error_handle(0, 0);
-	ret = dup2(STDIN_FILENO, *fd);
-	if (ret == -1)
-		error_handle(0, 0);
+	{
+		write(STDERR_FILENO, strerror(errno), ft_strlen(strerror(errno)));
+		exit(EXIT_FAILURE);
+	}
+	dup2(*fd, STDIN_FILENO);
 	return (remove_redir_tokens(tokens, i));
 }
 
 char	**redir_output(char **tokens, int *i, int *fd, char mode)
 {
-	int		ret;
 	int		flags;
 	mode_t	permitions;
 
@@ -49,10 +47,11 @@ char	**redir_output(char **tokens, int *i, int *fd, char mode)
 	permitions = S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH;
 	*fd = open(tokens[*i + 1], flags, permitions);
 	if (*fd == -1)
-		error_handle(errno, 0);
-	ret = dup2(*fd, STDOUT_FILENO);
-	if (ret == -1)
-		error_handle(errno, 0);
+	{
+		write(STDERR_FILENO, strerror(errno), ft_strlen(strerror(errno)));
+		exit(EXIT_FAILURE);
+	}
+	dup2(*fd, STDOUT_FILENO);
 	return (remove_redir_tokens(tokens, i));
 }
 
@@ -84,7 +83,7 @@ char	**redir_heredoc(char **tokens, int *i)
 	int		fd;
 	char	name[65];
 
-	ft_memmove(name, ROOT_DIR, ft_strlen(ROOT_DIR) + 1);
+	ft_memmove(name, "./", ft_strlen("./") + 1);
 	ft_strlcat(name, tokens[*i + 1], 65);
 	fd = open(name, O_RDONLY);
 	if (fd == -1)
@@ -113,9 +112,9 @@ char	**redirection(char **tokens, int fds[REDIR_MAX])
 		else if (equal(tokens[i], ">"))
 			tokens = redir_output(tokens, &i, &fds[++j], TRUNCATE);
 		else if (equal(tokens[i], ">>"))
-			tokens = redir_heredoc(tokens, &i);
-		else if (equal(tokens[i], "<<"))
 			tokens = redir_output(tokens, &i, &fds[++j], APPEND);
+		else if (equal(tokens[i], "<<"))
+			tokens = redir_heredoc(tokens, &i);
 	}
 	return (tokens);
 }

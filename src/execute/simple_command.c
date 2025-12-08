@@ -14,8 +14,6 @@
 #include "../../include/comands.h"
 #include "../../include/ft_limits.h"
 #include "../../include/shell_functions.h"
-#include "../include/shell_functions.h"
-#include "../include/signal_minishel.h"
 #include <stdlib.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -121,7 +119,7 @@ void	execute_simple_command(char **tokens, int has_pipe)
 	int		fds[REDIR_MAX];
 
 	compute_fds(fds, INITIALIZE);
-	redirection(tokens, fds);
+	tokens = redirection(tokens, fds);
 	if (!ft_strchr(*tokens, '/'))
 	{
 		execute_builtin(tokens, has_pipe);
