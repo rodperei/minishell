@@ -22,6 +22,8 @@
 # include <fcntl.h>
 
 # define SIZE_BUF 300
+# define SQUOTE 1
+# define DQUOTE 2
 
 //	lens.c
 int		len(char *str);
@@ -85,5 +87,8 @@ char	*ft_itoa(int n);
 
 // ft_atoi
 int		ft_atoi(const char *string);
+
+// token_utils.c
+void	compute_flg_mask(char input, char *flg);
 
 #endif

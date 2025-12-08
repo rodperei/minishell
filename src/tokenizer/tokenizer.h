@@ -15,11 +15,8 @@
 
 //	token_utils.c
 
-# define SQUOTE 1
-# define DQUOTE 2
 # define FT_META 4
 
-void	compute_flg_mask(char input, char *flg);
 void	is_meta(char c, char *flg);
 void	parse_redirect(char **bgn, char *oprt, int *i, char c);
 void	read_token(char **end, char *flg);
