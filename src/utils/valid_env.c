@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   valid_env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,32 +13,24 @@
 #include "../../include/utils.h"
 #include "../../include/comands.h"
 
-int	parce_num(int num)
+void	valid_env()
 {
-	return (num % 256);
-}
+	char	*tmp;
 
-void	last_exit()
-{
-	char	*last_status;
-	int		status_num;
-
-	last_status = ft_getenv("?");
-	status_num = ft_atoi(last_status);
-	free(last_status);
-	status_num = parce_num(status_num);
-	unlink(FILE_ENV);
-	exit(status_num);
-}
-
-void	ft_exit(int status)
-{
-	char	*tem;
-
-	tem = ft_itoa(status);
-	ft_export("??", tem);
-	ft_export("?", tem);
-	free(tem);
-	status = parce_num(status);
-	exit(status);
+	tmp = ft_getenv("PWD");
+	if (!tmp)
+	{
+		tmp = malloc(PATH_MAX * sizeof(char));
+		getcwd(tmp, PATH_MAX);
+		ft_export("PWD", tmp);
+	}
+	free(tmp);
+	tmp = ft_getenv("PATH");
+	if (!tmp)
+	{
+		tmp = ft_strdup("/usr/local/sbin:/usr/local/bin:/usr/sbin:\
+/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin");
+		ft_export("PATH", tmp);
+	}
+	free(tmp);
 }

@@ -23,7 +23,7 @@ int	is_only_numero(char *str)
 {
 	while (str && *str)
 	{
-		if (*str < '0' || *str > '9')
+		if ((*str < '0' || *str > '9') && (*str != '+'))
 			return (0);
 		str++;
 	}
@@ -34,13 +34,13 @@ void	ft_exit_tokens(char **tokens, int has_pipe)
 {
 	int	len;
 
-	(void)has_pipe;
 	len = len_all(tokens);
 	if (len == 1)
 		ft_exit(0);
 	if (!is_only_numero(tokens[1]))
-		error_handle(1, "exit: numeric argument required");
+		error_handle(156, "exit: numeric argument required");
 	if (len > 2)
 		error_handle(1, "exit: too many arguments");
-	ft_exit(ft_atoi(tokens[1]));
+	if (!has_pipe)
+		ft_exit(ft_atoi(tokens[1]));
 }

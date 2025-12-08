@@ -22,9 +22,11 @@
 
 // funcions
 void	ft_exit(int status);
+void	last_exit();
 int		ft_env(void);
 int		ft_echo(char *text, int flag_n);
 int		ft_export(char *name, char *value);
+int     ft_export_num(char *name, int num);
 void	ft_export_void(void);
 int		ft_unset(char *value);
 int		ft_cd(char *path);

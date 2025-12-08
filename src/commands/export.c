@@ -22,7 +22,11 @@ int	valid_name(char *str)
 		return (0);
 	while (str[x])
 	{
-		if (1)
+		if (str[x] >= 'a' && str[x] <= 'z')
+			x++;
+		else if (str[x] >= 'A' && str[x] <= 'Z')
+			x++;
+		else if (str[x] == '_' || str[x] == '?' || str[x] == '=')
 			x++;
 		else
 			return (0);
@@ -48,6 +52,16 @@ int	ft_export(char *name, char *value)
 	load_env(envs);
 	free_all(envs);
 	free(result);
+	return (0);
+}
+
+int	ft_export_num(char *name, int num)
+{
+	char	*value;
+
+	value = ft_itoa(num);
+	ft_export(name, value);
+	free(value);
 	return (0);
 }
 

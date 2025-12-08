@@ -68,7 +68,8 @@ void	await(int pid[PIPE_MAX], int cant_pipe, char **tokens)
 	free_all(tokens);
 	while (++aux <= cant_pipe)
 		waitpid(pid[aux], &status, 0);
-	ft_exit(aux);
+	ft_export_num("?", WEXITSTATUS(status));
+	error_handle(status, 0);
 }
 
 void	compute_pipeline(char **tokens)

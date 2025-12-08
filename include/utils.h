@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include "ft_limits.h"
 
 # define SIZE_BUF 300
 
@@ -85,5 +86,8 @@ char	*ft_itoa(int n);
 
 // ft_atoi
 int		ft_atoi(const char *string);
+
+// valid_env
+void	valid_env();
 
 #endif

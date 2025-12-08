@@ -49,9 +49,12 @@ int	ft_env(void)
 	char	**vars;
 	char	*exclude;
 	int		aux;
+	char	*tem;
 
 	vars = ft_getallenv();
-	exclude = append(ft_strdup("?="), 5, ft_getenv("?"));
+	tem = ft_getenv("?");
+	exclude = append(ft_strdup("?="), ft_strlen(tem), tem);
+	free(tem);
 	aux = 0;
 	while (vars && vars[aux])
 	{

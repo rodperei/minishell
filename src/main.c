@@ -40,7 +40,7 @@ void	verryfi_env_cwd(int status, char **env_save)
 	free(pwd);
 }
 
-char	*search_pipe(char *str)
+int	search_pipe(char *str)
 {
 	char	flg;
 
@@ -49,7 +49,7 @@ char	*search_pipe(char *str)
 	{
 		compute_flg_mask(*str, &flg);
 		if (!flg && ft_strchr("|", *str))
-			return (str);
+			return (1);
 		str++;
 	}
 	return (0);
@@ -59,14 +59,12 @@ void	execute_console(char *str, char **env_save)
 {
 	pid_t	pid;
 	int		status;
-	char	*e_stat;
 	char	**tokens;
-	char	*has_pipe;
+	int		has_pipe;
 
-	status = 0;
+	status = search_pipe(str);
 	has_pipe = search_pipe(str);
-	ft_export("?", "0");
-	verryfi_env_cwd(status || has_pipe, env_save);
+	verryfi_env_cwd(status, env_save);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -80,14 +78,22 @@ void	execute_console(char *str, char **env_save)
 			compute_pipeline(tokens);
 		else
 			execute_simple_command(tokens, NOT_PIPE);
-		ft_exit(0);
 	}
 	else
 		waitpid(pid, &status, 0);
 	verryfi_env_cwd(status || has_pipe, env_save);
-	e_stat = ft_itoa(WEXITSTATUS(status));
-	ft_export("?", e_stat);
-	free(e_stat);
+	ft_export_num("?", WEXITSTATUS(status));
+}
+
+int		in_loop()
+{
+	char	*exit_main;
+
+	exit_main = ft_getenv("??");
+	if (!exit_main)
+		return (1);
+	free(exit_main);
+	return (0);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -100,7 +106,8 @@ int	main(int argc, char **argv, char **env)
 	(void) argv;
 	signal_main();
 	load_env(env);
-	while (1)
+	valid_env();
+	while (in_loop())
 	{
 		env_save = ft_getallenv();
 		prompt = create_prompt();
@@ -112,7 +119,6 @@ int	main(int argc, char **argv, char **env)
 		execute_console(str, env_save);
 		free_all(env_save);
 	}
-	free_all(env_save);
 	rl_clear_history();
-	unlink(FILE_ENV);
+	last_exit();
 }
