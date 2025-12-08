@@ -18,9 +18,20 @@
 #include <time.h>
 #include <unistd.h>
 
-int	main(int argc, char **argv, char **env)
+void	son_fock(char *str)
 {
 	char	**tokens;
+
+	sleep(5);
+	tokens = tokenize(str);
+	tokens = parse(tokens);
+	compute_pipeline(tokens);
+	free_all(tokens);
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	
 	char	*str;
 	int		status;
 	pid_t	cpid;
@@ -35,15 +46,9 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		cpid = fork();
 		if (cpid == 0)
-		{
-			// Sleep only for debugging
-			sleep(5);
-			tokens = tokenize(str);
-			tokens = parse(tokens);
-			compute_pipeline(tokens);
-		}
+			son_fock(str);
 		else
 			waitpid(cpid, &status, 0);
 	}
-	free_all(tokens);
+	return (0);
 }

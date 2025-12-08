@@ -71,7 +71,7 @@ void	ft_pwd_tokens(void)
 	pwd = ft_pwd();
 	printf("%s\n", pwd);
 	free(pwd);
-	error_handle(0,0);
+	error_handle(0, 0);
 }
 
 void	ft_export_tokens(char **tokens)

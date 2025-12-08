@@ -13,34 +13,34 @@
 #include "../../include/utils.h"
 #include "../../include/comands.h"
 
-void    ft_env_tokens(void)
+void	ft_env_tokens(void)
 {
-    ft_env();
-    error_handle(0, 0);
+	ft_env();
+	error_handle(0, 0);
 }
 
-int is_only_numero(char *str)
+int	is_only_numero(char *str)
 {
-    while (str && *str)
-    {
-        if (*str < '0' || *str > '9')
-            return (0);
-        str++;
-    }
-    return (1);
+	while (str && *str)
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
+	}
+	return (1);
 }
 
-void    ft_exit_tokens(char **tokens, int has_pipe)
+void	ft_exit_tokens(char **tokens, int has_pipe)
 {
-    int len;
+	int	len;
 
-    (void)has_pipe;
-    len = len_all(tokens);
-    if (len == 1)
-        ft_exit(0);
-    if (!is_only_numero(tokens[1]))
-        error_handle(1, "exit: numeric argument required");
-    if (len > 2)
-        error_handle(1, "exit: too many arguments");
-    ft_exit(ft_atoi(tokens[1]));
+	(void)has_pipe;
+	len = len_all(tokens);
+	if (len == 1)
+		ft_exit(0);
+	if (!is_only_numero(tokens[1]))
+		error_handle(1, "exit: numeric argument required");
+	if (len > 2)
+		error_handle(1, "exit: too many arguments");
+	ft_exit(ft_atoi(tokens[1]));
 }
