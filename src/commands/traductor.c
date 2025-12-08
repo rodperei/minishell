@@ -87,6 +87,8 @@ void	ft_export_tokens(char **tokens)
 	while (++aux != len)
 	{
 		str = ft_split_custom(tokens[aux], '=');
+		if (include(str[0], "?"))
+			error_handle(1, " not a valid identifier");
 		if (len_all(str) == 2)
 			ft_export(str[0], str[1]);
 		else
@@ -105,6 +107,9 @@ void	ft_unset_tokens(char **tokens)
 	if (len == 1)
 		error_handle(0, 0);
 	while (++aux != len)
-		ft_unset(tokens[aux]);
+	{
+		if (!include(tokens[aux], "?"))
+			ft_unset(tokens[aux]);
+	}
 	error_handle(0, 0);
 }

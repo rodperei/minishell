@@ -19,15 +19,19 @@ void	ft_env_tokens(void)
 	error_handle(0, 0);
 }
 
-int	is_only_numero(char *str)
+int	verify(char *str)
 {
 	while (str && *str)
 	{
 		if ((*str < '0' || *str > '9') && (*str != '+'))
-			return (0);
+		{
+			if (*str == '-')
+				return (1);
+			return (2);
+		}
 		str++;
 	}
-	return (1);
+	return (0);
 }
 
 void	ft_exit_tokens(char **tokens, int has_pipe)
@@ -37,8 +41,10 @@ void	ft_exit_tokens(char **tokens, int has_pipe)
 	len = len_all(tokens);
 	if (len == 1)
 		ft_exit(0);
-	if (!is_only_numero(tokens[1]))
-		error_handle(156, "exit: numeric argument required");
+	if (verify(tokens[1]) == 1)
+		error_handle(156, "");
+	if (verify(tokens[1]) == 2)
+		error_handle(2, "exit: numeric argument required");
 	if (len > 2)
 		error_handle(1, "exit: too many arguments");
 	if (!has_pipe)
