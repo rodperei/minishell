@@ -16,7 +16,7 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	char **tokens;
+	char	**tokens;
 
 	(void) argc;
 	load_env(env);

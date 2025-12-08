@@ -25,7 +25,7 @@ void	ft_exit(int status);
 int		ft_env(void);
 int		ft_echo(char *text, int flag_n);
 int		ft_export(char *name, char *value);
-void    ft_export_void(void);
+void	ft_export_void(void);
 int		ft_unset(char *value);
 int		ft_cd(char *path);
 char	*ft_pwd(void);
@@ -42,7 +42,7 @@ void	ft_cd_tokens(char **tokens, int has_pipe);
 void	ft_export_tokens(char **tokens);
 void	ft_unset_tokens(char **tokens);
 void	ft_pwd_tokens(void);
-void    ft_env_tokens(void);
-void    ft_exit_tokens(char **tokens, int has_pipe);
+void	ft_env_tokens(void);
+void	ft_exit_tokens(char **tokens, int has_pipe);
 
 #endif

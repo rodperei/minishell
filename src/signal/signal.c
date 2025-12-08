@@ -14,27 +14,27 @@
 #include "../../include/signal_minishel.h"
 #include "../../include/comands.h"
 
-void    handler_ctrl_c(int sing)
+void	handler_ctrl_c(int sing)
 {
-    (void)(sing);
-    write(1, "\n", 1);
-    rl_replace_line("", 0);
-    rl_on_new_line();
-    rl_redisplay();
+	(void)(sing);
+	write(1, "\n", 1);
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
-void    signal_main(void)
+void	signal_main(void)
 {
-    signal(SIGINT, handler_ctrl_c);
-    signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, handler_ctrl_c);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-void    signal_father(void)
+void	signal_father(void)
 {
-
+	return ;
 }
 
-void    signal_son(void)
+void	signal_son(void)
 {
-
+	return ;
 }

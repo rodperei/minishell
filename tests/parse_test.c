@@ -15,7 +15,7 @@
 
 int	main(int ac, char **av)
 {
-	char **tokens;
+	char	**tokens;
 
 	(void)ac;
 	tokens = tokenize(ft_strdup(av[1]));

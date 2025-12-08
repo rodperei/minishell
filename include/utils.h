@@ -84,6 +84,6 @@ char	*ft_resuelve_path(char *path);
 char	*ft_itoa(int n);
 
 // ft_atoi
-int     ft_atoi(const char *string);
+int		ft_atoi(const char *string);
 
 #endif

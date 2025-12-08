@@ -42,8 +42,8 @@ void	shear_error(char **tokens, int aux)
 	max = len_all(tokens);
 	(void)max;
 	err = 0;
-		if (equal(tokens[0], errors[4]))
-			error_handle(2, "syntax error near unexpected token\n");
+	if (equal(tokens[0], errors[4]))
+		error_handle(2, "syntax error near unexpected token\n");
 	while (errors[err] && tokens[aux])
 	{
 		tem = -1;
@@ -61,18 +61,13 @@ void	shear_error(char **tokens, int aux)
 char	**parse(char **tokens)
 {
 	int		aux;
-	//char	**parse;
 
 	aux = -1;
-	//parse = NULL;
 	if (!tokens)
-		return (/*parse*/tokens);
+		return (tokens);
 	while (tokens && len_all(tokens) != ++aux)
 	{
 		shear_error(tokens, aux);
-		//case_split(&parse, tokens, aux);
-		//parse = append_matriz(parse, tokens[aux]);
 	}
-	//free_all(tokens);
-	return (/*parse*/tokens);
+	return (tokens);
 }

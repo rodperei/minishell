@@ -31,7 +31,6 @@ void	son_fock(char *str)
 
 int	main(int argc, char **argv, char **env)
 {
-	
 	char	*str;
 	int		status;
 	pid_t	cpid;

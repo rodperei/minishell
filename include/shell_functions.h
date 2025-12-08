@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HELPER_FUNCTIONS_H
-# define HELPER_FUNCTIONS_H
+#ifndef SHELL_FUNCTIONS_H
+# define SHELL_FUNCTIONS_H
 
 # include "./ft_limits.h"
 
