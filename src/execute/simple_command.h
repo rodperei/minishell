@@ -17,8 +17,7 @@
 # include "../../include/comands.h"
 # include "../../include/ft_limits.h"
 # include "../../include/shell_functions.h"
-# include "../include/shell_functions.h"
-# include "../include/signal_minishel.h"
+# include "../../include/signal_minishel.h"
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>

@@ -68,7 +68,7 @@ void	execute_console(char *str, char **env_save)
 	if (pid == 0)
 	{
 		// This sleep is only for debugging
-		//sleep(5);
+		//sleep(8);
 		signal_father();
 		tokens = tokenize(str);
 		tokens = parse(tokens);

@@ -39,6 +39,7 @@ char	**remove_redir_tokens(char **oldt, int *i)
 			tokens[k++] = oldt[j];
 	}
 	tokens[k] = oldt[j];
+	free(oldt);
 	(*i)--;
 	return (tokens);
 }

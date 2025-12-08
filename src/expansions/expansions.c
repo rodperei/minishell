@@ -137,7 +137,7 @@ char	**expand(char **input)
 	j = 0;
 	while (input[++i])
 	{
-		if (!ft_strncmp(input[i], "<<", ft_strlen(input[i])))
+		if (!ft_strncmp(input[i], "<<", calc_longer_str("<<", input[i])))
 		{
 			i++;
 			input[i] = expand_heredoc(input[i], &j);

@@ -47,7 +47,7 @@ void	execute_simple_command(char **tokens, int has_pipe)
 	int		fds[REDIR_MAX];
 
 	compute_fds(fds, INITIALIZE);
-	redirection(tokens, fds);
+	tokens = redirection(tokens, fds);
 	if (!ft_strchr(*tokens, '/'))
 	{
 		if (is_builtin(tokens))
