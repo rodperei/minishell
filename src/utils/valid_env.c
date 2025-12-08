@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid_env.c                                              :+:      :+:    :+:   */
+/*   valid_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "../../include/utils.h"
 #include "../../include/comands.h"
 
-void	valid_env()
+void	valid_env(void)
 {
 	char	*tmp;
 
