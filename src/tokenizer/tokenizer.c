@@ -19,15 +19,14 @@
 void	parse_quotes(char *input)
 {
 	char	flg;
+	size_t	i;
 
 	if (!input)
 		error_handle(EIO, 0);
 	flg = 0;
-	while (input && *input)
-	{
-		compute_flg_mask(*input, &flg);
-		input++;
-	}
+	i = -1;
+	while (input && input[++i])
+		compute_flg_mask(input[i], &flg);
 	if (flg)
 	{
 		free(input);

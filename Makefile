@@ -64,7 +64,7 @@ src = src/commands/cd.c \
 		src/pipe/pipe.c \
 		src/pipe/pipe_1.c \
 		\
-		src/main.c
+		./src/main.c
 
 tmp = $(notdir $(src))
 obj = $(tmp:.c=.o)
