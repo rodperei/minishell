@@ -15,12 +15,12 @@
 
 # include "./ft_limits.h"
 
-# define RED	"\033[31m"
-# define GREEN	"\033[32m"
-# define YELLOW	"\033[33m"
-# define BLUE	"\033[34m"
-# define RESET	"\033[0m"
-# define BOLD	"\033[1m"
+# define RED     "\001\033[31m\002"
+# define GREEN   "\001\033[32m\002"
+# define YELLOW  "\001\033[33m\002"
+# define BLUE    "\001\033[34m\002"
+# define RESET   "\001\033[0m\002"
+# define BOLD    "\001\033[1m\002"
 # define HAS_PIPE 1
 # define NOT_PIPE 0
 
