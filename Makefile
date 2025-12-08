@@ -61,6 +61,7 @@ src = src/commands/cd.c \
 		src/execute/simple_command.c \
 		\
 		src/pipe/pipe.c \
+		src/pipe/pipe_1.c \
 		\
 		src/main.c
 

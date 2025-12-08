@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rodperei <rodperei@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: frnicola <frnicola@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/26 20:25:51 by rodperei          #+#    #+#             */
-/*   Updated: 2025/11/26 20:25:51 by rodperei         ###   ########.fr       */
+/*   Created: 2025/09/24 15:59:16 by frnicola          #+#    #+#             */
+/*   Updated: 2025/11/29 17:56:41 by rodperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/ft_limits.h"
-#include "../../include/utils.h"
-#include "../../include/shell_functions.h"
-#include "../../include/comands.h"
-#include <stddef.h>
-#include <stdlib.h>
-#include <unistd.h>
+#include "pipe.h"
 
 int	count_pipe(char **tokens)
 {
@@ -31,27 +25,6 @@ int	count_pipe(char **tokens)
 	if (cant >= PIPE_MAX)
 		error_handle(0, "Exceeded pipe maximum limit\n");
 	return (cant);
-}
-
-void	init_pipe(int p_fd[PIPE_MAX][2], int cant)
-{
-	int	aux;
-
-	aux = -1;
-	while (++aux != cant)
-		pipe(p_fd[aux]);
-}
-
-void	close_pipe(int p_fd[PIPE_MAX][2], int cant)
-{
-	int	aux;
-
-	aux = -1;
-	while (++aux != cant)
-	{
-		close(p_fd[aux][0]);
-		close(p_fd[aux][1]);
-	}
 }
 
 char	**comand_index(char **tokens, int index)
@@ -73,7 +46,7 @@ char	**comand_index(char **tokens, int index)
 		if (comand > index)
 		{
 			end = aux;
-			break;
+			break ;
 		}
 		if (equal("|", tokens[aux]))
 			comand++;
@@ -86,26 +59,13 @@ char	**comand_index(char **tokens, int index)
 	return (result);
 }
 
-void pipe_io(int in, int out)
-{
-    if (in)
-    {
-        dup2(in, STDIN_FILENO);
-        close(in);
-    }
-    if (out)
-    {
-        dup2(out, STDOUT_FILENO);
-        close(out);
-    }
-}
-
-void	await(int pid[PIPE_MAX], int cant_pipe)
+void	await(int pid[PIPE_MAX], int cant_pipe, char **tokens)
 {
 	int	aux;
 	int	status;
 
 	aux = -1;
+	free_all(tokens);
 	while (++aux <= cant_pipe)
 		waitpid(pid[aux], &status, 0);
 	ft_exit(aux);
@@ -140,6 +100,5 @@ void	compute_pipeline(char **tokens)
 		free_all(s_cmd);
 	}
 	close_pipe(p_fd, cant_pipe);
-	free_all(tokens);
-	await(pid, cant_pipe);
+	await(pid, cant_pipe, tokens);
 }
