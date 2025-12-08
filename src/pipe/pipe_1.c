@@ -46,3 +46,18 @@ void	pipe_io(int in, int out)
 		close(out);
 	}
 }
+
+int	count_pipe(char **tokens)
+{
+	int	cant;
+	int	i;
+
+	i = -1;
+	cant = -1;
+	while (tokens && tokens[++i])
+		cant += equal("|", tokens[i]);
+	cant++;
+	if (cant >= PIPE_MAX)
+		error_handle(0, "Exceeded pipe maximum limit\n");
+	return (cant);
+}

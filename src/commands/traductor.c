@@ -74,7 +74,7 @@ void	ft_pwd_tokens(void)
 	error_handle(0, 0);
 }
 
-void	ft_export_tokens(char **tokens)
+void	ft_export_tokens(char **tokens, int has_pipe)
 {
 	int		len;
 	int		aux;
@@ -87,8 +87,10 @@ void	ft_export_tokens(char **tokens)
 	while (++aux != len)
 	{
 		str = ft_split_custom(tokens[aux], '=');
-		if (include(str[0], "?"))
+		if (include(str[0], "?") || !valid_name_export(str[0]))
 			error_handle(1, " not a valid identifier");
+		if (has_pipe)
+			continue ;
 		if (len_all(str) == 2)
 			ft_export(str[0], str[1]);
 		else
@@ -97,7 +99,7 @@ void	ft_export_tokens(char **tokens)
 	error_handle(0, 0);
 }
 
-void	ft_unset_tokens(char **tokens)
+void	ft_unset_tokens(char **tokens, int has_pipe)
 {
 	int	len;
 	int	aux;
@@ -108,6 +110,8 @@ void	ft_unset_tokens(char **tokens)
 		error_handle(0, 0);
 	while (++aux != len)
 	{
+		if (has_pipe)
+			continue ;
 		if (!include(tokens[aux], "?"))
 			ft_unset(tokens[aux]);
 	}

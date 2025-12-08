@@ -24,5 +24,6 @@
 void	pipe_io(int in, int out);
 void	close_pipe(int p_fd[PIPE_MAX][2], int cant);
 void	init_pipe(int p_fd[PIPE_MAX][2], int cant);
+int     count_pipe(char **tokens);
 
 #endif

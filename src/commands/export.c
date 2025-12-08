@@ -13,7 +13,7 @@
 #include "../../include/utils.h"
 #include "../../include/comands.h"
 
-int	valid_name(char *str)
+int	valid_name_export(char *str)
 {
 	int	x;
 
@@ -39,7 +39,7 @@ int	ft_export(char *name, char *value)
 	char	**envs;
 	char	*result;
 
-	if (!value || !valid_name(name))
+	if (!value || !valid_name_export(name))
 		error_handle(1, " not a valid identifier");
 	if (!include(name, "="))
 		result = ft_strjoin(name, "=");
