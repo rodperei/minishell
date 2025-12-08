@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SIMPLE_COMMAND_h
-# define SIMPLE_COMMAND_h
+#ifndef SIMPLE_COMMAND_H
+# define SIMPLE_COMMAND_H
 
 # include "../../include/utils.h"
 # include "../../include/comands.h"
@@ -27,7 +27,7 @@
 # define CLOSE 1
 
 void	execute_builtin(char **tokens, int has_pipe);
-void    execute_binary(char **tokens);
+void	execute_binary(char **tokens);
 void	execute_simple_command(char **tokens, int has_pipe);
 void	build_cmd_path(char *cmd, char dir[PATH_MAX], char **paths);
 void	check_path_var(char *cmd, char dir[PATH_MAX]);

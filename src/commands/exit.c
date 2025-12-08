@@ -18,7 +18,7 @@ int	parce_num(int num)
 	return (num % 256);
 }
 
-void	last_exit()
+void	last_exit(void)
 {
 	char	*last_status;
 	int		status_num;

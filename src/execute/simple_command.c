@@ -30,15 +30,15 @@ void	execute_builtin(char **tokens, int has_pipe)
 		ft_exit_tokens(tokens, has_pipe);
 }
 
-void execute_binary(char **tokens)
+void	execute_binary(char **tokens)
 {
-    char **env;
+	char	**env;
 
-    env = ft_getallenv();
-    execve(tokens[0], tokens, env);
-    free_all(tokens);
-    free_all(env);
-    error_handle(126, 0);
+	env = ft_getallenv();
+	execve(tokens[0], tokens, env);
+	free_all(tokens);
+	free_all(env);
+	error_handle(126, 0);
 }
 
 void	execute_simple_command(char **tokens, int has_pipe)

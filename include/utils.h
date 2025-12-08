@@ -90,7 +90,7 @@ char	*ft_itoa(int n);
 int		ft_atoi(const char *string);
 
 // valid_env
-void	valid_env();
+void	valid_env(void);
 
 // token_utils.c
 void	compute_flg_mask(char input, char *flg);
