@@ -33,4 +33,5 @@ void	valid_env()
 		ft_export("PATH", tmp);
 	}
 	free(tmp);
+	ft_export("?", "0");
 }
