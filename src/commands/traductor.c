@@ -27,7 +27,7 @@ void	ft_echo_tokens(char **tokens)
 	if (len == 1)
 	{
 		ft_echo("\n", 1);
-		error_handle(0, 0);
+		error_handle_f(0, 0);
 	}
 	else if (len >= 2 && equal("-n", tokens[1]))
 		flag = 1;
@@ -50,12 +50,12 @@ void	ft_cd_tokens(char **tokens, int has_pipe)
 	len = len_all(tokens);
 	path = NULL;
 	if (len > 2)
-		error_handle(1, "cd: too many arguments");
+		error_handle_f(1, "cd: too many arguments");
 	if (len == 1)
 	{
 		path = ft_getenv("HOME");
 		if (!path)
-			error_handle(1, "cd: HOME not set");
+			error_handle_f(1, "cd: HOME not set");
 		if (!has_pipe)
 			ft_cd(path);
 		free(path);
@@ -89,7 +89,7 @@ void	ft_export_tokens(char **tokens, int has_pipe)
 	{
 		str = ft_split_custom(tokens[aux], '=');
 		if (include(str[0], "?") || !valid_name_export(str[0]))
-			error_handle(1, " not a valid identifier");
+			error_handle_f(1, " not a valid identifier");
 		if (has_pipe)
 			continue ;
 		if (len_all(str) == 2)

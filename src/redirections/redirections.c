@@ -29,6 +29,7 @@ char	**redir_input(char **tokens, int *i, int *fd)
 	*fd = open(tokens[*i + 1], O_RDONLY);
 	if (*fd == -1)
 	{
+		write(STDERR_FILENO, " ", 1);
 		write(STDERR_FILENO, strerror(errno), ft_strlen(strerror(errno)));
 		exit(EXIT_FAILURE);
 	}
@@ -48,6 +49,7 @@ char	**redir_output(char **tokens, int *i, int *fd, char mode)
 	*fd = open(tokens[*i + 1], flags, permitions);
 	if (*fd == -1)
 	{
+		write(STDERR_FILENO, " ", 1);
 		write(STDERR_FILENO, strerror(errno), ft_strlen(strerror(errno)));
 		exit(EXIT_FAILURE);
 	}

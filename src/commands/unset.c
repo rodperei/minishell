@@ -20,7 +20,7 @@ int	ft_unset(char *name)
 	int		aux;
 
 	if (!name)
-		error_handle(0, 0);
+		error_handle_f(0, 0);
 	if (!include(name, "="))
 		value = ft_strjoin(name, "=");
 	else

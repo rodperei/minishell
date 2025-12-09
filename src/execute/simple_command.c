@@ -38,7 +38,7 @@ void	execute_binary(char **tokens)
 	execve(tokens[0], tokens, env);
 	free_all(tokens);
 	free_all(env);
-	error_handle(126, 0);
+	error_handle_f(126, 0);
 }
 
 void	execute_simple_command(char **tokens, int has_pipe)

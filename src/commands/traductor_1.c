@@ -16,7 +16,7 @@
 void	ft_env_tokens(void)
 {
 	ft_env();
-	error_handle(0, 0);
+	error_handle_f(0, 0);
 }
 
 int	verify(char *str)
@@ -42,11 +42,11 @@ void	ft_exit_tokens(char **tokens, int has_pipe)
 	if (len == 1)
 		ft_exit(0);
 	if (verify(tokens[1]) == 1)
-		error_handle(156, "");
+		error_handle_f(156, "");
 	if (verify(tokens[1]) == 2)
-		error_handle(2, "exit: numeric argument required");
+		error_handle_f(2, "exit: numeric argument required");
 	if (len > 2)
-		error_handle(1, "exit: too many arguments");
+		error_handle_f(1, "exit: too many arguments");
 	if (!has_pipe)
 		ft_exit(ft_atoi(tokens[1]));
 }

@@ -56,7 +56,7 @@ void	await(int pid[PIPE_MAX], int cant_pipe, char **tokens)
 		ft_export_num("?", WEXITSTATUS(status));
 	}
 	free_all(tokens);
-	error_handle(WEXITSTATUS(status), "");
+	error_handle_f(WEXITSTATUS(status), "");
 }
 
 void	compute_pipeline(char **tokens)
@@ -66,7 +66,6 @@ void	compute_pipeline(char **tokens)
 	int		pid[PIPE_MAX];
 	char	**s_cmd;
 	int		aux;
-	int		status;
 
 	cant_pipe = count_pipe(tokens);
 	init_pipe(p_fd, cant_pipe);
@@ -85,14 +84,6 @@ void	compute_pipeline(char **tokens)
 				pipe_io(p_fd[aux - 1][0], p_fd[aux][1]);
 			close_pipe(p_fd, cant_pipe);
 			execute_simple_command(s_cmd, HAS_PIPE);
-		}
-		if (is_builtin(s_cmd))
-		{
-			if (aux)
-				close(p_fd[aux - 1][0]);
-			close(p_fd[aux][1]);
-			waitpid(pid[aux], &status, 0);
-			ft_export_num("?", WEXITSTATUS(status));
 		}
 		free_all(s_cmd);
 	}

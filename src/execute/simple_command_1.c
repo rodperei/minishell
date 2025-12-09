@@ -20,7 +20,7 @@ void	build_cmd_path(char *cmd, char dir[PATH_MAX], char **paths)
 	while (**paths && **paths != ':')
 	{
 		if (++i >= PATH_MAX - 2 - (int) ft_strlen(cmd))
-			error_handle(0, "path too long\n");
+			error_handle_f(0, "path too long\n");
 		dir[i] = *(*paths)++;
 	}
 	dir[++i] = '/';

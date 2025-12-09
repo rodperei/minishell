@@ -58,6 +58,6 @@ int	count_pipe(char **tokens)
 		cant += equal("|", tokens[i]);
 	cant++;
 	if (cant >= PIPE_MAX)
-		error_handle(0, "Exceeded pipe maximum limit\n");
+		error_handle_f(0, "Exceeded pipe maximum limit\n");
 	return (cant);
 }
