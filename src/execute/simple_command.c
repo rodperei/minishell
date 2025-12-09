@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "simple_command.h"
+#include <dirent.h>
 
 void	execute_builtin(char **tokens, int has_pipe)
 {
@@ -41,11 +42,23 @@ void	execute_binary(char **tokens)
 	error_handle_f(126, 0);
 }
 
+void	is_directory(char **tokens)
+{
+	DIR	*dir;
+
+	dir = opendir(*tokens);
+	if (!dir)
+		return ;
+	closedir(dir);
+	error_handle_f(126, " Is a directory");
+}
+
 void	execute_simple_command(char **tokens, int has_pipe)
 {
 	char	dir[PATH_MAX];
 	int		fds[REDIR_MAX];
 
+	is_directory(tokens);
 	compute_fds(fds, INITIALIZE);
 	tokens = redirection(tokens, fds);
 	if (!ft_strchr(*tokens, '/'))
