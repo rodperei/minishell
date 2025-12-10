@@ -12,13 +12,26 @@
 
 #include "pipe.h"
 
+char	**dup_tokens(char **tokens, int init, int end)
+{
+	int		aux;
+	char	**result;
+
+	aux = -1;
+	result = z_maloc_matriz((end - init) + 1);
+	aux = -1;
+	while ((init + (++aux)) != end)
+		if (!equal(tokens[init + aux], "|"))
+			result[aux] = ft_strdup(tokens[init + aux]);
+	return (result);
+}
+
 char	**comand_index(char **tokens, int index)
 {
 	int		aux;
 	int		init;
 	int		end;
 	int		comand;
-	char	**result;
 
 	aux = -1;
 	comand = 0;
@@ -36,12 +49,7 @@ char	**comand_index(char **tokens, int index)
 		if (equal("|", tokens[aux]))
 			comand++;
 	}
-	result = calloc((end - init) + 1, sizeof(char *));
-	aux = -1;
-	while ((init + (++aux)) != end)
-		if (!equal(tokens[init + aux], "|"))
-			result[aux] = ft_strdup(tokens[init + aux]);
-	return (result);
+	return (dup_tokens(tokens, init, end));
 }
 
 void	await(int pid[PIPE_MAX], int cant_pipe, char **tokens)
@@ -57,6 +65,16 @@ void	await(int pid[PIPE_MAX], int cant_pipe, char **tokens)
 	}
 	free_all(tokens);
 	error_handle_f(WEXITSTATUS(status), "");
+}
+
+void	redirect_out(int p_fd[PIPE_MAX][2], int aux, int cant_pipe)
+{
+	if (aux == 0)
+		pipe_io(0, p_fd[aux][1]);
+	else if (aux == cant_pipe)
+		pipe_io(p_fd[aux - 1][0], 0);
+	else
+		pipe_io(p_fd[aux - 1][0], p_fd[aux][1]);
 }
 
 void	compute_pipeline(char **tokens)
@@ -76,12 +94,7 @@ void	compute_pipeline(char **tokens)
 		pid[aux] = fork();
 		if (pid[aux] == 0)
 		{
-			if (aux == 0)
-				pipe_io(0, p_fd[aux][1]);
-			else if (aux == cant_pipe)
-				pipe_io(p_fd[aux - 1][0], 0);
-			else
-				pipe_io(p_fd[aux - 1][0], p_fd[aux][1]);
+			redirect_out(p_fd, aux, cant_pipe);
 			close_pipe(p_fd, cant_pipe);
 			execute_simple_command(s_cmd, HAS_PIPE);
 		}

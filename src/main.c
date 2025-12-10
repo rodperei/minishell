@@ -31,7 +31,7 @@ void	verryfi_env_cwd(int status, char **env_save)
 	if (env)
 		free_all(env);
 	if (status)
-		return;
+		return ;
 	pwd = ft_getcwd();
 	if (!pwd)
 		return ;
@@ -67,8 +67,6 @@ void	execute_console(char *str, char **env_save)
 	pid = fork();
 	if (pid == 0)
 	{
-		// This sleep is only for debugging
-		//sleep(8);
 		dup2(2, STDERR_FILENO);
 		signal_father();
 		tokens = tokenize(str);
@@ -85,7 +83,7 @@ void	execute_console(char *str, char **env_save)
 	ft_export_num("?", WEXITSTATUS(status));
 }
 
-int		in_loop()
+int	in_loop(void)
 {
 	char	*exit_main;
 
