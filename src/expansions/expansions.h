@@ -16,7 +16,7 @@
 # include <stddef.h>
 
 // expansion_utils.c
-char	*save_prefix(char *token, size_t *i);
+char	*save_prefix(char *token, size_t k);
 char	*swap_expansion(char *prefix, char *token, size_t *i);
 
 // hdoc_utils.c

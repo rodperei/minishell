@@ -14,14 +14,12 @@
 #include <stddef.h>
 #include "./expansions.h"
 
-char	*expand_var(char *token)
+char	*expand_var(char *token, size_t i)
 {
 	char	*tmp;
 	char	*result;
-	size_t	i;
 
-	i = 0;
-	result = save_prefix(token, &i);
+	result = save_prefix(token, i);
 	if (!result)
 		return (NULL);
 	i++;
@@ -105,6 +103,23 @@ char	**remove_quotes(char **tokens)
 	return (tokens);
 }
 
+char	*compute_dolars(char *token)
+{
+	size_t	i;
+	char	*tmp;
+
+	i = -1;
+	while (token[++i])
+	{
+		if (*token != '\'' && token[i] == '$')
+		{
+			tmp = expand_var(token, i);
+			token = tmp;
+		}
+	}
+	return (token);
+}
+
 char	*expand_heredoc(char *delimiter, int *j)
 {
 	char	*buff;
@@ -116,8 +131,7 @@ char	*expand_heredoc(char *delimiter, int *j)
 	free(delimiter);
 	buff = read_input(tmp);
 	free(tmp);
-	while (ft_strchr(buff, '$'))
-		buff = expand_var(buff);
+	buff = compute_dolars(buff);
 	save_buffer(buff, j);
 	ft_memmove(name, "tmp", 4);
 	file_no = ft_itoa((*j)++);
@@ -129,9 +143,7 @@ char	*expand_heredoc(char *delimiter, int *j)
 char	**expand(char **input)
 {
 	size_t	i;
-	size_t	k;
 	int		j;
-	char	*tmp;
 
 	i = -1;
 	j = 0;
@@ -143,17 +155,7 @@ char	**expand(char **input)
 			input[i] = expand_heredoc(input[i], &j);
 			continue ;
 		}
-		k = -1;
-		while (input[i][++k])
-		{
-			if (*input[i] != '\'' && input[i][k] == '$')
-			{
-				tmp = expand_var(input[i]);
-				if (!tmp)
-					compute_error(input);
-				input[i] = tmp;
-			}
-		}
+		input[i] = compute_dolars(input[i]);
 	}
 	return (remove_quotes(input));
 }

@@ -12,6 +12,7 @@
 
 #include "../../include/utils.h"
 #include "../../include/comands.h"
+#include <stddef.h>
 
 #define BUFFER_SIZE 100
 
@@ -34,17 +35,17 @@ char	*fetch_var_name(char *token, size_t *i)
 	size_t	j;
 	char	buff[BUFFER_SIZE];
 	char	*expanded_token;
-	char	*chr;
+	int		flg;
 
 	expanded_token = 0;
-	chr = ft_strchr(" \t\n\'\"$", token[*i]);
-	while (token[*i] && !chr)
+	flg = (ft_isalnum(token[*i]) || ft_strchr("_?", token[*i]));
+	while (token[*i] && flg)
 	{
 		j = 0;
-		while (j < BUFFER_SIZE - 1 && token[*i] && !chr)
+		while (j < BUFFER_SIZE - 1 && token[*i] && flg)
 		{
 			buff[j++] = token[(*i)++];
-			chr = ft_strchr(" \t\n\'\"$", token[*i]);
+			flg = (ft_isalnum(token[*i]) || ft_strchr("_?", token[*i]));
 			if (buff[j - 1] == '?')
 				break ;
 		}
@@ -58,18 +59,20 @@ char	*fetch_var_name(char *token, size_t *i)
 	return (expanded_token);
 }
 
-char	*save_prefix(char *token, size_t *i)
+char	*save_prefix(char *token, size_t k)
 {
 	char	buff[BUFFER_SIZE];
+	size_t	i;
 	size_t	j;
 	char	*result;
 
 	result = ft_strdup("");
-	while (token[*i] && token[*i] != '$')
+	i = -1;
+	while (++i < k)
 	{
 		j = 0;
-		while (j < BUFFER_SIZE - 1 && token[*i] && token[*i] != '$')
-			buff[j++] = token[(*i)++];
+		while (j < BUFFER_SIZE - 1 && i < k)
+			buff[j++] = token[i++];
 		buff[j] = '\0';
 		result = flush_name(result, buff);
 		if (!result)
