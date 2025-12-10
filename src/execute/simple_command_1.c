@@ -46,9 +46,7 @@ void	check_path_var(char *cmd, char dir[PATH_MAX])
 		if (*paths == ':')
 			paths++;
 	}
-	printf("%s: command not found\n", cmd);
 	free(tmp);
-	exit(127);
 }
 
 void	compute_fds(int fds[REDIR_MAX], char mode)

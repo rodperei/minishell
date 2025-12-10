@@ -60,15 +60,18 @@ void	execute_console(char *str, char **env_save)
 	int		status;
 	char	**tokens;
 	int		has_pipe;
+	int		file;
 
 	status = search_pipe(str);
 	has_pipe = search_pipe(str);
 	verryfi_env_cwd(status, env_save);
+	file = open("teste", O_TRUNC | O_CREAT | O_WRONLY);
 	pid = fork();
 	if (pid == 0)
 	{
 		// This sleep is only for debugging
 		//sleep(8);
+		dup2(2, STDERR_FILENO);
 		signal_father();
 		tokens = tokenize(str);
 		tokens = parse(tokens);
