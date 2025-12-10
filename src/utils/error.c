@@ -50,7 +50,7 @@ void	error_handle_f(int err, char *str)
 			write(STDERR_FILENO, str_err, ft_strlen(str_err));
 		}
 		else
-			write(STDERR_FILENO, "teste", ft_strlen(str));
+			write(STDERR_FILENO, str, ft_strlen(str));
 	}
 	exit(err);
 }
