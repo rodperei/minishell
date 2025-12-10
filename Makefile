@@ -2,7 +2,7 @@
 
 NAME_1 = minishell
 
-# -fsanitize=address
+# -fsanitize=address | ASAN_OPTIONS=detect_leaks=0
 
 CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
@@ -14,7 +14,7 @@ INC			= -I include/.
 
 # ======= Vars =======
 
-obj_dir = bui
+obj_dir = build/
 
 src = src/commands/cd.c \
 		src/commands/echo.c \
