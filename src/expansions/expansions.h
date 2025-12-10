@@ -23,4 +23,7 @@ char	*swap_expansion(char *prefix, char *token, size_t *i);
 void	save_buffer(char *buff, int	*j);
 char	*read_input(char *delimiter);
 
+// quotes_utils.c
+char	**remove_quotes(char **tokens);
+
 #endif

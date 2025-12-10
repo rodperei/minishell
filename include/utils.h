@@ -27,7 +27,7 @@
 # define DQUOTE 2
 
 //	char_utils.c
-int	ft_isalnum(int c);
+int		ft_isalnum(int c);
 
 //	lens.c
 int		len(char *str);

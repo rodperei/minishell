@@ -59,6 +59,7 @@ src = src/commands/cd.c \
 		src/expansions/expansions.c \
 		src/expansions/hdoc_utils.c \
 		src/expansions/expansion_utils.c \
+		src/expansions/quotes_utils.c \
 		\
 		src/execute/simple_command.c \
 		src/execute/simple_command_1.c \
