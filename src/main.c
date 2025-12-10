@@ -67,7 +67,6 @@ void	execute_console(char *str, char **env_save)
 	pid = fork();
 	if (pid == 0)
 	{
-		dup2(2, STDERR_FILENO);
 		signal_father();
 		tokens = tokenize(str);
 		tokens = parse(tokens);

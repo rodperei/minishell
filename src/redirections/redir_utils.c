@@ -20,13 +20,9 @@ char	**remove_redir_tokens(char **oldt, int *i)
 	size_t	k;
 	char	**tokens;
 
-	j = -1;
-	k = 0;
-	while (oldt[++j])
-		k++;
 	free(oldt[*i]);
 	free(oldt[*i + 1]);
-	tokens = malloc((k - 1) * sizeof(char *));
+	tokens = malloc((len_all(oldt) - 1) * sizeof(char *));
 	if (!tokens)
 		error_handle(0, 0);
 	j = -1;
