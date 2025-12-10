@@ -31,5 +31,6 @@ char	**redirection(char **tokens, int fds[REDIR_MAX]);
 void	execute_simple_command(char **tokens, int has_pipe);
 void	compute_pipeline(char **tokens);
 char	**parse(char **tokens);
+char    **delete_space(char **tokens);
 
 #endif

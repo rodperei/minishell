@@ -39,13 +39,25 @@ void	execute_binary(char **tokens)
 	execve(tokens[0], tokens, env);
 	free_all(tokens);
 	free_all(env);
-	error_handle_f(126, 0);
+	if (errno == EACCES)
+	{
+		perror("minishel: ");
+		exit(126);
+	}
+	else if (errno == ENOENT)
+	{
+		perror("minishel: ");
+		exit(127);
+	}
+	error_handle_f(errno, 0);
 }
 
 void	is_directory(char **tokens)
 {
 	DIR	*dir;
 
+	if (!include(*tokens, "/"))
+		return ;
 	dir = opendir(*tokens);
 	if (!dir)
 		return ;
@@ -58,6 +70,10 @@ void	execute_simple_command(char **tokens, int has_pipe)
 	char	dir[PATH_MAX];
 	int		fds[REDIR_MAX];
 
+	while (tokens && *tokens && !len(*tokens))
+		tokens++;
+	if (!*tokens)
+		exit(0);
 	is_directory(tokens);
 	compute_fds(fds, INITIALIZE);
 	tokens = redirection(tokens, fds);
@@ -68,14 +84,6 @@ void	execute_simple_command(char **tokens, int has_pipe)
 		check_path_var(*tokens, dir);
 		free(*tokens);
 		*tokens = ft_strdup(dir);
-	}
-	else
-	{
-		if (access(*tokens, F_OK))
-		{
-			perror("minishell: ");
-			exit(127);
-		}
 	}
 	execute_binary(tokens);
 	compute_fds(fds, CLOSE);

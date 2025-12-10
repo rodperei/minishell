@@ -45,10 +45,12 @@ void	error_handle_f(int err, char *str)
 	if (err != 0)
 	{
 		if (!str)
+		{
+			write(STDERR_FILENO, " ", 1);
 			write(STDERR_FILENO, str_err, ft_strlen(str_err));
+		}
 		else
 			write(STDERR_FILENO, str, ft_strlen(str));
-		write(STDERR_FILENO, "\n", 1);
 	}
 	exit(err);
 }
