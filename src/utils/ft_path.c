@@ -25,7 +25,7 @@ char	*ft_resuelve_path(char *path)
 	tem = path;
 	path_complete = ft_getenv("PWD");
 	if (!path_complete)
-		error_handle_f(0, "Error no exist PWD");
+		error_handle_f(0, "Error no exist PWD\n");
 	else if (ft_strlen(path) > 2 && path[0] == '.' && path[1] == '/')
 	{
 		path += 2;

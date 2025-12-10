@@ -46,7 +46,7 @@ void	execute_binary(char **tokens)
 	}
 	else if (errno == ENOENT)
 	{
-		write(2, " command not found", len(" command not found"));
+		write(2, " command not found\n", 20);
 		exit(127);
 	}
 	printf("errror ---> %d \n", errno);
@@ -63,7 +63,7 @@ void	is_directory(char **tokens)
 	if (!dir)
 		return ;
 	closedir(dir);
-	error_handle_f(126, " Is a directory");
+	error_handle_f(126, " Is a directory\n");
 }
 
 void	execute_simple_command(char **tokens, int has_pipe)

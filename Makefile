@@ -4,7 +4,7 @@ NAME_1 = minishell
 
 # -fsanitize=address
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 LDLIBS = -lreadline
 
@@ -14,7 +14,7 @@ INC			= -I include/.
 
 # ======= Vars =======
 
-obj_dir = build/
+obj_dir = bui
 
 src = src/commands/cd.c \
 		src/commands/echo.c \
