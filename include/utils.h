@@ -26,6 +26,9 @@
 # define SQUOTE 1
 # define DQUOTE 2
 
+//	char_utils.c
+int	ft_isalnum(int c);
+
 //	lens.c
 int		len(char *str);
 int		len_all(char **str);
