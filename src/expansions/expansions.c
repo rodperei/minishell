@@ -80,6 +80,8 @@ char	**expand(char **input)
 	size_t	i;
 	int		j;
 
+	if (!input)
+		exit(0);
 	i = -1;
 	j = 0;
 	while (input[++i])

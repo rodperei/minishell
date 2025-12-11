@@ -20,7 +20,7 @@ static char	*wrap_path(char *path)
 	char	*wrapped_path;
 
 	home = ft_getenv("HOME");
-	if (!home || equal(path, home))
+	if (!home || equal(path, home) || len(path) < len(home))
 	{
 		free(home);
 		return (path);

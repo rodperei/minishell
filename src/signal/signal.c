@@ -16,7 +16,10 @@
 
 void	handler_ctrl_c(int sing)
 {
+	int	aux;
+
 	(void)(sing);
+	wait(&aux);
 	write(1, "\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -26,7 +29,6 @@ void	handler_ctrl_c(int sing)
 void	handler_ctrl_c_father(int sing)
 {
 	(void)(sing);
-	rl_replace_line("", 0);
 	exit(0);
 }
 

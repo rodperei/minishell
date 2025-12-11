@@ -34,6 +34,7 @@ void	check_path_var(char *cmd, char dir[PATH_MAX])
 	char	*tmp;
 
 	paths = ft_getenv("PATH");
+	dir[0] = '\0';
 	tmp = paths;
 	while (paths && *paths)
 	{

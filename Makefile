@@ -108,4 +108,7 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all prompt clean fclean re
+fsa: CFLAGS += -fsanitize=address
+fsa: re
+
+.PHONY: all prompt clean fclean re fsa
