@@ -46,7 +46,7 @@ int	main(int argc, char **argv, char **env)
 	char	*tmp;
 
 	if (argc < 2)
-		error_handle(0, "Too few arguments");
+		error_handle(0, "Too few arguments\n");
 	initialize_env(argc, argv, env);
 	tmp = ft_strdup(argv[1]);
 	tokens = tokenize(tmp);

@@ -105,7 +105,7 @@ char	**redirection(char **tokens, int fds[REDIR_MAX])
 
 	i = -1;
 	j = -1;
-	while (tokens[++i])
+	while (tokens && tokens[++i])
 	{
 		if (j >= REDIR_MAX)
 			error_handle(0, "Exceeded redirections limit\n");

@@ -36,7 +36,7 @@ int	equal(char *str, char *str1)
 {
 	int	aux;
 
-	if (!str || !str1)
+	if (!str || !str1 || !*str || !*str1)
 		return (str == str1);
 	aux = 0;
 	while (str[aux] && str1[aux])

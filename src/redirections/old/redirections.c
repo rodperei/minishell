@@ -29,7 +29,7 @@ void	case_redirection(char ***parse, int aux)
 	else if (equal((*parse)[aux], ">>"))
 		fd = open(path, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	if (fd < 0 && fd != -2)
-		error_handle(0, "Error in redireccion");
+		error_handle(0, "Error in redireccion\n");
 	if (fd != -2)
 		close(fd);
 	free(path);
@@ -45,7 +45,7 @@ char	*create_file_tem(int num, char *buf)
 	name[4] = (char)(33 + num);
 	fd = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (!fd)
-		error_handle(0, "Error in redireccion >> not permison fd");
+		error_handle(0, "Error in redireccion >> not permison fd\n");
 	write(fd, buf, ft_strlen(buf));
 	close(fd);
 	return (name);

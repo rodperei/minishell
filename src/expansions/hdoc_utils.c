@@ -26,19 +26,13 @@ char	*read_input(char *delimiter)
 	char	*str;
 	char	*tmp;
 	char	*buff;
-	size_t	n;
 
 	str = "";
-	n = 1;
 	buff = 0;
 	while (1)
 	{
 		str = readline(">");
-		if (ft_strlen(delimiter) > ft_strlen(str))
-			n = ft_strlen(delimiter);
-		else
-			n = ft_strlen(str);
-		if (!ft_strncmp(delimiter, str, n))
+		if (!str || equal(str, delimiter))
 			break ;
 		tmp = ft_strjoin(str, "\n");
 		free(str);
@@ -58,7 +52,7 @@ void	save_buffer(char *buff, int	*j)
 	int		fd;
 
 	if (*j > HDOC_MAX)
-		error_handle(0, "Exceeded maximum Here-Document number");
+		error_handle(0, "Exceeded maximum Here-Document number\n");
 	ft_memmove(name, TMP_FILE, ft_strlen(TMP_FILE) + 1);
 	file_no = ft_itoa(*j);
 	ft_strlcat(name, file_no, 66);

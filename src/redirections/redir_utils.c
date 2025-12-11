@@ -17,11 +17,9 @@
 char	**remove_redir_tokens(char **oldt, int *i)
 {
 	int		j;
-	size_t	k;
+	int		k;
 	char	**tokens;
 
-	free(oldt[*i]);
-	free(oldt[*i + 1]);
 	tokens = malloc((len_all(oldt) - 1) * sizeof(char *));
 	if (!tokens)
 		error_handle(0, 0);
@@ -32,10 +30,10 @@ char	**remove_redir_tokens(char **oldt, int *i)
 		if (j == *i)
 			j++;
 		else
-			tokens[k++] = oldt[j];
+			tokens[k++] = ft_strdup(oldt[j]);
 	}
 	tokens[k] = oldt[j];
-	free(oldt);
+	free_all(oldt);
 	(*i)--;
 	return (tokens);
 }

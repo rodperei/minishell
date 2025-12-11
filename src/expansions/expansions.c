@@ -45,7 +45,7 @@ char	*compute_dolars(char *token)
 	size_t	i;
 
 	i = 0;
-	while (token[i])
+	while (token && token[i])
 	{
 		if (*token != '\'' && token[i] == '$')
 			token = expand_var(token, i);
