@@ -42,6 +42,7 @@ src = src/commands/cd.c \
 		src/utils/ft_path.c \
 		src/utils/ft_split_custom.c \
 		src/utils/ft_atoi.c \
+		src/utils/main_utils.c \
 		src/utils/valid_env.c \
 		\
 		src/tokenizer/process_input.c \

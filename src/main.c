@@ -13,46 +13,12 @@
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <stdlib.h>
-#include <sys/wait.h>
 #include <unistd.h>
 #include "../include/comands.h"
 #include "../include/shell_functions.h"
 #include "../include/signal_minishel.h"
 #include "../include/utils.h"
-
-void	verryfi_env_cwd(int status, char **env_save)
-{
-	char	*pwd;
-	char	**env;
-
-	env = ft_getallenv();
-	if ((!env || len_all(env) < 2) && env_save)
-		load_env(env_save);
-	if (env)
-		free_all(env);
-	if (status)
-		return ;
-	pwd = ft_getcwd();
-	if (!pwd)
-		return ;
-	chdir(pwd);
-	free(pwd);
-}
-
-int	search_pipe(char *str)
-{
-	char	flg;
-
-	flg = 0;
-	while (str && *str)
-	{
-		compute_flg_mask(*str, &flg);
-		if (!flg && ft_strchr("|", *str))
-			return (1);
-		str++;
-	}
-	return (0);
-}
+#include "../include/main_utils.h"
 
 void	execute_console(char *str, char **env_save)
 {
@@ -93,17 +59,22 @@ int	in_loop(void)
 	return (0);
 }
 
+void	initialize_shell(int *argc, char ***argv, char **env)
+{
+	(void) *argc;
+	(void) *argv;
+	signal_main();
+	load_env(env);
+	valid_env();
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*str;
 	char	*prompt;
 	char	**env_save;
 
-	(void) argc;
-	(void) argv;
-	signal_main();
-	load_env(env);
-	valid_env();
+	initialize_shell(&argc, &argv, env);
 	while (in_loop())
 	{
 		env_save = ft_getallenv();
@@ -112,8 +83,11 @@ int	main(int argc, char **argv, char **env)
 		free(prompt);
 		if (!str)
 			break ;
-		add_history(str);
-		execute_console(str, env_save);
+		if (!equal(str, ""))
+		{
+			add_history(str);
+			execute_console(str, env_save);
+		}
 		free_all(env_save);
 	}
 	rl_clear_history();
