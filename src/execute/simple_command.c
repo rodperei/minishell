@@ -73,12 +73,12 @@ void	execute_simple_command(char **tokens, int has_pipe)
 
 	while (tokens && *tokens && !len(*tokens))
 		tokens++;
-	if (!*tokens)
-		exit(0);
 	is_directory(tokens);
 	compute_fds(fds, INITIALIZE);
 	tokens = redirection(tokens, fds);
-	if (!ft_strchr(*tokens, '/'))
+	if (!tokens || !*tokens)
+		exit(0);
+	if (!include(*tokens, "/"))
 	{
 		if (is_builtin(tokens))
 			execute_builtin(tokens, has_pipe);

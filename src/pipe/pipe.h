@@ -16,6 +16,7 @@
 # include "../../include/ft_limits.h"
 # include "../../include/utils.h"
 # include "../../include/shell_functions.h"
+# include "../../include/signal_minishel.h"
 # include "../../include/comands.h"
 # include <stddef.h>
 # include <stdlib.h>

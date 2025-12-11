@@ -94,6 +94,7 @@ void	compute_pipeline(char **tokens)
 		pid[aux] = fork();
 		if (pid[aux] == 0)
 		{
+			signal_son();
 			redirect_out(p_fd, aux, cant_pipe);
 			close_pipe(p_fd, cant_pipe);
 			execute_simple_command(s_cmd, HAS_PIPE);
