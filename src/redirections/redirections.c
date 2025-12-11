@@ -79,29 +79,29 @@ char	*load_buffer(int fd)
 	return (input);
 }
 
-char **redir_heredoc(char **tokens, int *i)
+char	**redir_heredoc(char **tokens, int *i)
 {
-    char name[65];
-    int fd;
-    char *buf;
-    int pipe_hd[2];
+	char	name[65];
+	int		fd;
+	char	*buf;
+	int		pipe_hd[2];
 
-    ft_memmove(name, "./", 3);
-    ft_strlcat(name, tokens[*i + 1], 65);
-    fd = open(name, O_RDONLY);
-    if (fd == -1)
-        error_handle(0, 0);
-    buf = load_buffer(fd);
-    close(fd);
-    unlink(name);
-    if (pipe(pipe_hd) == -1)
-        error_handle(0, 0);
-    write(pipe_hd[1], buf, ft_strlen(buf));
-    close(pipe_hd[1]);
-    free(buf);
-    dup2(pipe_hd[0], STDIN_FILENO);
-    close(pipe_hd[0]);
-    return remove_redir_tokens(tokens, i);
+	ft_memmove(name, "./", 3);
+	ft_strlcat(name, tokens[*i + 1], 65);
+	fd = open(name, O_RDONLY);
+	if (fd == -1)
+		error_handle(0, 0);
+	buf = load_buffer(fd);
+	close(fd);
+	unlink(name);
+	if (pipe(pipe_hd) == -1)
+		error_handle(0, 0);
+	write(pipe_hd[1], buf, ft_strlen(buf));
+	close(pipe_hd[1]);
+	free(buf);
+	dup2(pipe_hd[0], STDIN_FILENO);
+	close(pipe_hd[0]);
+	return (remove_redir_tokens(tokens, i));
 }
 
 char	**redirection(char **tokens, int fds[REDIR_MAX])
