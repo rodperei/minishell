@@ -83,7 +83,7 @@ int	main(int argc, char **argv, char **env)
 		free(prompt);
 		if (!str)
 			break ;
-		if (!equal(str, ""))
+		if (ft_strlen(str))
 		{
 			add_history(str);
 			execute_console(str, env_save);
