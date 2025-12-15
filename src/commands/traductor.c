@@ -69,7 +69,7 @@ void	ft_pwd_tokens(void)
 {
 	char	*pwd;
 
-	pwd = ft_pwd();
+	pwd = getcwd(NULL, 0);
 	printf("%s\n", pwd);
 	free(pwd);
 	exit(EXIT_SUCCESS);

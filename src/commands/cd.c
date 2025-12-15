@@ -77,7 +77,7 @@ int	ft_cd(char *path)
 	char	*pwd;
 	DIR		*dir;
 
-	pwd = ft_getenv("PWD");
+	pwd = getcwd(NULL, 0);
 	if (!pwd)
 		error_handle_f(127, "Error: not exist PWD en env\n");
 	if (!path)

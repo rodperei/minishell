@@ -84,9 +84,6 @@ size_t	calc_longer_str(char const *s1, char const *s2);
 void	error_handle(int err, char *str);
 void	error_handle_f(int err, char *str);
 
-// ft_path
-char	*ft_resuelve_path(char *path);
-
 // ft_iota
 char	*ft_itoa(int n);
 
