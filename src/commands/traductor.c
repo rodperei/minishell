@@ -90,7 +90,7 @@ void	ft_export_tokens(char **tokens, int has_pipe)
 		str = ft_split_custom(tokens[aux], '=');
 		if (include(str[0], "?") || !valid_name_export(str[0]))
 			error_handle_f(1, " not a valid identifier\n");
-		if (has_pipe)
+		if (has_pipe || !include(tokens[aux], "="))
 			continue ;
 		if (len_all(str) == 2)
 			ft_export(str[0], str[1]);
