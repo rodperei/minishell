@@ -4,7 +4,7 @@ NAME_1 = minishell
 
 # -fsanitize=address | ASAN_OPTIONS=detect_leaks=0
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror
 
 LDLIBS = -lreadline
 
