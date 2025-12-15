@@ -21,9 +21,15 @@ static char	*wrap_path(char *path)
 
 	home = ft_getenv("HOME");
 	if (!home)
-		return(path);
-	if (equal(path, home) || len(path) < len(home))
+		return (path);
+	if (equal(path, home) || len(path) < len(home) || !include(path, home))
 	{
+		if (equal(path, home))
+		{
+			free(home);
+			free(path);
+			return (ft_strdup("~"));
+		}
 		free(home);
 		return (path);
 	}
