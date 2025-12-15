@@ -20,11 +20,15 @@ int	valid_name_export(char *str)
 	x = 0;
 	if (!str)
 		return (0);
+	if (str[x] >= '0' && str[x] <= '9')
+		return (0);
 	while (str[x])
 	{
 		if (str[x] >= 'a' && str[x] <= 'z')
 			x++;
 		else if (str[x] >= 'A' && str[x] <= 'Z')
+			x++;
+		else if (str[x] >= '0' && str[x] <= '9')
 			x++;
 		else if (str[x] == '_' || str[x] == '?' || str[x] == '=')
 			x++;

@@ -12,6 +12,7 @@
 
 #include "../../include/utils.h"
 #include <stddef.h>
+#include "../../include/shell_functions.h"
 #include "./expansions.h"
 
 char	*expand_var(char *token, size_t i)
@@ -55,6 +56,55 @@ char	*compute_dolars(char *token)
 	return (token);
 }
 
+
+char	**retokenize(char **tokens, int i)
+{
+	char	**new_tokens;
+	char	**result;
+	int		k;
+	int		j;
+	int		x;
+
+	new_tokens = tokenize(tokens[i]);
+	k = len_all(new_tokens) + len_all(tokens);
+	result = z_maloc_matriz(k);
+	k = 0;
+	j = 0;
+	while (j < i)
+		result[j++] = tokens[k++];
+	k++;
+	x = 0;
+	while (new_tokens[x])
+		result[j++] = new_tokens[x++];
+	while (tokens[k])
+		result[j++] = tokens[k++];
+	free(tokens[i]);
+	free(tokens);
+	return (result);
+}
+
+char	**compute_dolars_not_hd(char **tokens, int j)
+{
+	size_t	i;
+	char	flg;
+
+	i = 0;
+	flg = 0;
+	compute_flg_mask(*(tokens[j]), &flg);
+	while (tokens[j] && tokens[j][i])
+	{
+		if ((flg & SQUOTE) == 0 && tokens[j][i] == '$')
+		{
+			tokens[j] = expand_var(tokens[j], i);
+			if ((flg & DQUOTE) == 0)
+				tokens = retokenize(tokens, (int)j);
+		}
+		if (tokens[j][i])
+			i++;
+	}
+	return (tokens);
+}
+
 char	*expand_heredoc(char *delimiter, int *j)
 {
 	char	*buff;
@@ -92,7 +142,7 @@ char	**expand(char **input)
 			input[i] = expand_heredoc(input[i], &j);
 			continue ;
 		}
-		input[i] = compute_dolars(input[i]);
+		input = compute_dolars_not_hd(input, (int)i);
 	}
 	return (remove_quotes(input));
 }
