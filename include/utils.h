@@ -96,4 +96,7 @@ void	valid_env(void);
 // token_utils.c
 void	compute_flg_mask(char input, char *flg);
 
+// env.c
+char	*name_env(void);
+
 #endif
