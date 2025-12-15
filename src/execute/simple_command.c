@@ -71,8 +71,6 @@ void	execute_simple_command(char **tokens, int has_pipe)
 	char	dir[PATH_MAX];
 	int		fds[REDIR_MAX];
 
-	while (tokens && *tokens && !len(*tokens))
-		tokens++;
 	is_directory(tokens);
 	compute_fds(fds, INITIALIZE);
 	tokens = redirection(tokens, fds);

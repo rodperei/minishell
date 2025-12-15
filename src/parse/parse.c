@@ -47,7 +47,7 @@ void	shear_error(char **tokens, int aux)
 	max = len_all(tokens);
 	(void)max;
 	err = 0;
-	if (equal(tokens[0], errors[4]))
+	if (equal(tokens[0], errors[0]))
 		error_handle_f(2, "syntax error near unexpected token\n");
 	while (errors[err] && tokens[aux])
 	{

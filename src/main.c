@@ -84,10 +84,8 @@ int	main(int argc, char **argv, char **env)
 		if (!str)
 			break ;
 		if (ft_strlen(str))
-		{
 			add_history(str);
-			execute_console(str, env_save);
-		}
+		execute_console(str, env_save);
 		free_all(env_save);
 	}
 	rl_clear_history();
