@@ -27,7 +27,8 @@ void	last_exit(void)
 	status_num = ft_atoi(last_status);
 	free(last_status);
 	status_num = parce_num(status_num);
-	unlink(FILE_ENV);
+	unlink(name_env());
+	free(name_env());
 	exit(status_num);
 }
 

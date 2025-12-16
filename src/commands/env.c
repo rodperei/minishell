@@ -18,7 +18,7 @@ int	load_env(char **env)
 	int	aux;
 	int	fd;
 
-	fd = open(FILE_ENV, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open(name_env(), O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd == -1)
 		return (0);
 	aux = 0;
@@ -37,7 +37,7 @@ char	**ft_getallenv(void)
 	int		fd;
 	char	**vars;
 
-	fd = open(FILE_ENV, O_RDONLY);
+	fd = open(name_env(), O_RDONLY);
 	if (fd == -1)
 		return (NULL);
 	vars = read_file(fd, '\n');

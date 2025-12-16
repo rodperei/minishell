@@ -29,6 +29,7 @@ src = src/commands/cd.c \
 		src/prompt/prompt.c \
 		\
 		src/utils/char_utils.c \
+		src/utils/env_utils.c \
 		src/utils/error.c \
 		src/utils/ft_itoa.c \
 		src/utils/ft_memmove.c \

@@ -13,8 +13,6 @@
 #ifndef COMANDS_H
 # define COMANDS_H
 
-# define FILE_ENV "/tmp/.env_minishell"
-
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
