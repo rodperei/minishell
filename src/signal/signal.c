@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/utils.h"
+#include <readline/readline.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <unistd.h>
 #include "../../include/signal_minishel.h"
-#include "../../include/comands.h"
 
 void	handler_ctrl_c(int sing)
 {
