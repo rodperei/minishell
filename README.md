@@ -12,3 +12,7 @@ make
 
 ## 🛠 Usage
 ![Minigif](./Minishell_showcase.GIF)
+
+## 🤝 Contributors
+Franco Dorrego
+Rodrigo Almada
