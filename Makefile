@@ -4,13 +4,13 @@ NAME_1 = minishell
 
 # -fsanitize=address | ASAN_OPTIONS=detect_leaks=0
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -O3 -Wall -Wextra -Werror
 
 LDLIBS = -lreadline
 
 CC = cc
 
-INC			= -I include/.
+INC = -I include/.
 
 # ======= Vars =======
 
@@ -80,7 +80,7 @@ all: $(NAME_1)
 # ======= Prompt Rules =======
 
 $(NAME_1): $(addprefix $(obj_dir), $(obj))
-	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
+	$(CC) -o $@ $^ $(LDLIBS)
 
 build/%.o : src/*/%.c | $(obj_dir)
 	$(CC) $(CFLAGS) $(INC) -c $< -o $@
