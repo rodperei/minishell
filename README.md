@@ -1,4 +1,4 @@
-_This project as been created as part of 42 curriculum by frnicila and rodperei_
+_This project as been created as part of 42 curriculum by frnicola and rodperei_
 # Minishell
 
 This project is our own implementation of a bash-like shell.
